@@ -9,15 +9,15 @@ export function Heading(){
 
 return(
     <div className={heading.color}>
-        <span className={heading.center}>
+        <div className={heading.center}>
 <MailIcon className={heading.imageICon}/>
   
 <a className={heading.a}>@alex@gmail.com</a>
 
 <PhoneIcon className={heading.imageICon}/>
 <a className={heading.a}>12312123</a>
-</span>
-<span className={heading.center}>
+</div>
+<div className={heading.center}>
 
 
 <LoginIcon className={heading.imageICon}/>
@@ -26,7 +26,7 @@ return(
 <Link href='/shoppingCar'>
 <ShoppingCartIcon className={heading.imageICon}/>
 </Link>
-</span>
+</div>
 
 
 
