@@ -1,0 +1,33 @@
+.a{
+    font-size: 20px;
+    color: white;
+    padding: 0px 10px 0px 5px;
+    
+
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+
+.imageICon{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+
+.color{
+    background-color: #7538D8;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+
+}
