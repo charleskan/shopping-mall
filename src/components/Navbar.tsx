@@ -47,6 +47,9 @@ export function Navbar() {
 					<SearchIcon />
 				</button>
 			</form>
+
+			
 		</div>
+		
 	)
 }
