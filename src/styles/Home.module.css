@@ -1,9 +1,3 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
 
 .main {
   min-height: 100vh;

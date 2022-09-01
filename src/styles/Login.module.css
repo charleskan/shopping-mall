@@ -50,3 +50,10 @@ margin: 20px;
 
 }
 
+.loginRegister{
+    text-align: center;
+    padding: 10px;
+    color: gray;
+    cursor: pointer;
+}
+
