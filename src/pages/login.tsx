@@ -2,13 +2,14 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
 
 const login: NextPage = () => {
   return (
-    <div >
+    <div>
       <Heading/>
       <Navbar/>
       <Head>
@@ -26,8 +27,9 @@ const login: NextPage = () => {
 <Link href="/"><p className={loginStyles.loginCommet}>Don't have Account ? Create account</p></Link>
   </form>
   </div>
-
+  <Footer/>
     </div>
+    
   )
 }
 
