@@ -5,25 +5,34 @@ import LoginIcon from '@mui/icons-material/Login'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
 
-export function Heading() {
-	return (
-		<div className={heading.color}>
-			<span className={heading.center}>
-				<MailIcon className={heading.imageICon} />
+export function Heading(){
 
-				<a className={heading.a}>@alex@gmail.com</a>
+return(
+    <div className={heading.color}>
+        <span className={heading.center}>
+<MailIcon className={heading.imageICon}/>
+  
+<a className={heading.a}>@alex@gmail.com</a>
 
-				<PhoneIcon className={heading.imageICon} />
-				<a className={heading.a}>12312123</a>
-			</span>
-			<span className={heading.center}>
-				<LoginIcon className={heading.imageICon} />
+<PhoneIcon className={heading.imageICon}/>
+<a className={heading.a}>12312123</a>
+</div>
+<div className={heading.center}>
 
-				<a className={heading.a}>login</a>
-				<Link href='/shoppingCar'>
-					<ShoppingCartIcon className={heading.imageICon} />
-				</Link>
-			</span>
-		</div>
-	)
+
+<LoginIcon className={heading.imageICon}/>
+
+<a className={heading.a}>login</a>
+<Link href='/shoppingCar'>
+<ShoppingCartIcon className={heading.imageICon}/>
+</Link>
+</span>
+
+
+
+
+    </div>
+
+)
+
 }

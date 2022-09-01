@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Heading } from '../components/Heading'
-import {productInlist} from '../components/PorductInList'
+import  {productInlist} from '../components/PorductInList'
 
 
 const product: NextPage = () => {
@@ -13,8 +13,11 @@ const product: NextPage = () => {
         <Head>
           <title>HIHI</title>
         </Head>
-        <Heading />
+        <Heading/>
 
+        <div><productInlist/></div>
+
+      
 
   
         <footer className={styles.footer}>

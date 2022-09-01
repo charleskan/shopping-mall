@@ -1,0 +1,51 @@
+.loginBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 200px;
+}
+
+.loginForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+   
+    padding: 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    
+}
+
+.loginWork{
+    font-size: 50px;
+    padding: 10px;
+    text-align: center;
+}
+
+.loginCommet{
+    text-align: center;
+    padding: 10px;
+    color: gray;
+}
+
+.textBox{
+width: 400px;
+height: 40px;
+padding:10px;
+margin: 10px;
+display: flex;
+}
+
+.button{
+background-color: #FF2E79;
+width: 400px;
+height: 40px;
+text-align: center;
+border: 0px;
+color: white;
+cursor: pointer;
+margin: 20px;
+
+}

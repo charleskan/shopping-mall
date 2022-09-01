@@ -1,39 +1,55 @@
-import Link from "next/link";
-import MailIcon from '@mui/icons-material/Mail';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LoginIcon from '@mui/icons-material/Login';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import navbar from '../styles/Heading.module.css'
+import Link from 'next/link'
+import Image from 'next/image'
+import SearchIcon from '@mui/icons-material/Search'
+import navbar from '../styles/Navbar.module.css'
+import img from '../components/Hektologo.png'
+export function Navbar() {
+	return (
+		<div className={navbar.bar}>
+			<div className={navbar.clickPage}>
+				<div>
+					<Image src={img} className={navbar.logo} />
+				</div>
 
-export function Navbar(){
+				<div className={navbar.page}>
+					<Link href='/login'>
+						<a className={navbar.pages}>Home</a>
+					</Link>
+					<Link href='/login'>
+						<a className={navbar.pages}>Pages</a>
+					</Link>
+					<Link href='/login'>
+						<a className={navbar.pages}>Products</a>
+					</Link>
+					<Link href='/login'>
+						<a className={navbar.pages}>Blog</a>
+					</Link>
+					<Link href='/login'>
+						<a className={navbar.pages}>Shop</a>
+					</Link>
+					<Link href='/login'>
+						<a className={navbar.pages}>Contact</a>
+					</Link>
+				</div>
+			</div>
 
-return(
-    <div className={navbar.color}>
-        <span className={navbar.center}>
-<MailIcon className={navbar.imageICon}/>
-  
-<a className={navbar.a}>@alex@gmail.com</a>
+			<form
+				className={navbar.form}
+				action='/send-data-here'
+				method='post'>
+				<input
+					className={navbar.search}
+					type='text'
+					id='last'
+					name='last'
+				/>
+				<button className={navbar.searchButton} type='submit'>
+					<SearchIcon />
+				</button>
+			</form>
 
-<PhoneIcon className={navbar.imageICon}/>
-<a className={navbar.a}>12312123</a>
-</span>
-<span className={navbar.center}>
-
-
-<LoginIcon className={navbar.imageICon}/>
-
-<a className={navbar.a}>login</a>
-<Link href='/shoppingCar'>
-<ShoppingCartIcon className={navbar.imageICon}/>
-</Link>
-</span>
-
-
-
-
-    </div>
-
-)
-
+			
+		</div>
+		
+	)
 }
-
