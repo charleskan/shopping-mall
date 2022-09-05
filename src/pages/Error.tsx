@@ -5,6 +5,8 @@ import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import error from '../styles/Error.module.css'
 import Link from 'next/link'
+import errorPhoto from '../pages/error.png'
+import { Footer } from '../components/Footer'
 
 const Error: NextPage = () => {
 	return (
@@ -23,14 +25,16 @@ const Error: NextPage = () => {
 			<div className={error.container}>
 				<Image
 					className={error.photo}
-					src='/error.png'
-					width={500}
-					height={500}
+					src={errorPhoto}
+					width={1000}
+					height={600}
 				/>
-				<Link href='/login'>
+				<Link href='/Home'>
 					<p className={error.button}>Home Page</p>
 				</Link>
 			</div>
+
+			<Footer/>
 		</div>
 	)
 }
