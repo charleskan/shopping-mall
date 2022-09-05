@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 1000px;
 }
 .photo{
     display:  flex;
@@ -25,3 +26,26 @@
     align-items: center;
     
     }
+
+.errorBackground{
+    display: flex;
+    background-color: #F5F4FE;
+    width: 100%;
+    height: 400px;
+    justify-content: space-around;
+    padding-top: 100px;
+}
+
+.errorTitle{
+
+    font-size: 40px;
+}
+
+.page{
+color: black;
+}
+
+.nowPage{
+color: #FF2E79;
+padding: 6px;
+}

@@ -10,10 +10,7 @@ import { Footer } from '../components/Footer'
 
 const Error: NextPage = () => {
 	return (
-		<div >
-			<Heading />
-			<Navbar />
-
+		<div>
 			<Head>
 				<title>Create Next App</title>
 				<meta
@@ -22,6 +19,21 @@ const Error: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+			<Heading />
+			<Navbar />
+
+			<div className={error.errorBackground}>
+			<div>
+				<h1 className={error.errorTitle}>404 Not Found</h1>
+
+				
+					<span className={error.page}>Home. Pages.</span>
+					<span className={error.nowPage}>404 Not Found</span>
+				</div>
+
+				<div></div>
+			</div>
+
 			<div className={error.container}>
 				<Image
 					className={error.photo}
@@ -34,7 +46,7 @@ const Error: NextPage = () => {
 				</Link>
 			</div>
 
-			<Footer/>
+			<Footer />
 		</div>
 	)
 }
