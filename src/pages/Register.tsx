@@ -19,14 +19,16 @@ const Register: NextPage = () => {
       </Head>
 <div className={loginStyles.loginBox} >
       <form className={loginStyles.loginForm}  action="/send-data-here" method="post">
-        <div className={loginStyles.loginWork}>Login</div>
-        <div className={loginStyles.loginCommet}>Please login using account detail bellow.</div>
-  <input className={loginStyles.textBox} type="text" id="first" placeholder="Username" />
-  <input className={loginStyles.textBox} type="text" id="last" placeholder="EmailAddress" />
-  <input className={loginStyles.textBox} type="text" id="last" placeholder="Password" />
-  <input className={loginStyles.textBox} type="" id="last" placeholder="Icon" />
-  <button className={loginStyles.button} type="submit">Sign In</button>
-<Link href="/"><p className={loginStyles.loginCommet}>Don't have Account ? Create account</p></Link>
+        <div className={loginStyles.loginWork}>Register</div>
+        <div className={loginStyles.loginCommet}>
+        Create your Account
+					</div>
+  <input className={loginStyles.textBox} type="text" id="name" placeholder="Username" />
+  <input className={loginStyles.textBox} type="text" id="email" placeholder="EmailAddress" />
+  <input className={loginStyles.textBox} type="text" id="Password" placeholder="Password" />
+  <input className={loginStyles.inputFile} type="file" id="Icon" value="asd" />
+  <button className={loginStyles.button} type="submit">Register</button>
+<Link href="/login"><p className={loginStyles.regiseterCommet}>Have Account ? Sign in account</p></Link>
   </form>
   </div>
   <Footer/>
