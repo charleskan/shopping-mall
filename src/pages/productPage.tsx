@@ -5,7 +5,7 @@ import { Heading } from '../components/Heading'
 import SlideFilter from '../components/SlideFilter'
 import { Container } from '@mui/system'
 
-const productPege: NextPage = () => {
+const productPage: NextPage = () => {
 	return (
 		<>
 			<HeadTitle />
@@ -18,4 +18,4 @@ const productPege: NextPage = () => {
 	)
 }
 
-export default productPege
+export default productPage

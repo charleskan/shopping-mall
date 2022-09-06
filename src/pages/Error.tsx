@@ -35,14 +35,14 @@ const Error: NextPage = () => {
 				<div></div>
 			</div>
 
-			<div className={error.container}>
+			<div className={error.errorBox}>
 				<Image
 					className={error.photo}
 					src={errorPhoto}
 					width={1000}
 					height={500}
 				/>
-				<Link href='/Home'>
+				<Link href='/'>
 					<p className={error.button}>Home Page</p>
 				</Link>
 			</div>

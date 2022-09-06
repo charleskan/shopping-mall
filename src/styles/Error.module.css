@@ -1,4 +1,4 @@
-.container{
+.errorBox{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,10 +30,9 @@
 .errorBackground{
     display: flex;
     background-color: #F5F4FE;
-    width: 100%;
     height: 400px;
-    justify-content: space-around;
     padding-top: 100px;
+    justify-content: space-around;
 }
 
 .errorTitle{
