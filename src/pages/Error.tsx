@@ -7,6 +7,7 @@ import error from '../styles/Error.module.css'
 import Link from 'next/link'
 import errorPhoto from '../pages/photo/error.png'
 import { Footer } from '../components/Footer'
+import errorImage from './error.png'
 
 const Error: NextPage = () => {
 	return (
@@ -39,7 +40,7 @@ const Error: NextPage = () => {
 					className={error.photo}
 					src={errorPhoto}
 					width={1000}
-					height={600}
+					height={500}
 				/>
 				<Link href='/Home'>
 					<p className={error.button}>Home Page</p>
