@@ -3,7 +3,7 @@ import css from '../styles/SlideFilter.module.css'
 
 export default function Price_filter() {
 	return (
-		<div className={css.width}>
+		<div >
 			<u className={css.filter}>Price_Filter</u>
 			<FormGroup className={css.checkbox}>
 				<FormControlLabel
@@ -14,7 +14,7 @@ export default function Price_filter() {
 				<FormControlLabel
                     className={css.checkbox}
 					control={<Checkbox defaultChecked/>}
-					label='10% $150.00 - $350.00'
+					label='$150.00 - $350.00'
                 />
 				<FormControlLabel
                     className={css.checkbox}
