@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
-import img from '../pages/AboutUs.png'
+import img from '../pages/photo/AboutUs.png'
 import about from '../styles/AboutUs.module.css'
 import logo1 from '../pages/photo/aboutus1.png'
 import logo2 from '../pages/photo/aboutus2.png'
@@ -39,7 +39,7 @@ const AboutUs: NextPage = () => {
 						lobortis. Accumsan faucibus vitae lobortis quis bibendum
 						quam.
 					</div>
-					<Link href='/Contact'>
+					<Link href='/ContactUs'>
 						<a className={about.contactButton}>Contact us</a>
 					</Link>
 				</div>

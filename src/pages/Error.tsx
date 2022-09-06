@@ -5,7 +5,7 @@ import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import error from '../styles/Error.module.css'
 import Link from 'next/link'
-import errorPhoto from '../pages/error.png'
+import errorPhoto from '../pages/photo/error.png'
 import { Footer } from '../components/Footer'
 
 const Error: NextPage = () => {
