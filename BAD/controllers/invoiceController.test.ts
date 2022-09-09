@@ -2,14 +2,14 @@ import { InvoiceController } from "./invoiceController";
 
 describe('Invoice Controller Test', () => {
     it('test addProductToCart', () => {
-        const invoiceSerivce = {
+        const invoiceService = {
             getInvoiceDetailByUserId: jest.fn().mockReturnValue(null),
             createInvoice: jest.fn()
         }
 
         const invoiceController = new InvoiceController(
             {} as any,
-            invoiceSerivce as any,
+            invoiceService as any,
             {} as any
         );
 
