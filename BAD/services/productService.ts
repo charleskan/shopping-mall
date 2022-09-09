@@ -64,14 +64,14 @@ export class ProductNameError extends Error {
 
 			const productColorInfo = await this.knex
 			.raw(
-				
+				/*sql */
 				`select * from color
 				where id in (
 				select color_id from product_color where product_id = ?)`,[productId])
 
 			const productSizeInfo = await this.knex
 			.raw(
-				
+				/*sql */
 				`select * from size
 				where id in (
 				select size_id from product_size where product_id = ?)`,[productId])
