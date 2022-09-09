@@ -22,6 +22,18 @@ const ContactUs: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
+			<div className={contact.pageBox}>
+				<div>
+					<h1 className={contact.Title}>Contact Us</h1>
+
+					<span className={contact.page}>Home. Pages.</span>
+					<span className={contact.nowPage}>
+					Contact Us
+					</span>
+				</div>
+				<div></div>
+			</div>
+
 			<Container fixed>
 				
 					<div className={contact.contentBox}>

@@ -17,9 +17,12 @@ export function Heading() {
 				<a className={heading.a}>12312123</a>
 			</div>
 			<div className={heading.center}>
-				<LoginIcon className={heading.imageICon} />
-
-				<a className={heading.a}>login</a>
+				<Link href='/login'>
+					<LoginIcon className={heading.imageICon} />
+					</Link>
+					<Link href='/login'>
+					<a className={heading.a}>login</a>
+					</Link>
 				<Link href='/shoppingCar'>
 					<ShoppingCartIcon className={heading.imageICon} />
 				</Link>

@@ -1,5 +1,24 @@
 
+.pageBox{
+    display: flex;
+    background-color: #F5F4FE;
+    height: 400px;
+    padding-top: 100px;
+    justify-content: space-around;
+}
 
+.Title{
+    font-size: 40px;
+}
+
+.page{
+    color: black;
+}
+
+.nowPage{
+    color: #FF2E79;
+    padding: 6px;
+}
 .contentBox{
     display: flex;
     justify-content: flex-start;
@@ -139,6 +158,7 @@ height: 40px;
 .messageText{
     height: 150px;
     margin-bottom: 30px;
+    resize: none;
 }
 
 .sendButton{
