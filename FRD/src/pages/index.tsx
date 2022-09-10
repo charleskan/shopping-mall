@@ -10,7 +10,30 @@ import { ProductBigCard } from '../components/ProductBigCard'
 import styles from '../styles/Home.module.css'
 import { Container } from '@mui/material'
 
+import { title } from 'process'
+import { Main } from 'next/document'
+import ImageSlider from '../components/ImageSlider'
+import { dataSlider } from '../components/DataSlider'
+
 const Home: NextPage = () => {
+
+	// const dataSlider = [
+	// 	{
+	// 		id: 1,
+	// 		image: 'https://i.ytimg.com/vi/XS71teFFdyk/maxresdefault.jpg',
+	// 		title: 'man'
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		image: 'https://static.vecteezy.com/system/resources/thumbnails/001/426/892/small/abstract-banner-web-template-free-vector.jpg',
+	// 		title: 'man'
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		image: 'https://static.vecteezy.com/system/resources/previews/003/355/926/original/business-banner-design-with-blue-wave-background-free-vector.jpg',
+	// 		title: 'man'
+	// 	}
+	// ]
 	const products = [
 		{
 			id: 1,
@@ -52,49 +75,43 @@ const Home: NextPage = () => {
 			id: 1,
 			name: 'bag',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		},
 		{
 			id: 2,
 			name: 'car',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		},
 		{
 			id: 3,
 			name: 'table',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		},
 		{
 			id: 4,
 			name: 'table',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		},
 		{
 			id: 5,
 			name: 'table',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		},
 		{
 			id: 6,
 			name: 'table',
 			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice:200,
+			specialPrice: 200,
 			price: 100
-			
 		}
 	]
 
@@ -110,6 +127,11 @@ const Home: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
+			<div>
+				<ImageSlider slides={dataSlider}/>
+				</div>
+			
+			
 			<Container>
 				<div>Featured Product</div>
 				<div className={styles.productcard}>

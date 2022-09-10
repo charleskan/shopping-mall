@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import card from '../styles/ProductCard.module.css'
 import Image from 'next/image'
 
@@ -16,7 +15,7 @@ export function ProductCard(props: Props) {
 		<div className={card.cardBigBox}>
                         <Image className={card.s}  src={props.image}
                   width={200}
-                  height={180}
+                  height={250}
             />
 
 			<div className={card.cardBox} >

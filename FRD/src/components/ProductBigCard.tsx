@@ -15,7 +15,7 @@ export function ProductBigCard(props: Props) {
 				className={bigCard.s}
 				src={props.image}
 				width={200}
-				height={180}
+				height={400}
 			/>
 
 			<div className={bigCard.cardBox}>
