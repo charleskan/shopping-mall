@@ -6,14 +6,15 @@ import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import { ProductCard } from '../components/ProductCard'
 import { ProductBigCard } from '../components/ProductBigCard'
-
+import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
 import { Container } from '@mui/material'
-
+import home from '../styles/Index.module.css'
 import { title } from 'process'
 import { Main } from 'next/document'
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
 
@@ -133,7 +134,7 @@ const Home: NextPage = () => {
 			
 			
 			<Container>
-				<div>Featured Product</div>
+				<div className={home.productCardTitle}>Featured Product</div>
 				<div className={styles.productcard}>
 					{products.map((product) => (
 						<ProductCard
@@ -146,7 +147,7 @@ const Home: NextPage = () => {
 						/>
 					))}
 				</div>
-				<div>Leatest Product</div>
+				<div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>
 					{productCards.map((productCard) => (
 						<ProductBigCard
@@ -159,6 +160,17 @@ const Home: NextPage = () => {
 					))}
 				</div>
 			</Container>
+			<div className={home.bannerBox}>
+			<Image className={home.banner} src={img}/>
+			<div className={home.titleBox}>
+			<div className={home.title} >Get Leatest Update By Subscribe<br/>
+			Our Newslater</div>
+			<Link href="/login"><a className={home.button}>Shop Now</a></Link>
+			</div>
+			
+		
+
+			</div>
 			<Footer />
 		</div>
 	)
