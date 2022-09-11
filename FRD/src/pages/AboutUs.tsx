@@ -25,6 +25,17 @@ const AboutUs: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
+			<div className={about.pageBox}>
+				<div>
+					<h1 className={about.Title}>About Us</h1>
+
+					<span className={about.page}>Home. Pages.</span>
+					<span className={about.nowPage}>
+					About Us
+					</span>
+				</div>
+				<div></div>
+			</div>
 
 			<div className={about.mainTopic}>
 				<Image src={img} />

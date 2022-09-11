@@ -22,28 +22,35 @@ const orderCompleted: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-        
-            <div className={orderComplet.pageBox}>
-            
-				<h1 className={orderComplet.Title}>404 Not Found</h1>
+			<div className={orderComplet.pageBox}>
+				<div>
+					<h1 className={orderComplet.Title}>Order Completed</h1>
 
-				
 					<span className={orderComplet.page}>Home. Pages.</span>
-					<span className={orderComplet.nowPage}>404 Not Found</span>
+					<span className={orderComplet.nowPage}>
+						Order Completed
+					</span>
 				</div>
-                <div></div>
+				<div></div>
+			</div>
 
 			<div className={orderComplet.box}>
-                <div className={orderComplet.boxBorder}>
-				<Image src={completed} />
-				<h1>Your Order Is Completed !</h1>
-				<p className={orderComplet.completedWord}>
-					Thank you for your order! Your order is being processed and
-					will be completed within 3-6 hours. <br/><br/>You will receive an
-					email confirmation when your order is completed.
-				</p>
-                <Link href="/productPage"><a className={orderComplet.shoppingPageButton}>Continue Shopping</a></Link>
-                </div>
+				<div className={orderComplet.boxBorder}>
+					<Image src={completed} />
+					<h1>Your Order Is Completed !</h1>
+					<p className={orderComplet.completedWord}>
+						Thank you for your order! Your order is being processed
+						and will be completed within 3-6 hours. <br />
+						<br />
+						You will receive an email confirmation when your order
+						is completed.
+					</p>
+					<Link href='/productPage'>
+						<a className={orderComplet.shoppingPageButton}>
+							Continue Shopping
+						</a>
+					</Link>
+				</div>
 			</div>
 
 			<Footer />
