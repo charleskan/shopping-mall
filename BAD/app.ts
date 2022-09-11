@@ -21,6 +21,7 @@ import { ProfileService } from './services/profileService'
 import { InvoiceController } from './controllers/invoiceController'
 import { InvoiceService } from './services/invoiceService'
 import { createInvoiceRoutes } from './routes/invoiceRoutes'
+import cors from 'cors'
 
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -37,6 +38,12 @@ const knex = Knex(knexConfig);
 // main script
 // -------------------------------------------------------------------------------------------------------------------
 const app = express()
+app.use(cors
+	({
+		origin: process.env.NEXT_PUBLIC_DOMAIN!,
+		credentials: true
+	})
+	)
 const PORT = process.env.PORT || 8000
 
 // session
