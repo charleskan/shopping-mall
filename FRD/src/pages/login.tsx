@@ -1,13 +1,21 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
+// import { loadEnvConfig } from '@next/env'
 
 const login: NextPage = () => {
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [error, setError] = useState('')
+	const router = useRouter()
+
+
 	return (
 		<div>
 			<Heading />
@@ -24,7 +32,27 @@ const login: NextPage = () => {
 				<form
 					className={loginStyles.loginForm}
 					action='/send-data-here'
-					method='post'>
+					method='post'
+					onSubmit={async (e) => {
+						e.preventDefault()
+						const res = await fetch(
+							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/login`,
+							{
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								credentials: 'include',
+								body: JSON.stringify({ username, password })
+							}
+						)
+						if (res.status === 200) {
+							router.push('/user')
+						} else if (res.status === 400) {
+							setError('Password Error')
+						} else if (res.status === 404) {
+							setError('Not Firm you')
+						}
+					}}>
+					{error}
 					<div className={loginStyles.loginWork}>Login</div>
 					<div className={loginStyles.loginCommet}>
 						Please login using account detail bellow.
@@ -32,9 +60,11 @@ const login: NextPage = () => {
 					<input
 						className={loginStyles.textBox}
 						type='text'
-						id='first'
+						id='username'
 						name='first'
 						placeholder='Email Address'
+						value={username}
+						onChange={(e) => setUsername(e.currentTarget.value)}
 					/>
 					<input
 						className={loginStyles.textBox}
@@ -42,6 +72,8 @@ const login: NextPage = () => {
 						id='last'
 						name='last'
 						placeholder='Password'
+						value={password}
+						onChange={(e) => setPassword(e.currentTarget.value)}
 					/>
 					<button className={loginStyles.button} type='submit'>
 						Sign In

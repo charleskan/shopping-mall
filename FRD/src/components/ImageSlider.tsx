@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { dataSlider } from './DataSlider'
 import Slides from '../styles/Slide.module.css'
 
-const ImageSlider = ({slides} :{slides:any}) => {
+const ImageSlider = ({slides} :{slides:{
+    image: string;
+    title: string;
+}[]}) => {
 	const [current, setCurrent] = useState(0)
 	const length = slides.length
 

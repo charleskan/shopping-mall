@@ -10,31 +10,14 @@ import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
-import { title } from 'process'
-import { Main } from 'next/document'
+
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
 import Link from 'next/link'
 
 const Home: NextPage = () => {
 
-	// const dataSlider = [
-	// 	{
-	// 		id: 1,
-	// 		image: 'https://i.ytimg.com/vi/XS71teFFdyk/maxresdefault.jpg',
-	// 		title: 'man'
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		image: 'https://static.vecteezy.com/system/resources/thumbnails/001/426/892/small/abstract-banner-web-template-free-vector.jpg',
-	// 		title: 'man'
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		image: 'https://static.vecteezy.com/system/resources/previews/003/355/926/original/business-banner-design-with-blue-wave-background-free-vector.jpg',
-	// 		title: 'man'
-	// 	}
-	// ]
+
 	const products = [
 		{
 			id: 1,
