@@ -12,12 +12,24 @@ export interface User {
 export interface Product {
 	id: number
 	name: string
-	price: number
-	image: string
+	brand: string
 	description: string
-	status_id: number
-	stock: number
+	icon: string
+	image1: string
+	image2: string
+	image3: string
 }
+
+export interface ProductDetail {
+	id: number
+	product_id: number
+	color_id: number
+	size_id: number
+	price: number
+	stock: number
+	status_id: number
+}
+
 
 export interface Invoice {
 	id: number
