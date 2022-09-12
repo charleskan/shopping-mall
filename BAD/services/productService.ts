@@ -39,7 +39,7 @@ export class ProductService {
     }
   }
 
-    // -------------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Get individual Product Info
   // -------------------------------------------------------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ export class ProductService {
       // 	where id in (
       // 	select size_id from product_size where product_id = ?)`,[productId])
 
-      return { product: productDetailInfo  };
+      return { product: productDetailInfo };
     }
   }
 
@@ -193,7 +193,7 @@ export class ProductService {
 
         .update({
           name: newName,
-		  brand: newBrand,
+          brand: newBrand,
           description: newDescription,
           icon: newIcon,
           image1: newImage1,
@@ -228,7 +228,9 @@ export class ProductService {
           throw new ProductStockError();
         }
 
-        const productDetailRecord = await this.knex<ProductDetail>("productDetail")
+        const productDetailRecord = await this.knex<ProductDetail>(
+          "productDetail"
+        )
 
           .update({
             price: newPrice,
