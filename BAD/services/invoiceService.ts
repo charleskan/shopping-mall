@@ -205,29 +205,29 @@ export class InvoiceService {
                 .raw
                 (
 
+                    /* SQL */
                     `
-                    WITH CART as
+                    WITH "suckSQL" as
                     (
                     select *
-                    FROM invoice_product
-                    where invoice_id = ?
+                    FROM "invoice_productDetail"
+                    where "invoice_id" = 1
                     ),
-                        PRODUCT_CART_NUM as 
-                        (
-                        select sum(price) as sum_of_Price, 
-                        productDetail_id,
-                        invoice_id,
-                        sum(number) as sum_of_Number
-                        from CART
-                        group by productDetail_id, invoice_id
-                        )
-                    
-                    
-                select *
-                from PRODUCT_CART_NUM
-                inner join product
-                on product.id = PRODUCT_CART_NUM.product_id;
-                        `,
+                    "productInCartDetail" as 
+                    (
+                    select sum("price") as "sum_of_Price", 
+                    "productDetail_id",
+                    "invoice_id",
+                    sum("number") as "sum_of_Number"
+                    from "suckSQL"
+                    group by "productDetail_id", "invoice_id"
+                
+                    )
+                    select *
+                    from "productInCartDetail"
+                    inner join "productDetail" 
+                    on "productDetail".id = "productInCartDetail"."productDetail_id";
+                    `,
                     [invoiceId]
                 )
 
