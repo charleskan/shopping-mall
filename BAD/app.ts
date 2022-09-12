@@ -38,12 +38,14 @@ const knex = Knex(knexConfig);
 // main script
 // -------------------------------------------------------------------------------------------------------------------
 const app = express()
+//cors
 app.use(cors
 	({
 		origin: process.env.NEXT_PUBLIC_DOMAIN!,
 		credentials: true
 	})
 	)
+
 const PORT = process.env.PORT || 8000
 
 // session

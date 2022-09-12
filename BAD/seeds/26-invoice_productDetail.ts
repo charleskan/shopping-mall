@@ -3,7 +3,7 @@ import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("invoice_product").del();
+    await knex("invoice_productDetail").del();
 
     // Inserts seed entries
     await knex
@@ -11,55 +11,55 @@ export async function seed(knex: Knex): Promise<void> {
     .insert([
         {
             invoice_id: 1,
-            product_id: 1,
+            productDetail_id: 1,
             number: 1,
             price: 100
         },
         {
             invoice_id: 1,
-            product_id: 2,
+            productDetail_id: 2,
             number: 1,
             price: 100
         },
         {
             invoice_id: 1,
-            product_id: 2,
+            productDetail_id: 2,
             number: 1,
             price: 0
         },
         {
             invoice_id: 1,
-            product_id: 2,
+            productDetail_id: 2,
             number: 1,
             price: 100
         },
         {
             invoice_id: 2,
-            product_id: 3,
+            productDetail_id: 3,
             number: 1,
             price: 100
         },
         {
             invoice_id: 2,
-            product_id: 3,
+            productDetail_id: 3,
             number: 1,
             price: 100
         },
         {
             invoice_id: 1,
-            product_id: 3,
+            productDetail_id: 3,
             number: 1,
             price: 100
         },
         {
             invoice_id: 1,
-            product_id: 3,
+            productDetail_id: 3,
             number: 1,
             price: 100
         },
         {
             invoice_id: 1,
-            product_id: 2,
+            productDetail_id: 2,
             number: 1,
             price: 100
         },
@@ -67,7 +67,7 @@ export async function seed(knex: Knex): Promise<void> {
         
 
     ])
-        .into("invoice_product")
+        .into("invoice_productDetail")
 
 
 }

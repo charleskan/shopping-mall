@@ -12,34 +12,43 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             name: "Apple Watch",
-            price: 100,
-            image: "13.jpg",
+
+            icon: "13.jpg",
             description: "Test",
-            stock: 100,
-            status_id: 1,
-            // sizeId: sizeId,
+            image1: "13.jpg",
+            image2: "13.jpg",
+            image3: "13.jpg",
+            brand_id: 1,
+
 
         },
         {
 
-            name: "Samsung Watch",
-            price: 100,
-            image: "14.jpg",
+
+            name: "hihi Watch",
+
+            icon: "14.jpg",
             description: "Test",
-            stock: 100,
-            status_id: 1,
-            // sizeId: sizeId,
+            image1: "14.jpg",
+            image2: "14.jpg",
+            image3: "14.jpg",
+            brand_id: 2,
+
         },
         {
- 
-            name: "Nokia Watch",
-            price: 100,
-            image: "15.jpg",
+
+
+            name: "ABC Watch",
+            icon: "16.jpg",
             description: "Test",
-            stock: 100,
-            status_id: 1,
-            // sizeId: sizeId,
-        }
+            image1: "16.jpg",
+            image2: "16.jpg",
+            image3: "16.jpg",
+            brand_id: 1,
+
+
+        },
+
     ])
     .into("product");
 
