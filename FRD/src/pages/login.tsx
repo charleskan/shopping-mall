@@ -23,7 +23,7 @@ const login: NextPage = () => {
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}
-					action='/send-data-here'
+					action='http://localhost:8080/login'
 					method='post'>
 					<div className={loginStyles.loginWork}>Login</div>
 					<div className={loginStyles.loginCommet}>
