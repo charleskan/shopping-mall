@@ -33,6 +33,8 @@ export class UserController {
 
 	register = async (req: express.Request, res: express.Response) => {
 		try {
+			console.log("body:",req.body);
+			
 			let username = req.body.username?.trim()
 			let password = req.body.password?.trim()
 			let email = req.body.email?.trim()
