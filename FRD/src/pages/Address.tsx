@@ -7,17 +7,12 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
-import { loggedIn } from '../../redux/auth/action'
-import {  useDispatch } from 'react-redux'
+// import { loadEnvConfig } from '@next/env'
 
-
-
-
-const login: NextPage = () => {
+const address: NextPage = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
-	const dispatch = useDispatch()
 	const router = useRouter()
 
 
@@ -45,12 +40,11 @@ const login: NextPage = () => {
 							{
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
+								credentials: 'include',
 								body: JSON.stringify({ username, password })
 							}
 						)
 						if (res.status === 200) {
-							const user =await res.json()
-							dispatch(loggedIn(user.nickName , user.token))
 							router.push('/')
 						} else if (res.status === 400) {
 							setError('Password Error')
@@ -96,4 +90,4 @@ const login: NextPage = () => {
 	)
 }
 
-export default login
+export default address

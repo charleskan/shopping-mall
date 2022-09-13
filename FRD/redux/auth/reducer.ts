@@ -3,11 +3,13 @@ import { AuthActions } from "./action";
 export interface AuthState {
   nickname: string | null;
   loggedIn: boolean | null;
+  token : string |null;
 }
 
 const initialState: AuthState = {
   nickname: null,
-  loggedIn: null
+  loggedIn: null,
+  token : null
 }
 
 export function authReducer(state: AuthState = initialState, action: AuthActions): AuthState {
@@ -16,12 +18,14 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
       return {
         ...state,
         nickname: action.nickname,
+        token :action.token,
         loggedIn: true
       };
     case '@@auth/LOGGED_OUT':
       return {
         ...state,
         nickname: null,
+        token:null,
         loggedIn: false
       }
     default: 
