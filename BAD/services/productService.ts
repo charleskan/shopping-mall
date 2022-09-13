@@ -287,8 +287,9 @@ export class ProductService {
     {
       const promotionRecord = await this.knex("promotion")
         .insert({
-          status_id: 1,
-          name: promotion,
+			name: promotion,
+        	status_id: 1,
+          
         })
         .returning("*");
 
@@ -324,38 +325,48 @@ export class ProductService {
   }
 
   // -------------------------------------------------------------------------------------------------------------------
-  // search productIdByName
+  // search productDetailByName
   // -------------------------------------------------------------------------------------------------------------------
 
-  async searchProductIdByName(keyword: string) {
+  async productDetailByName(keyword: string) {
     {
       const productId = await this.knex.raw(
-        `
-
-				SELECT * FROM product WHERE name ILIKE ? order by updated_at desc
-			`,
+        /*sql */
+        `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
         ["%" + keyword + "%"]
       );
 
-      return productId;
-    }
-  }
-
-  // -------------------------------------------------------------------------------------------------------------------
-  // get productIdByName
-  // -------------------------------------------------------------------------------------------------------------------
-
-  async productIdByName(name: string) {
-    {
-      const productId = await this.knex.raw(
+      const productDetail = await this.knex.raw(
+        /*sql */
         `
-
-				SELECT * FROM product WHERE name = ?
-			`,
-        [name]
+		SELECT * 
+		FROM productDetail 
+		WHERE product_id = ? 
+		AND status_id = 1
+		`,
+        [productId]
       );
 
-      return productId;
+      return productDetail;
     }
   }
-}
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // get productIdByName (唔知有咩用🤔)
+  // -------------------------------------------------------------------------------------------------------------------
+
+//   async productIdByName(name: string) {
+//     {
+//       const productId = await this.knex.raw(
+// 		/*sql */
+//         `
+
+// 				SELECT * FROM product WHERE name = ?
+// 			`,
+//         [name]
+//       );
+
+//       return productId;
+//     }
+//   }
+ }

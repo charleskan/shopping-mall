@@ -1,4 +1,4 @@
-yarn knex migrate:rollback
+# yarn knex migrate:rollback
 
 yarn knex migrate:latest
 
