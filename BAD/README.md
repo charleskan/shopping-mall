@@ -10,4 +10,4 @@ yarn knex migrate:latest
 yarn knex seed:run
 ```
 ## Tables
-https://app.dynobird.com/?action=open&id=f5899b0c-71b3-4741-b286-794abe028316
+https://app.dynobird.com/?action=open&id=54502e1f-019d-4f54-9eb9-ef3991ac638b
