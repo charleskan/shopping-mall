@@ -41,7 +41,7 @@ app.use(
   cors({
     origin: [process.env.NEXT_PUBLIC_DOMAIN!],
     credentials: true,
-    exposedHeaders: ['X-C21-TOKEN']
+    exposedHeaders: ['X-C21-TOKEN'],
   })
 );
 

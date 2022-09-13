@@ -13,9 +13,8 @@ import {
 } from '../services/userService'
 import { InvoiceService } from '../services/invoiceService'
 
+
 dotenv.config();
-
-
 export class UserController {
 	constructor(
 		private userService: UserService,
@@ -94,6 +93,14 @@ export class UserController {
 			// 	// req.session['isLogin'] = true
 			// }
 
+			const payload = {
+				userId: user[0].id,
+			}
+			const jwt = jwtSimple.encode(payload, process.env.JWT_SECRET!);
+			//jwt header
+			res.header('X-C21-TOKEN', jwt);
+
+
 		
 
 			let invoice = await this.invoiceService.getInvoiceDetailByUserId(
@@ -110,10 +117,10 @@ export class UserController {
 				msg: 'login success',
 				user: user[0],
 				invoice: invoice[0] != null ? invoice[0] : null,
-				token: jwtSimple.encode({
-					userId: user[0].id,
-				}, process.env.JWT_SECRET!)
-				// isAdmin: user[0].role_id === 1
+				// //jwt session
+
+				// token: jwtSimple.encode({
+				// }, process.env.JWT_SECRET!)
 			})
 			logger.info(`${username} logged in`)
 			return

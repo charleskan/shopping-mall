@@ -1,5 +1,6 @@
 import express from 'express'
 import { UserController } from '../controllers/userController'
+// import {userMiddleware} from '../middleware'
 
 
 export function createUserRoutes(userController: UserController) {
