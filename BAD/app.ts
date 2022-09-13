@@ -21,6 +21,7 @@ import { ProfileService } from './services/profileService'
 import { InvoiceController } from './controllers/invoiceController'
 import { InvoiceService } from './services/invoiceService'
 import { createInvoiceRoutes } from './routes/invoiceRoutes'
+import cors from 'cors'
 
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -37,13 +38,19 @@ const knex = Knex(knexConfig);
 // main script
 // -------------------------------------------------------------------------------------------------------------------
 const app = express()
+
+app.use(cors({
+	origin:'http://localhost:3000',
+	credentials: true
+}))
+
 const PORT = process.env.PORT || 8000
 
 // session
 app.use(
 	expressSession({
-		secret: 'Extremely secret secret',
-		resave: true,
+		secret: process.env.EXPRESS_SESSION!,
+		resave: false,
 		saveUninitialized: true
 	})
 )
@@ -51,7 +58,7 @@ app.use(
 // //grant
 const grantExpress = grant.express({
 	defaults: {
-		origin: 'http://localhost:8000',
+		origin: 'http://localhost:8080',
 		transport: 'session',
 		state: true
 	},
