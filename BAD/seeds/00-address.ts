@@ -11,19 +11,19 @@ export async function seed(knex: Knex): Promise<void> {
         { 
 
             name: "123 Main St",
-            address_id: 1,
+
 
         },
         {
 
             name: "456 Main St",
-            address_id: 2,
+
 
         },
         {
 
             name: "789 Main St",
-            address_id: 3,
+
             
         }
 

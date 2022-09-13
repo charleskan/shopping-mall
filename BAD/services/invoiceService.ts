@@ -205,31 +205,29 @@ export class InvoiceService {
                 .raw
                 (
 
+                    /* SQL */
                     `
-                    WITH suckSQL as
+                    WITH "suckSQL" as
                     (
                     select *
-                    FROM invoice_product
-                    where invoice_id = ?
+                    FROM "invoice_productDetail"
+                    where "invoice_id" = 1
                     ),
-                    
-                    productInCartDetail as 
+                    "productInCartDetail" as 
                     (
-                    select sum(price) as sum_of_Price, 
-                    product_id,
-                    invoice_id,
-                    sum(number) as sum_of_Number
-                    from suckSQL
-                    group by product_id, invoice_id
+                    select sum("price") as "sum_of_Price", 
+                    "productDetail_id",
+                    "invoice_id",
+                    sum("number") as "sum_of_Number"
+                    from "suckSQL"
+                    group by "productDetail_id", "invoice_id"
                 
                     )
-                    
-                    
-                select *
-                from productInCartDetail
-                inner join product 
-                on product.id = productInCartDetail.product_id;
-                        `,
+                    select *
+                    from "productInCartDetail"
+                    inner join "productDetail" 
+                    on "productDetail".id = "productInCartDetail"."productDetail_id";
+                    `,
                     [invoiceId]
                 )
 
@@ -266,7 +264,7 @@ export class InvoiceService {
             const FreebieInCart = await this.knex
                 .raw(
                     `
-                WITH suckSQL as
+                WITH Cart as
                 (
                 select *
                 FROM invoice_product
@@ -274,13 +272,13 @@ export class InvoiceService {
                 ),
                 
                 
-                productInCartDetail as 
+                productInCart as 
                 (
                 select sum(price) as sum_of_Price, 
                 product_id,
                 invoice_id,
                 sum(number) as sum_of_Number
-                from suckSQL
+                from Cart
                 group by product_id, invoice_id
                 ),
                 
@@ -288,7 +286,7 @@ export class InvoiceService {
                 fkSQL as 
                 (
                 select *
-                from productInCartDetail
+                from productInCart
                 ),
                 
                 
@@ -326,29 +324,29 @@ export class InvoiceService {
                 .raw
                 (
                     `
-                    WITH suckSQL as
+                    WITH Cart as
                     (
                     select *
                     FROM invoice_product
                     where invoice_id = ?
                     ),
                     
-                    productInCartDetail as 
+                    productInCart as 
                     (
                     select sum(price) as sum_of_Price, 
                     product_id,
                     invoice_id,
                     sum(number) as sum_of_Number
-                    from suckSQL
+                    from Cart
                     group by product_id, invoice_id
                 
                     )
                     
                     
                 select invoice_id, SUM(sum_of_price) as total_price
-                from productInCartDetail
+                from productInCart
                 inner join product 
-                on product.id = productInCartDetail.product_id
+                on product.id = productInCart.product_id
                 group by invoice_id
                         `,
                     [invoiceId]
@@ -370,7 +368,7 @@ export class InvoiceService {
                 .raw
             (
             `
-                with suckSQL as
+                with Cart as
 			   (
                select * 
                from invoice_product
@@ -379,7 +377,7 @@ export class InvoiceService {
                )
                
              delete 
-             from invoice_product where id=(select max(id) from suckSQL)
+             from invoice_product where id=(select max(id) from Cart)
              returning *
             
              `,
