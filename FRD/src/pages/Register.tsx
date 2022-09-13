@@ -15,6 +15,7 @@ const Register: NextPage = () => {
 	const [error, setError] = useState('')
 	const router = useRouter()
 
+
 	return (
 		<div>
 			<Heading />
@@ -33,29 +34,31 @@ const Register: NextPage = () => {
 					action='/send-data-here'
 					method='post'
 					onSubmit={handleSubmit(async (data) => {
-						const formData = new FormData()
-						formData.append('username', data.username)
-						formData.append('password', data.password)
-						formData.append('email', data.email)
-						formData.append('nickName', data.nickName)
+						const formObject :any={}
+						formObject['username']= data.username
+						formObject['password']=data.password
+						formObject['email']=data.email
+						formObject['nickName']=data.nickName
 
 						const res = await fetch(
+							
 							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
-							{method:'POST',
+							{
+								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
 								credentials: 'include',
-								body: formData
+								body: JSON.stringify(formObject)
 							}
 						)
 						if (res.status === 200) {
 							router.push('/login')
 						} else if (res.status === 400) {
 							setError('Password Error')
-						} else if (res.status === 404) {
+						} else if (res.status === 500) {
 							setError('打錯呀')
 						}
 					})}>
-            {error}
+					{error}
 					<div className={loginStyles.loginWork}>Register</div>
 					<div className={loginStyles.loginCommet}>
 						Create your Account

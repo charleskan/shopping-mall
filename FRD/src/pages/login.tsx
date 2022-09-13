@@ -45,7 +45,7 @@ const login: NextPage = () => {
 							}
 						)
 						if (res.status === 200) {
-							router.push('/user')
+							router.push('/')
 						} else if (res.status === 400) {
 							setError('Password Error')
 						} else if (res.status === 404) {
