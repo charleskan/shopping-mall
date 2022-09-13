@@ -8,6 +8,9 @@ export interface User {
 	status_id: number
 	role_id: number
 }
+export interface User2 {
+	id: number
+}
 
 export interface Product {
 	id: number
@@ -47,4 +50,13 @@ export interface Invoice_product {
 	number: number
 	price: number
 }
+
+
+declare global {
+	namespace Express {
+	  interface Request {
+		user?: User2;
+	  }
+	}
+  }
 

@@ -2,9 +2,9 @@
 // imports (DO NOT EXPORT ANYTHING FORM App.ts)
 // -------------------------------------------------------------------------------------------------------------------
 import express from "express";
-import expressSession from "express-session";
+// import expressSession from "express-session";
 import { logger } from "./logger";
-import { isLogin } from "./middleware";
+// import { isLogin } from "./middleware";
 import grant from "grant";
 import { client } from "./db";
 import dotenv from "dotenv";
@@ -14,7 +14,7 @@ import { createUserRoutes } from "./routes/userRoutes";
 import { ProductService } from "./services/productService";
 import { ProductController } from "./controllers/productController";
 import { createProductRoutes } from "./routes/productRoutes";
-import Knex from "knex";
+
 import { createProfileRoutes } from "./routes/profileRoutes";
 import { ProfileController } from "./controllers/profileController";
 import { ProfileService } from "./services/profileService";
@@ -22,20 +22,18 @@ import { InvoiceController } from "./controllers/invoiceController";
 import { InvoiceService } from "./services/invoiceService";
 import { createInvoiceRoutes } from "./routes/invoiceRoutes";
 import cors from "cors";
-
+import {knex} from "./knex";
 // -------------------------------------------------------------------------------------------------------------------
 // Knex
 // -------------------------------------------------------------------------------------------------------------------
 
 dotenv.config();
-const knexConfigs = require("./knexfile");
-const configMode = process.env.NODE_ENV || "development";
-const knexConfig = knexConfigs[configMode];
-const knex = Knex(knexConfig);
 
 // -------------------------------------------------------------------------------------------------------------------
 // main script
 // -------------------------------------------------------------------------------------------------------------------
+
+
 const app = express();
 
 //cors
@@ -43,19 +41,22 @@ app.use(
   cors({
     origin: [process.env.NEXT_PUBLIC_DOMAIN!],
     credentials: true,
+    exposedHeaders: ['X-C21-TOKEN']
   })
 );
 
 const PORT = process.env.PORT || 8000;
 
-// session
-app.use(
-  expressSession({
-    secret: process.env.EXPRESS_SESSION!,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// // session
+// app.use(
+//   expressSession({
+//     secret: process.env.EXPRESS_SESSION!,
+//     resave: false,
+//     saveUninitialized: true,
+    
+//   })
+// );
+
 
 // //grant
 const grantExpress = grant.express({
@@ -94,7 +95,7 @@ const productService = new ProductService(knex);
 
 const profileService = new ProfileService(knex);
 const userController = new UserController(userService, invoiceService);
-app.use(isLogin, express.static("private"));
+app.use(express.static('private'))	
 
 app.use("/serverDefaultedImages", express.static("images"));
 app.use("/userUploadedFiles", express.static("uploads"));

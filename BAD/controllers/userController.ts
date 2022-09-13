@@ -1,5 +1,7 @@
 import express from 'express'
 import { logger } from '../logger'
+import dotenv from "dotenv";
+import jwtSimple from 'jwt-simple';
 import {
 	UserDuplicateEmailError,
 	UserDuplicateUsernameError,
@@ -10,6 +12,9 @@ import {
 	UserStatusError
 } from '../services/userService'
 import { InvoiceService } from '../services/invoiceService'
+
+dotenv.config();
+
 
 export class UserController {
 	constructor(
@@ -83,23 +88,31 @@ export class UserController {
 			let username = req.body.username.trim()
 			let password = req.body.password.trim()
 			let user = await this.userService.login(username, password)
-			req.session['user'] = user[0].id
-			req.session['isLogin'] = true
+
+			// if (req.user!.id)  {
+			// 	req.user!.id = user[0].id
+			// 	// req.session['isLogin'] = true
+			// }
+
+		
 
 			let invoice = await this.invoiceService.getInvoiceDetailByUserId(
 				user[0].id
 			) //test after create invoice is done
 			
 			//also check if the user has invoice
-			if (invoice != null) {
-				req.session['Invoice'] = invoice[0]
-			}
+			// if (invoice != null) {
+			// 	req.session['Invoice'] = invoice[0]
+			// }
 
 			res.json({
 				result: true,
 				msg: 'login success',
 				user: user[0],
 				invoice: invoice[0] != null ? invoice[0] : null,
+				token: jwtSimple.encode({
+					userId: user[0].id,
+				}, process.env.JWT_SECRET!)
 				// isAdmin: user[0].role_id === 1
 			})
 			logger.info(`${username} logged in`)

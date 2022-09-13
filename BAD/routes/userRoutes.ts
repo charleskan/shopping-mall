@@ -1,6 +1,7 @@
 import express from 'express'
 import { UserController } from '../controllers/userController'
 
+
 export function createUserRoutes(userController: UserController) {
   const userRoutes = express.Router()
 
@@ -9,6 +10,7 @@ export function createUserRoutes(userController: UserController) {
 	userRoutes.post('/login', userController.login)
 	userRoutes.post('/logout', userController.logout)
 	// userRoutes.post('/forgot', userController.forgot)
+
 
 	return userRoutes;
 }

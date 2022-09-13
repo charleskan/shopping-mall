@@ -17,7 +17,7 @@ export class InvoiceController {
     // -------------------------------------------------------------------------------------------------------------------
     getInvoiceDetailByUserId = async (req: express.Request, res: express.Response) => {        
         try {
-            const userId = req.session['user']
+            const userId = req.user!.id
 
             if (!userId) {
                 // res.status(401).send({
@@ -192,6 +192,7 @@ export class InvoiceController {
         }
         catch (err) {
             logger.error(err)
+            
             return res.json({ result: false, msg: 'Add to cart fail' })
         }
     }
@@ -201,7 +202,7 @@ export class InvoiceController {
     // -------------------------------------------------------------------------------------------------------------------
 
     getAllProductInCart = async (req: express.Request, res: express.Response) => {
-        const userId = req.session['user']
+        const userId = req.user!.id
         let invoice = await this.invoiceService.getInvoiceDetailByUserId(userId)
         const invoiceId = invoice[0].id
             try {
