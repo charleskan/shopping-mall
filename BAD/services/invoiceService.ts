@@ -67,11 +67,11 @@ export class InvoiceService {
     // create invoice
     // -------------------------------------------------------------------------------------------------------------------
     async createInvoice(
-       
+
         status_id: number = 1, // always 1
         user_id: number,
         address_id: number,
-        
+
     ) {
         const isolationLevel = 'serializable';
         const trx = await this.knex.transaction({ isolationLevel });
@@ -204,29 +204,30 @@ export class InvoiceService {
             const productInCartRecord = await this.knex
                 .raw
                 (
-
                     /* SQL */
                     `
-                    WITH "suckSQL" as
+                    with 
+                    TT_Cart as
                     (
                     select *
-                    FROM "invoice_productDetail"
-                    where "invoice_id" = 1
+                    from "invoice_productDetail"
+                    where "invoice_id" = ?
                     ),
-                    "productInCartDetail" as 
+                    TT_CartSum as 
                     (
-                    select sum("price") as "sum_of_Price", 
+                    select sum("price") as TC_Price, 
                     "productDetail_id",
                     "invoice_id",
-                    sum("number") as "sum_of_Number"
-                    from "suckSQL"
+                    sum("number") as TC_Number
+                    from TT_Cart
                     group by "productDetail_id", "invoice_id"
-                
                     )
+
+
                     select *
-                    from "productInCartDetail"
+                    from TT_CartSum
                     inner join "productDetail" 
-                    on "productDetail".id = "productInCartDetail"."productDetail_id";
+                    on "productDetail".id = TT_CartSum."productDetail_id";
                     `,
                     [invoiceId]
                 )
@@ -245,11 +246,28 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     async deleteProductFromCart(invoiceId: number, deleteFromCartProductId: number) {
         {
-            const deleteRecordInvoice = await this.knex('invoice_product')
-                .where('product_id', deleteFromCartProductId)
-                .andWhere('invoice_id', invoiceId)
-                .del()
-                .returning('*')
+            // const deleteRecordInvoice = await this.knex('invoice_productDetail')
+            //     .where('product_id', deleteFromCartProductId)
+            //     .andWhere('invoice_id', invoiceId)
+            //     .del()
+            //     .returning('*')
+
+            const deleteRecordInvoice = await this.knex
+                .raw
+                (
+                    /* SQL */
+                    `
+                    delete
+                    from "invoice_productDetail"
+                    where "productDetail_id" = ?
+                    and "invoice_id" = ?
+                    returning *
+                    `,
+                    [
+                        deleteFromCartProductId,
+                        invoiceId,
+                    ]
+                )
 
             return deleteRecordInvoice
         }
@@ -264,46 +282,46 @@ export class InvoiceService {
             const FreebieInCart = await this.knex
                 .raw(
                     `
-                WITH Cart as
-                (
-                select *
-                FROM invoice_product
-                where invoice_id = ?
-                ),
-                
-                
-                productInCart as 
-                (
-                select sum(price) as sum_of_Price, 
-                product_id,
-                invoice_id,
-                sum(number) as sum_of_Number
-                from Cart
-                group by product_id, invoice_id
-                ),
-                
-                
-                fkSQL as 
-                (
-                select *
-                from productInCart
-                ),
-                
-                
-                freebie_final as 
-                (
-                select * from fkSQL 
-                inner join promotion_product pp 
-                on fkSQL.product_id = pp.product_id
-                )
-                
-                select invoice_id,
-                (DIV(sum_of_number, product_number) * freebie_number) as 
-                number_of_freebie, name, freebie_id, image 
-                from freebie_final 
-                inner join product p 
-                on p.id = freebie_final.freebie_id
-                where (DIV(sum_of_number, product_number) * freebie_number) != 0
+                    WITH suckSQL as
+                    (
+                    select *
+                    FROM invoice_product
+                    where invoice_id = ?
+                    ),
+                    
+                    
+                    productInCartDetail as 
+                    (
+                    select sum(price) as sum_of_Price, 
+                    product_id,
+                    invoice_id,
+                    sum(number) as sum_of_Number
+                    from suckSQL
+                    group by product_id, invoice_id
+                    ),
+                    
+                    
+                    fkSQL as 
+                    (
+                    select *
+                    from productInCartDetail
+                    ),
+                    
+                    
+                    freebie_final as 
+                    (
+                    select * from fkSQL 
+                    inner join promotion_product pp 
+                    on fkSQL.product_id = pp.product_id
+                    )
+                    
+                    select invoice_id,
+                    (DIV(sum_of_number, product_number) * freebie_number) as 
+                    number_of_freebie, name, freebie_id, image 
+                    from freebie_final 
+                    inner join product p 
+                    on p.id = freebie_final.freebie_id
+                    where (DIV(sum_of_number, product_number) * freebie_number) != 0
                 `,
                     [invoiceId]
                 )
@@ -366,8 +384,8 @@ export class InvoiceService {
         {
             const deleteNumberProductRecord = await this.knex
                 .raw
-            (
-            `
+                (
+                    `
                 with Cart as
 			   (
                select * 
@@ -381,9 +399,9 @@ export class InvoiceService {
              returning *
             
              `,
-                [invoiceId, 
-                minusProductInCartId]
-            )
+                    [invoiceId,
+                        minusProductInCartId]
+                )
 
 
             return deleteNumberProductRecord
