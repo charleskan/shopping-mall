@@ -28,6 +28,8 @@ left: 32px;
 font-size: 45px;
 z-index: 1;
 cursor: pointer;
+color: white;
+opacity: 0.5;
 }
 
 .right{
@@ -38,4 +40,6 @@ cursor: pointer;
     font-size: 45px;
     z-index: 1;
     cursor: pointer;
+    color: white;
+    opacity: 0.5;
 }

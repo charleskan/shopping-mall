@@ -5,10 +5,9 @@ export function createProductRoutes(productController: ProductController) {
   const productRoutes = express.Router()
   	productRoutes.get('/allProductInfo', productController.allProductInfo)
 	productRoutes.get('/productinfo/:id', productController.productInfo)
-	productRoutes.post('/createProduct', productController.createProduct)
+	productRoutes.post('/Product', productController.createProduct)
 	productRoutes.patch('/updateProduct/:id', productController.updateProduct)
 	productRoutes.post('/promotion', productController.createPromotion)
-	productRoutes.get('/productIdByName', productController.productIdByName)
 	productRoutes.get('/searchProductIdByName', productController.searchProductIdByName)
 
 	return productRoutes;

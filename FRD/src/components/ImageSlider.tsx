@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { dataSlider } from './DataSlider'
 import Slides from '../styles/Slide.module.css'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 const ImageSlider = ({slides} :{slides:{
     image: string;
@@ -26,9 +28,9 @@ if(!Array.isArray(slides)|| slides.length <=0){
 
 	return (
 		<section className={Slides.slideBox}>
-			<div className={Slides.left} onClick={backBanner}>《</div>
+			<ArrowLeftIcon className={Slides.left} onClick={backBanner}></ArrowLeftIcon>
 
-			<div className={Slides.right} onClick={nextBanner}>》</div>
+			<ArrowRightIcon className={Slides.right} onClick={nextBanner}></ArrowRightIcon>
 			{dataSlider.map((slide, index) => {
 				return(
                 <div className={index === current ? 'slide active' :'slide'} key={index}>
