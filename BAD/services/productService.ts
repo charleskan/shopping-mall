@@ -325,18 +325,46 @@ export class ProductService {
   }
 
   // -------------------------------------------------------------------------------------------------------------------
-  // search productDetailByName
+  // search productByName
   // -------------------------------------------------------------------------------------------------------------------
 
-  async productDetailByName(keyword: string) {
+  async productByName(keyword: string) {
     {
-      const productId = await this.knex.raw(
+      const productInfo = await this.knex.raw(
         /*sql */
         `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
         ["%" + keyword + "%"]
       );
 
-      const productDetail = await this.knex.raw(
+    //   const productDetail = await this.knex.raw(
+    //     /*sql */
+    //     `
+	// 	SELECT * 
+	// 	FROM productDetail 
+	// 	WHERE product_id = ? 
+	// 	AND status_id = 1
+	// 	`,
+    //     [productId]
+    //   );
+
+      return productInfo;
+    }
+  }
+
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // search productDetailByProductId
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async productDetailByProductId(productId: number) {
+    {
+    //   const productInfo = await this.knex.raw(
+    //     /*sql */
+    //     `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
+    //     ["%" +  + "%"]
+    //   );
+
+      const productDetailInfo = await this.knex.raw(
         /*sql */
         `
 		SELECT * 
@@ -347,7 +375,7 @@ export class ProductService {
         [productId]
       );
 
-      return productDetail;
+      return productDetailInfo;
     }
   }
 

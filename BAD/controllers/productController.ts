@@ -340,38 +340,38 @@ export class ProductController {
   createPromotion = async (req: express.Request, res: express.Response) => {
     try {
       const promotion = req.body.promotion;
-      const productName = req.body.productname;
-      const productNumber = req.body.productnumber;
-      const freebieName = req.body.freebiename;
-      const freebieNumber = req.body.freebienumber;
+      const product_id = req.body.productID;
+      const product_number = req.body.productnumber;
+      const freebie_id = req.body.freebieID;
+      const freebie_number = req.body.freebienumber;
 
-      const productId = (await this.productService.productDetailByName(productName))
-        .rows[0].id;
+    //   const productId = (await this.productService.productDetailByName(productName))
+    //     .rows[0].id;
 
-      console.log(productId);
-      console.log(promotion);
+    //   console.log(productId);
+    //   console.log(promotion);
 
-      const freebieId = (await this.productService.productDetailByName(freebieName))
-        .rows[0].id;
+    //   const freebieId = (await this.productService.productDetailByName(freebieName))
+    //     .rows[0].id;
 
-      const promotionRecord = (
+      const promotion_id = (
         await this.productService.createPromotion(promotion)
       )[0].id;
 
-      console.log(promotionRecord);
+      console.log(promotion_id);
 
       const promotionDetails = await this.productService.createPromotionDetails(
-        promotionRecord,
-        productId,
-        productNumber,
-        freebieId,
-        freebieNumber
+        promotion_id,
+        product_id,
+        product_number,
+        freebie_id,
+        freebie_number
       );
 
       return res.json({
         result: true,
         msg: "Create promotion success",
-        promotionRecord,
+        promotion_id,
         promotionDetails,
       });
     } catch (err) {
@@ -390,7 +390,7 @@ export class ProductController {
     try {
       const keyword = String(req.query.keyword);
       console.log(keyword);
-      const productId = await this.productService.productDetailByName(
+      const productId = await this.productService.productByName(
         keyword
       );
 
@@ -403,6 +403,33 @@ export class ProductController {
     } catch (err) {
       logger.error(err);
       return res.json({ result: false, msg: "Search Product ID by Name Fail" });
+    }
+  };
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // get productDetailByproductId
+  // -------------------------------------------------------------------------------------------------------------------
+
+  productDetailByProductId = async (
+    req: express.Request,
+    res: express.Response
+  ) => {
+    try {
+      const product_id = Number(req.query.product_id);
+      console.log(product_id);
+      const productId = await this.productService.productDetailByProductId(
+        product_id
+      );
+
+      // console.log(productId)
+      return res.json({
+        result: true,
+        msg: "Search ProductDetail  by product_id success",
+        productId,
+      });
+    } catch (err) {
+      logger.error(err);
+      return res.json({ result: false, msg: "Search ProductDetail  by product_id Fail" });
     }
   };
 
