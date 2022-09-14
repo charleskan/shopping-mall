@@ -45,7 +45,7 @@ export class ProductController {
       return res.json({
         result: true,
         msg: "Get Product Information success",
-        productInfo: productInfo.product,
+        productInfo: productInfo,
       });
     } catch (err) {
       logger.error(err);
@@ -131,7 +131,7 @@ export class ProductController {
   };
 
     // -------------------------------------------------------------------------------------------------------------------
-  // create Product
+  // create ProductDetail
   // -------------------------------------------------------------------------------------------------------------------
 
   createProductDetail = async (req: express.Request, res: express.Response) => {
@@ -202,8 +202,7 @@ export class ProductController {
       const productId = Number(req.params.id);
 
       try {
-        const productInfos = (await this.productService.productInfo(productId))
-          .product[0];
+        const productInfos = (await this.productService.productInfo(productId))[0];
 
         let oldName = productInfos.name;
         let oldBrand = productInfos.brand;
@@ -284,11 +283,10 @@ export class ProductController {
 
 	  updateProductDetail = async (req: express.Request, res: express.Response) => {
 		form.parse(req, async (err, fields, files) => {
-		  const productDetailId = Number();
+		  const productDetailId = Number(req.params.id);
 	
 		  try {
-			const productInfos = (await this.productService.productDetailInfo(productDetailId))
-			  .product[0];
+			const productInfos = (await this.productService.productDetailInfo(productDetailId))[0];
 	
 			let oldPrice = productInfos.price;
 			let oldStock = productInfos.stock;
@@ -340,38 +338,38 @@ export class ProductController {
   createPromotion = async (req: express.Request, res: express.Response) => {
     try {
       const promotion = req.body.promotion;
-      const productName = req.body.productname;
-      const productNumber = req.body.productnumber;
-      const freebieName = req.body.freebiename;
-      const freebieNumber = req.body.freebienumber;
+      const product_id = req.body.productID;
+      const product_number = req.body.productnumber;
+      const freebie_id = req.body.freebieID;
+      const freebie_number = req.body.freebienumber;
 
-      const productId = (await this.productService.productDetailByName(productName))
-        .rows[0].id;
+    //   const productId = (await this.productService.productDetailByName(productName))
+    //     .rows[0].id;
 
-      console.log(productId);
-      console.log(promotion);
+    //   console.log(productId);
+    //   console.log(promotion);
 
-      const freebieId = (await this.productService.productDetailByName(freebieName))
-        .rows[0].id;
+    //   const freebieId = (await this.productService.productDetailByName(freebieName))
+    //     .rows[0].id;
 
-      const promotionRecord = (
+      const promotion_id = (
         await this.productService.createPromotion(promotion)
       )[0].id;
 
-      console.log(promotionRecord);
+      console.log(promotion_id);
 
       const promotionDetails = await this.productService.createPromotionDetails(
-        promotionRecord,
-        productId,
-        productNumber,
-        freebieId,
-        freebieNumber
+        promotion_id,
+        product_id,
+        product_number,
+        freebie_id,
+        freebie_number
       );
 
       return res.json({
         result: true,
         msg: "Create promotion success",
-        promotionRecord,
+        promotion_id,
         promotionDetails,
       });
     } catch (err) {
@@ -390,19 +388,46 @@ export class ProductController {
     try {
       const keyword = String(req.query.keyword);
       console.log(keyword);
-      const productId = await this.productService.productDetailByName(
+      const productInfos = await this.productService.productByName(
         keyword
       );
 
       // console.log(productId)
       return res.json({
         result: true,
-        msg: "Search Product Id by Name success",
+        msg: "Search Product List by Name success",
+        ProductList:productInfos,
+      });
+    } catch (err) {
+      logger.error(err);
+      return res.json({ result: false, msg: "Search Product List by Name Fail" });
+    }
+  };
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // get productDetailByproductId
+  // -------------------------------------------------------------------------------------------------------------------
+
+  productDetailByProductId = async (
+    req: express.Request,
+    res: express.Response
+  ) => {
+    try {
+      const product_id = Number(req.query.product_id);
+      console.log(product_id);
+      const productId = await this.productService.productDetailByProductId(
+        product_id
+      );
+
+      // console.log(productId)
+      return res.json({
+        result: true,
+        msg: "Search ProductDetail  by product_id success",
         productId,
       });
     } catch (err) {
       logger.error(err);
-      return res.json({ result: false, msg: "Search Product ID by Name Fail" });
+      return res.json({ result: false, msg: "Search ProductDetail  by product_id Fail" });
     }
   };
 
