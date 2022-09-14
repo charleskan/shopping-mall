@@ -9,29 +9,32 @@ import { useAppSelector } from '../app/store'
 
 
 export function Heading() {
-// const [users, setUsers] = useState<any[]>([])
-// const token = useAppSelector (state => state.auth.token)
-// console.log("token:",token);
+const [users, setUsers] = useState<any[]>([])
+const token = useAppSelector (state => state.auth.token)
+console.log("token:",token);
 
-// async function main(){
-// 	const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/`,{
-// 		headers:{
-// 			Authorization:`bearer${token}`,
-// 		}
-// 	})
-// 	const json =await res.json();
+async function main(){
+	if(token == null){
+		return
+	}
+	const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/`,{
+		headers:{
+			Authorization:`bearer${token}`,
+		}
+	})
+	const json =await res.json();
 
-// 	setUsers(json)
-// 	console.log("json:",json);
+	setUsers(json)
+	console.log("json:",json);
 	
-// }
+}
 
 
 
-// useEffect(() => {
-// 	if(token){main()}
+useEffect(() => {
+	if(token){main()}
 	
-// }, [token])
+}, [token])
 
 
 	return (
@@ -39,7 +42,7 @@ export function Heading() {
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
 
-				{/* {users &&<a className={heading.a}></a>} */}
+				{users&&<a className={heading.a}></a>}
 
 				<PhoneIcon className={heading.imageICon} />
 				<a className={heading.a}>12312123</a>

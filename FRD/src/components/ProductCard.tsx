@@ -10,11 +10,12 @@ interface Props {
 
 export function ProductCard(props: Props) {
 		
+		
 	return (
 		<div className={card.cardBigBox}>
 			<Image
 				className={card.s}
-				src={`/${props.image1}`}
+				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo/${props.image1}`}
 				width={200}
 				height={250}
 			/>

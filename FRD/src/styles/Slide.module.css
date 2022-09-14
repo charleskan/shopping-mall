@@ -1,7 +1,7 @@
 .slideBox{
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 500px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -22,10 +22,10 @@
 
 .left{
 position: absolute;
-top: 50%;
+top: 40%;
 transform: "translate(0, -50%";
-left: 32px;
-font-size: 45px;
+left: 4px;
+font-size: 100px;
 z-index: 1;
 cursor: pointer;
 color: white;
@@ -34,12 +34,12 @@ opacity: 0.5;
 
 .right{
     position: absolute;
-    top: 50%;
+    top: 40%;
     transform: "translate(0, -50%";
-    right: 32px;
-    font-size: 45px;
+    right: 4px;
+    font-size: 100px;
     z-index: 1;
     cursor: pointer;
     color: white;
-    opacity: 0.5;
+    opacity: 0.6;
 }
