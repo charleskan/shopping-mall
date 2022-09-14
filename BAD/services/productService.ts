@@ -88,12 +88,12 @@ export class ProductService {
 
   async createProduct(
     name: string,
-    brand: string,
     description: string,
     icon: string,
     image1: string,
     image2: string,
-    image3: string
+    image3: string,
+    brand_id:number,
   ) {
     // insert new product
 
@@ -104,12 +104,12 @@ export class ProductService {
         const newProductRecord = await this.knex<Product>("product")
           .insert({
             name: name,
-            brand: brand,
             description: description,
             icon: icon,
             image1: image1,
             image2: image2,
             image3: image3,
+            brand_id: brand_id,
           })
           .returning("*");
 
@@ -163,7 +163,7 @@ export class ProductService {
   async updateProduct(
     productId: number,
     newName: string,
-    newBrand: string,
+    newBrand: number,
     newDescription: string,
     newIcon: string,
     newImage1: string,
@@ -179,12 +179,12 @@ export class ProductService {
 
         .update({
           name: newName,
-          brand: newBrand,
           description: newDescription,
           icon: newIcon,
           image1: newImage1,
           image2: newImage2,
           image3: newImage3,
+          brand_id: newBrand,
         })
 
         .where("id", productId)

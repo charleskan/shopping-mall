@@ -12,7 +12,6 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             name: "Apple Watch",
-
             icon: "13.jpg",
             description: "Test",
             image1: "13.jpg",
