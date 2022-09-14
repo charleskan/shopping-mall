@@ -74,39 +74,40 @@ export class ProductController {
             ? fields.description
             : err;
 
-        const brand =
-          fields.brand != null && !Array.isArray(fields.brand)
-            ? fields.brand
+        const icon =
+          files.icon != null && !Array.isArray(files.icon)
+            ? files.icon.newFilename
             : err;
 
-        let icon =
-          files.image != null && !Array.isArray(files.image)
-            ? files.image.newFilename
+        const image1 =
+          files.image1 != null && !Array.isArray(files.image1)
+            ? files.image1.newFilename
             : err;
 
-        let image1 =
-          files.image != null && !Array.isArray(files.image)
-            ? files.image.newFilename
+        const image2 =
+          files.image2 != null && !Array.isArray(files.image2)
+            ? files.image2.newFilename
             : err;
 
-        let image2 =
-          files.image != null && !Array.isArray(files.image)
-            ? files.image.newFilename
+        const image3 =
+          files.image3 != null && !Array.isArray(files.image3)
+            ? files.image3.newFilename
             : err;
-
-        let image3 =
-          files.image != null && !Array.isArray(files.image)
-            ? files.image.newFilename
+			
+		const brand_id =
+          fields.brand_id != null && !Array.isArray(fields.brand_id)
+            ? fields.brand_id
             : err;
 
         await this.productService.createProduct(
           name,
-          brand,
           description,
           icon,
           image1,
           image2,
-          image3
+          image3,
+		  brand_id,
+
         );
         return res.json({ result: true, msg: "create new product success" });
       } catch (err) {
@@ -152,14 +153,14 @@ export class ProductController {
             ? fields.name
             : err;
 
-        let price =
-          files.price != null && !Array.isArray(files.price)
-            ? files.price
+        const price =
+		fields.price != null && !Array.isArray(fields.price)
+            ? fields.price
             : err;
 
-        let stock =
-          files.stock != null && !Array.isArray(files.stock)
-            ? files.stock
+        const stock =
+		fields.stock != null && !Array.isArray(fields.stock)
+            ? fields.stock
             : err;
 
 

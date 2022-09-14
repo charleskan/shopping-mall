@@ -15,12 +15,12 @@ export interface User2 {
 export interface Product {
 	id: number
 	name: string
-	brand: string
 	description: string
 	icon: string
 	image1: string
 	image2: string
 	image3: string
+	brand_id: number
 }
 
 export interface ProductDetail {
