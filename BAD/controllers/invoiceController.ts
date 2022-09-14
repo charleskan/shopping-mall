@@ -174,7 +174,7 @@ export class InvoiceController {
                 // console.log(productId)
 
                 const productQuantity = 1
-                const productPrice = (await this.productService.productInfo(productId)).product[0].price
+                const productPrice = (await this.productService.productInfo(productId))[0].price
 
                 // console.log(productPrice)
 

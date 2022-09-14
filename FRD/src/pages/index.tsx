@@ -14,90 +14,126 @@ import home from '../styles/Index.module.css'
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+
+interface Product {
+	id:number,
+	name: string
+	image1: string
+
+}
 
 const Home: NextPage = () => {
 
+const [products, setProduct] = useState<Product[]>([])
 
-	const products = [
-		{
-			id: 1,
-			name: 'bag',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			color: 'red',
-			code: 'af123',
-			price: 100
-		},
-		{
-			id: 2,
-			name: 'car',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			color: 'blue',
-			code: 'af133',
-			price: 120
-		},
-		{
-			id: 3,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			color: 'black',
-			code: 'af122',
-			price: 130
-		},
+	async function fetchProduct() {
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
+		let product = (await res.json()).allProductInfo
+		setProduct(product)
+	}{}
 
-		{
-			id: 4,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			color: 'black',
-			code: 'af122',
-			price: 130
-		}
-	]
+	useEffect(()=>{
+		fetchProduct()
+	},[setProduct])
 
-	const productCards = [
-		{
-			id: 1,
-			name: 'bag',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		},
-		{
-			id: 2,
-			name: 'car',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		},
-		{
-			id: 3,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		},
-		{
-			id: 4,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		},
-		{
-			id: 5,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		},
-		{
-			id: 6,
-			name: 'table',
-			image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-			specialPrice: 200,
-			price: 100
-		}
-	]
+	interface BigProduct{
+		id:number,
+		name: string
+		image1: string
+	}
+
+	const [bigProduct, setBigProduct] = useState<BigProduct[]>([])
+
+	async function fetchBigProduct() {
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
+		let product = (await res.json()).allProductInfo
+		setBigProduct(product)
+	}{}
+
+	useEffect(()=>{
+		fetchBigProduct()
+	},[setBigProduct])
+	// const products = [
+		// {
+		// 	id: 1,
+		// 	name: 'bag',
+		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+		// 	color: 'red',
+		// 	code: 'af123',
+		// 	price: 100
+		// },
+		// {
+		// 	id: 2,
+		// 	name: 'car',
+		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+		// 	color: 'blue',
+		// 	code: 'af133',
+		// 	price: 120
+		// },
+		// {
+		// 	id: 3,
+		// 	name: 'table',
+		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+		// 	color: 'black',
+		// 	code: 'af122',
+		// 	price: 130
+		// },
+
+		// {
+		// 	id: 4,
+		// 	name: 'table',
+		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+		// 	color: 'black',
+		// 	code: 'af122',
+		// 	price: 130
+		// }
+	// ]
+
+	// const productCards = [
+	// 	{
+	// 		id: 1,
+	// 		name: 'bag',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		name: 'car',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		name: 'table',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	},
+	// 	{
+	// 		id: 4,
+	// 		name: 'table',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	},
+	// 	{
+	// 		id: 5,
+	// 		name: 'table',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	},
+	// 	{
+	// 		id: 6,
+	// 		name: 'table',
+	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
+	// 		specialPrice: 200,
+	// 		price: 100
+	// 	}
+	// ]
 
 	return (
 		<div>
@@ -123,22 +159,18 @@ const Home: NextPage = () => {
 						<ProductCard
 							key={product.id}
 							name={product.name}
-							image={product.image}
-							color={product.color}
-							code={product.code}
-							price={product.price}
-						/>
+							id={product.id}
+							image1={product.image1}/>
 					))}
 				</div>
 				<div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>
-					{productCards.map((productCard) => (
+					{bigProduct.map((productCard) => (
 						<ProductBigCard
 							key={productCard.id}
 							name={productCard.name}
-							image={productCard.image}
-							specialPrice={productCard.specialPrice}
-							price={productCard.price}
+							image1={productCard.image1}
+
 						/>
 					))}
 				</div>

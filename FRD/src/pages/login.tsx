@@ -50,7 +50,9 @@ const login: NextPage = () => {
 						)
 						if (res.status === 200) {
 							const user =await res.json()
-							dispatch(loggedIn(user.nickName , user.token))
+							dispatch(loggedIn(user.username , user.token))
+							// console.log(user);
+							
 							router.push('/')
 						} else if (res.status === 400) {
 							setError('Password Error')

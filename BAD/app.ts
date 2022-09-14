@@ -5,7 +5,7 @@ import express from "express";
 // import expressSession from "express-session";
 import { logger } from "./logger";
 import grant from "grant";
-// import { client } from "./db";
+// // import { client } from "./db";
 import dotenv from "dotenv";
 import { UserService } from "./services/userService";
 import { UserController } from "./controllers/userController";
@@ -136,5 +136,4 @@ app.use((req, res) => {
 //---------------------------------------------------------------------------------------------------------------------
 app.listen(PORT, () => {
   logger.info(`listening on port ${PORT}`);
-  console.log("frontend:",process.env.NEXT_PUBLIC_DOMAIN);
 });

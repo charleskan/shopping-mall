@@ -7,25 +7,30 @@ import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
 import { useAppSelector } from '../app/store'
 
+
 export function Heading() {
 // const [users, setUsers] = useState<any[]>([])
 // const token = useAppSelector (state => state.auth.token)
-// const loggednickNmae = useAppSelector((state=> state.auth.nickname))
+// console.log("token:",token);
+
+// async function main(){
+// 	const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/`,{
+// 		headers:{
+// 			Authorization:`bearer${token}`,
+// 		}
+// 	})
+// 	const json =await res.json();
+
+// 	setUsers(json)
+// 	console.log("json:",json);
+	
+// }
+
 
 
 // useEffect(() => {
-// 	async function main(){
-// 		const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/login`,{
-// 			headers:{
-// 				Authorization:`bearer${token}`,
-// 			}
-// 		})
-// 		const json =await res.json();
-
-// 		setUsers(json)
-// 	}
-// 	main()
-
+// 	if(token){main()}
+	
 // }, [token])
 
 
@@ -33,8 +38,8 @@ export function Heading() {
 		<div className={heading.color}>
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
-{/* 
-				{loggednickNmae &&<a className={heading.a}>a</a>} */}
+
+				{/* {users &&<a className={heading.a}></a>} */}
 
 				<PhoneIcon className={heading.imageICon} />
 				<a className={heading.a}>12312123</a>
