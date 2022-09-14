@@ -62,7 +62,7 @@ export class ProductService {
     {
       const productDetailInfo = await this.knex("productDetail")
         .select("*")
-        .where("Product_id", productId); //.andWhere( "status_id", 1)
+        .where("product_id", productId); //.andWhere( "status_id", 1)
 
       // const productColorInfo = await this.knex
       // .raw(
@@ -273,9 +273,8 @@ export class ProductService {
     {
       const promotionRecord = await this.knex("promotion")
         .insert({
-			name: promotion,
-        	status_id: 1,
-          
+          name: promotion,
+          status_id: 1,
         })
         .returning("*");
 
@@ -318,47 +317,43 @@ export class ProductService {
     {
       const productInfo = await this.knex.raw(
         /*sql */
-        `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
+        `SELECT * FROM "product" WHERE name ILIKE ? order by updated_at desc`,
         ["%" + keyword + "%"]
       );
 
-    //   const productDetail = await this.knex.raw(
-    //     /*sql */
-    //     `
-	// 	SELECT * 
-	// 	FROM productDetail 
-	// 	WHERE product_id = ? 
-	// 	AND status_id = 1
-	// 	`,
-    //     [productId]
-    //   );
+      //   const productDetail = await this.knex.raw(
+      //     /*sql */
+      //     `
+      // 	SELECT *
+      // 	FROM productDetail
+      // 	WHERE product_id = ?
+      // 	AND status_id = 1
+      // 	`,
+      //     [productId]
+      //   );
 
       return productInfo;
     }
   }
 
-
   // -------------------------------------------------------------------------------------------------------------------
   // search productDetailByProductId
   // -------------------------------------------------------------------------------------------------------------------
 
-  async productDetailByProductId(productId: number) {
+  async productDetailByProductId(product_id: number) {
     {
-    //   const productInfo = await this.knex.raw(
-    //     /*sql */
-    //     `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
-    //     ["%" +  + "%"]
-    //   );
+      //   const productInfo = await this.knex.raw(
+      //     /*sql */
+      //     `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
+      //     ["%" +  + "%"]
+      //   );
 
       const productDetailInfo = await this.knex.raw(
         /*sql */
         `
-		SELECT * 
-		FROM productDetail 
-		WHERE product_id = ? 
-		AND status_id = 1
+        select  * from "productDetail" where product_id = ? and status_id = 1
 		`,
-        [productId]
+        [product_id]
       );
 
       return productDetailInfo;
@@ -369,18 +364,18 @@ export class ProductService {
   // get productIdByName (唔知有咩用🤔)
   // -------------------------------------------------------------------------------------------------------------------
 
-//   async productIdByName(name: string) {
-//     {
-//       const productId = await this.knex.raw(
-// 		/*sql */
-//         `
+  //   async productIdByName(name: string) {
+  //     {
+  //       const productId = await this.knex.raw(
+  // 		/*sql */
+  //         `
 
-// 				SELECT * FROM product WHERE name = ?
-// 			`,
-//         [name]
-//       );
+  // 				SELECT * FROM product WHERE name = ?
+  // 			`,
+  //         [name]
+  //       );
 
-//       return productId;
-//     }
-//   }
- }
+  //       return productId;
+  //     }
+  //   }
+}
