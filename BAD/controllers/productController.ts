@@ -387,7 +387,6 @@ export class ProductController {
   ) => {
     try {
       const keyword = String(req.query.keyword);
-      console.log(keyword);
       const productInfos = await this.productService.productByName(
         keyword
       );
@@ -413,8 +412,7 @@ export class ProductController {
     res: express.Response
   ) => {
     try {
-      const product_id = Number(req.query.product_id);
-      console.log(product_id);
+      const product_id = Number(req.params.id);
       const productId = await this.productService.productDetailByProductId(
         product_id
       );

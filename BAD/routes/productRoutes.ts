@@ -10,8 +10,8 @@ export function createProductRoutes(productController: ProductController) {
 	productRoutes.patch('/Product/:id', productController.updateProduct)
 	productRoutes.patch('/ProductDetail/:id', productController.updateProductDetail)
 	productRoutes.post('/promotion', productController.createPromotion)
-	productRoutes.get('/searchProductIdByName', productController.searchProductIdByName)
-	productRoutes.get('/productDetailByproductId', productController.productDetailByProductId)
+	productRoutes.post('/searchProductIdByName', productController.searchProductIdByName)
+	productRoutes.get('/productDetailByproductId/:id', productController.productDetailByProductId)
 
 	return productRoutes;
 }

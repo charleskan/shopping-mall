@@ -6,7 +6,7 @@ import express from "express";
 import { logger } from "./logger";
 // import { isLogin } from "./middleware";
 import grant from "grant";
-import { client } from "./db";
+// import { client } from "./db";
 import dotenv from "dotenv";
 import { UserService } from "./services/userService";
 import { UserController } from "./controllers/userController";
@@ -22,7 +22,10 @@ import { InvoiceController } from "./controllers/invoiceController";
 import { InvoiceService } from "./services/invoiceService";
 import { createInvoiceRoutes } from "./routes/invoiceRoutes";
 import cors from "cors";
-import {knex} from "./knex";
+import * as knexConfig from './knexfile'
+import 'dotenv/config'
+import './models'
+import Knex from 'knex'
 // -------------------------------------------------------------------------------------------------------------------
 // Knex
 // -------------------------------------------------------------------------------------------------------------------
@@ -32,7 +35,7 @@ dotenv.config();
 // -------------------------------------------------------------------------------------------------------------------
 // main script
 // -------------------------------------------------------------------------------------------------------------------
-
+const knex = Knex(knexConfig[process.env.NODE_ENV ?? 'development'])
 
 const app = express();
 
@@ -77,9 +80,6 @@ app.use(grantExpress as express.RequestHandler);
 // -------------------------------------------------------------------------------------------------------------------
 // others
 // -------------------------------------------------------------------------------------------------------------------
-
-//connect to client
-client.connect();
 
 //urlencoded
 app.use(express.urlencoded({ extended: true }));
