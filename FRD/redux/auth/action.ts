@@ -1,7 +1,7 @@
-export function loggedIn(nickname: string , token:string) {
+export function loggedIn(username: string , token:string) {
   return {
     type: '@@auth/LOGGED_IN' as const,
-    nickname: nickname,
+    username:username,
     token:token,
   }
 }

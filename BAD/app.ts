@@ -131,5 +131,4 @@ app.use((req, res) => {
 //---------------------------------------------------------------------------------------------------------------------
 app.listen(PORT, () => {
   logger.info(`listening on port ${PORT}`);
-  console.log("frontend:",process.env.NEXT_PUBLIC_DOMAIN);
 });
