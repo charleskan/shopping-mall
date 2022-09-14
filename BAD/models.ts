@@ -51,6 +51,10 @@ export interface Invoice_product {
 	price: number
 }
 
+export interface payloadType {
+	userId: number
+}
+
 
 declare global {
 	namespace Express {

@@ -4,7 +4,6 @@
 import express from "express";
 // import expressSession from "express-session";
 import { logger } from "./logger";
-// import { isLogin } from "./middleware";
 import grant from "grant";
 // import { client } from "./db";
 import dotenv from "dotenv";

@@ -1,7 +1,6 @@
 import express from 'express'
 import { logger } from '../logger'
 import dotenv from "dotenv";
-import jwtSimple from 'jwt-simple';
 import {
 	UserDuplicateEmailError,
 	UserDuplicateUsernameError,
@@ -12,14 +11,15 @@ import {
 	UserStatusError
 } from '../services/userService'
 import { InvoiceService } from '../services/invoiceService'
-
+import { createSecretKey } from 'node:crypto';
+import * as jose from 'jose'
 
 dotenv.config();
 export class UserController {
 	constructor(
 		private userService: UserService,
 		private invoiceService: InvoiceService
-	) {}
+	) { }
 
 	loginGoogle = async (req: express.Request, res: express.Response) => {
 		const accessToken = req.session?.['grant'].response.access_token
@@ -37,8 +37,8 @@ export class UserController {
 
 	register = async (req: express.Request, res: express.Response) => {
 		try {
-			console.log("body:",req.body);
-			
+			console.log("body:", req.body);
+
 			let username = req.body.username?.trim()
 			let password = req.body.password?.trim()
 			let email = req.body.email?.trim()
@@ -84,30 +84,33 @@ export class UserController {
 
 	login = async (req: express.Request, res: express.Response) => {
 		try {
+			const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
 			let username = req.body.username.trim()
 			let password = req.body.password.trim()
 			let user = await this.userService.login(username, password)
 
-			// if (req.user!.id)  {
-			// 	req.user!.id = user[0].id
-			// 	// req.session['isLogin'] = true
-			// }
-
 			const payload = {
 				userId: user[0].id,
 			}
-			const jwt = jwtSimple.encode(payload, process.env.JWT_SECRET!);
+			const token = await new jose.SignJWT(payload) // details to  encode in the token
+				.setProtectedHeader({ alg: 'HS256' }) // algorithm
+				.setIssuedAt()
+				.setIssuer(process.env.JWT_ISSUER!) // issuer
+				.setAudience(process.env.JWT_AUDIENCE!) // audience
+				.setExpirationTime(process.env.JWT_EXPIRATION_TIME!) // token expiration time, e.g., "1 day"
+				.sign(secretKey); // secretKey generated from previous step
+
+			console.log(token)
 			//jwt header
-			res.header('X-C21-TOKEN', jwt);
 
+			res.header('X-C21-TOKEN', token);
 
-		
 
 			let invoice = await this.invoiceService.getInvoiceDetailByUserId(
 				user[0].id
 			) //test after create invoice is done
-			
-			//also check if the user has invoice
+
+			// also check if the user has invoice
 			// if (invoice != null) {
 			// 	req.session['Invoice'] = invoice[0]
 			// }
