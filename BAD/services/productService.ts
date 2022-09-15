@@ -292,7 +292,7 @@ export class ProductService {
   // create promotion details by promotionId (promotion_product)
   // -------------------------------------------------------------------------------------------------------------------
 
-  async createPromotionDetails(
+  async createPromotionDetail(
     promotion_id: number,
     product_id: number,
     product_number: number,
@@ -310,6 +310,25 @@ export class ProductService {
           freebie_price: 0,
         })
         .returning("*");
+
+      return promotionDetails;
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------
+  // delete promotion details by promotionId (promotion_product)
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async deletePromotionDetail(
+    promotionDetailID: number 
+  ) {
+    {
+      const promotionDetails = await this.knex.raw(
+        /*sql */
+        `delete from promotion_product where id = ?`,[promotionDetailID]
+      )      
+      
+      // ("promotion_product")
+      // .returning("*");
 
       return promotionDetails;
     }

@@ -256,22 +256,22 @@ export class ProductController {
 
         const newIcon =
           files.newIcon != null && !Array.isArray(files.newIcon)
-            ? files.newIcon.newFilename
+            ? String(files.newIcon.newFilename)
             : oldIcon;
 
         const newImage1 =
           files.newImage1 != null && !Array.isArray(files.newImage1)
-            ? files.newImage1.newFilename
+            ? String(files.newImage1.newFilename)
             : oldImage1;
 
         const newImage2 =
-          files.newImage2 != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newImage2 != null && !Array.isArray(files.newImage2)
+            ? String(files.newImage2.newFilename)
             : oldImage2;
 
         const newImage3 =
-          files.newImage3 != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newImage3 != null && !Array.isArray(files.newImage3)
+            ? String(files.newImage3.newFilename)
             : oldImage3;
 
 
@@ -279,9 +279,9 @@ export class ProductController {
         const productInfo = await this.productService.updateProduct(
           productId,
           newName,
-		  newBrand,
-		  newDescription,
-		  newIcon,
+		      newBrand,
+		      newDescription,
+		      newIcon,
           newImage1,
           newImage2,
           newImage3,
@@ -311,7 +311,7 @@ export class ProductController {
 		  const productDetailId = Number(req.params.id);
 	
 		  try {
-			const productInfos = (await this.productService.productDetailInfo(productDetailId))[0];
+			const productInfos = (await this.productService.productDetailInfo(productDetailId)).productDetailInfo[0];
 	
 			let oldPrice = productInfos.price;
 			let oldStock = productInfos.stock;
@@ -327,7 +327,7 @@ export class ProductController {
 				? Number(fields.newStock)
 				: oldStock;
 	
-			const newStatus_id =
+			const newStatus_id =  
 			  fields.newStatus_id != null && !Array.isArray(fields.newStatus_id)
 				? Number(fields.newStatus_id)
 				: oldStatus_id;
@@ -357,50 +357,100 @@ export class ProductController {
 	
 
   // -------------------------------------------------------------------------------------------------------------------
-  // create promotion detail 🤗
+  // create promotion 🤗
   // -------------------------------------------------------------------------------------------------------------------
 
   createPromotion = async (req: express.Request, res: express.Response) => {
-    try {
-      const promotion = req.body.promotion;
-      const product_id = req.body.productID;
-      const product_number = req.body.productnumber;
-      const freebie_id = req.body.freebieID;
-      const freebie_number = req.body.freebienumber;
+    form.parse(req, async (err, fields, files) => {
+      try {
+        const name =
+          fields.name != null && !Array.isArray(fields.name)
+            ? fields.name
+            : err;
 
-    //   const productId = (await this.productService.productDetailByName(productName))
-    //     .rows[0].id;
+        const promotionInfo = await this.productService.createPromotion(
+          name,
 
-    //   console.log(productId);
-    //   console.log(promotion);
+        );
+        return res.json({
+          result: true,
+          msg: "Create Promotion success",
+          promotionInfo,
+        });
+      } catch (err) {
+        logger.error(err);
+        return res.json({
+          result: false,
+          msg: "Create Promotion fail",
+        });
+      }
+    });
+    
+  }
 
-    //   const freebieId = (await this.productService.productDetailByName(freebieName))
-    //     .rows[0].id;
+  // -------------------------------------------------------------------------------------------------------------------
+  // create promotion detail 🤗
+  // -------------------------------------------------------------------------------------------------------------------
 
-      const promotion_id = (
-        await this.productService.createPromotion(promotion)
-      )[0].id;
 
-      console.log(promotion_id);
+  createPromotionDetail = async (req: express.Request, res: express.Response) => {
+    form.parse(req, async (err, fields, files) => {
+      try {
+        const promotion_id =
+          fields.name != null && !Array.isArray(fields.promotion_id)
+            ? fields.promotion_id
+            : err;
 
-      const promotionDetails = await this.productService.createPromotionDetails(
-        promotion_id,
-        product_id,
-        product_number,
-        freebie_id,
-        freebie_number
-      );
+        const product_id =
+          fields.product_id != null && !Array.isArray(fields.product_id)
+            ? fields.product_id
+            : err;
 
-      return res.json({
-        result: true,
-        msg: "Create promotion success",
-        promotion_id,
-        promotionDetails,
-      });
-    } catch (err) {
-      logger.error(err);
-      return res.json({ result: false, msg: "Create promotion fail" });
-    }
+        const product_number =
+          fields.product_number != null && !Array.isArray(files.product_number)
+            ? fields.product_number
+            : err;
+
+			
+		const freebie_id =
+          fields.freebie_id != null && !Array.isArray(fields.freebie_id)
+            ? fields.freebie_id
+            : err;
+
+		const freebie_number =
+          fields.freebie_number != null && !Array.isArray(fields.freebie_number)
+            ? fields.freebie_number
+            : err;
+
+
+        await this.productService.createPromotionDetail(
+          promotion_id,
+          product_id,
+          product_number,
+          freebie_id,
+          freebie_number
+
+        );
+        return res.json({ result: true, msg: "create new product success" });
+      } catch (err) {
+        // if (err instanceof ProductPriceError) {
+        //   return res.status(500).json({
+        //     result: false,
+        //     msg: "Product price must be greater than 0",
+        //   });
+        // } else if (err instanceof ProductStockError) {
+        //   return res.status(500).json({
+        //     result: false,
+        //     msg: "Product stock must be greater than 0",
+        //   });
+        // }
+
+        logger.error(err);
+        res.status(500).json({ result: false, msg: "create product error" });
+
+        return;
+      }
+    });
   };
 
   // -------------------------------------------------------------------------------------------------------------------
