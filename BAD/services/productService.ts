@@ -31,12 +31,12 @@ export class ProductService {
 
   async allProductInfo() {
     {
-      const productInfo = await this.knex<Product>("product").select("*");
+      const ProductList = await this.knex<Product>("product").select("*");
       // `SELECT * FROM product INNER JOIN product_color pc ON
       // product.id = pc.product_id`
       
 
-      return productInfo;
+      return ProductList;
     }
   }
 
@@ -61,6 +61,10 @@ export class ProductService {
   async productDetailInfo(productId: number) {
     //console.log(this.tableName)
     {
+      const productInfo = await this.knex("product")
+        .select("*")
+        .where("id", productId); //.andWhere( "status_id", 1)
+
       const productDetailInfo = await this.knex("productDetail")
         .select("*")
         .where("product_id", productId); //.andWhere( "status_id", 1)
@@ -79,7 +83,7 @@ export class ProductService {
       // 	where id in (
       // 	select size_id from product_size where product_id = ?)`,[productId])
 
-      return { productDetailInfo };
+      return { productInfo, productDetailInfo };
     }
   }
 
@@ -89,12 +93,12 @@ export class ProductService {
 
   async createProduct(
     name: string,
-    brand: string,
     description: string,
     icon: string,
     image1: string,
     image2: string,
-    image3: string
+    image3: string,
+    brand_id: number
   ) {
     // insert new product
 
@@ -105,12 +109,12 @@ export class ProductService {
         const newProductRecord = await this.knex<Product>("product")
           .insert({
             name: name,
-            brand: brand,
             description: description,
             icon: icon,
             image1: image1,
             image2: image2,
             image3: image3,
+            brand_id: brand_id,
           })
           .returning("*");
 
@@ -149,6 +153,8 @@ export class ProductService {
             size_id: size_id,
             price: price,
             stock: stock,
+
+            status_id: 1,
           })
           .returning("*");
 
@@ -164,7 +170,7 @@ export class ProductService {
   async updateProduct(
     productId: number,
     newName: string,
-    newBrand: string,
+    newBrand: number,
     newDescription: string,
     newIcon: string,
     newImage1: string,
@@ -180,12 +186,12 @@ export class ProductService {
 
         .update({
           name: newName,
-          brand: newBrand,
           description: newDescription,
           icon: newIcon,
           image1: newImage1,
           image2: newImage2,
           image3: newImage3,
+          brand_id: newBrand,
         })
 
         .where("id", productId)
@@ -284,10 +290,10 @@ export class ProductService {
   }
 
   // -------------------------------------------------------------------------------------------------------------------
-  // create promotion details (promotion_product)
+  // create promotion details by promotionId (promotion_product)
   // -------------------------------------------------------------------------------------------------------------------
 
-  async createPromotionDetails(
+  async createPromotionDetail(
     promotion_id: number,
     product_id: number,
     product_number: number,
@@ -309,7 +315,35 @@ export class ProductService {
       return promotionDetails;
     }
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  // delete promotion details by promotionId (promotion_product)
+  // -------------------------------------------------------------------------------------------------------------------
 
+  async deletePromotionDetail(
+    promotionDetailID: number 
+  ) {
+    {
+      const promotionDetails = await this.knex.raw(
+        /*sql */
+        `delete from promotion_product where id = ?`,[promotionDetailID]
+      )      
+      
+      // ("promotion_product")
+      // .returning("*");
+
+      return promotionDetails;
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------
+  // get promotion info
+  // -------------------------------------------------------------------------------------------------------------------
+  async getPromotionInfo() {
+    {
+      const allPromotionInfo = await this.knex("promotion").select("*");
+
+      return allPromotionInfo;
+    }
+  }
   // -------------------------------------------------------------------------------------------------------------------
   // search productByName
   // -------------------------------------------------------------------------------------------------------------------

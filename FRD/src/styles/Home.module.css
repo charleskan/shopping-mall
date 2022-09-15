@@ -1,6 +1,11 @@
 .productcard{
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  gap: var(--size-3);
+  grid-auto-flow: column;
+  grid-template-columns: 21%;
+  padding:0 var(--_spacer) var(--_spacer);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
   
   
 }

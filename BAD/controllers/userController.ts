@@ -120,7 +120,7 @@ export class UserController {
 				msg: 'login success',
 				user: user[0],
 				invoice: invoice[0] != null ? invoice[0] : null,
-				// token:jwt
+				token:token
 				// //jwt session
 
 				// token: jwtSimple.encode({

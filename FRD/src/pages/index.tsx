@@ -28,7 +28,8 @@ const Home: NextPage = () => {
 const [products, setProduct] = useState<Product[]>([])
 
 	async function fetchProduct() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+		)
 		let product = (await res.json()).allProductInfo
 		setProduct(product)
 	}{}
@@ -54,86 +55,7 @@ const [products, setProduct] = useState<Product[]>([])
 	useEffect(()=>{
 		fetchBigProduct()
 	},[setBigProduct])
-	// const products = [
-		// {
-		// 	id: 1,
-		// 	name: 'bag',
-		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-		// 	color: 'red',
-		// 	code: 'af123',
-		// 	price: 100
-		// },
-		// {
-		// 	id: 2,
-		// 	name: 'car',
-		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-		// 	color: 'blue',
-		// 	code: 'af133',
-		// 	price: 120
-		// },
-		// {
-		// 	id: 3,
-		// 	name: 'table',
-		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-		// 	color: 'black',
-		// 	code: 'af122',
-		// 	price: 130
-		// },
 
-		// {
-		// 	id: 4,
-		// 	name: 'table',
-		// 	image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-		// 	color: 'black',
-		// 	code: 'af122',
-		// 	price: 130
-		// }
-	// ]
-
-	// const productCards = [
-	// 	{
-	// 		id: 1,
-	// 		name: 'bag',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		name: 'car',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		name: 'table',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		name: 'table',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	},
-	// 	{
-	// 		id: 5,
-	// 		name: 'table',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	},
-	// 	{
-	// 		id: 6,
-	// 		name: 'table',
-	// 		image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1658940346/631685_2KQGG_8375_001_100_0000_Light-Ophidia-GG-medium-tote.jpg',
-	// 		specialPrice: 200,
-	// 		price: 100
-	// 	}
-	// ]
 
 	return (
 		<div>
@@ -165,22 +87,24 @@ const [products, setProduct] = useState<Product[]>([])
 				</div>
 				<div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>
-					{bigProduct.map((productCard) => (
+					{/* {bigProduct.map((productCard) => (
 						<ProductBigCard
 							key={productCard.id}
 							name={productCard.name}
 							image1={productCard.image1}
 
 						/>
-					))}
+					))} */}
 				</div>
 			</Container>
 			<div className={home.bannerBox}>
-			<Image className={home.banner} src={img}/>
+			<Image className={home.banner} src={img}
+			width={3000}
+			height={700}/>
 			<div className={home.titleBox}>
 			<div className={home.title} >Get Leatest Update By Subscribe<br/>
 			Our Newslater</div>
-			<Link href="/login"><a className={home.button}>Shop Now</a></Link>
+			<Link href="/productPage"><a className={home.button}>Shop Now</a></Link>
 			</div>
 			
 		
