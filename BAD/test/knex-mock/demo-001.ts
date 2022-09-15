@@ -24,7 +24,7 @@ let knex = function (tableName : string) {
 
 }
 
-import { InvoiceService } from '../invoiceService'
+import { InvoiceService } from '../../services/invoiceService'
 import { Knex } from 'knex'
 
 (async ()=>{

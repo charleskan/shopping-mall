@@ -17,12 +17,17 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     async getInvoiceDetailByUserId(userId: number) {
 
-
-        let invoiceRecord = this.knex<Invoice>('invoice')
-            .select('*')
-            .where('user_id', userId)
-            .andWhere('status_id', 1)
-
+        let invoiceRecord = this.knex
+            .raw
+            (/* SQL */
+                `
+            select *
+            from "invoice"
+            where "user_id" = ?
+            and "status_id" = 1
+            `
+                , [userId]
+            )
 
         return invoiceRecord
 
@@ -68,7 +73,7 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     async createInvoice(
 
-        status_id: number = 1, // always 1
+        status_id: number, // always 1
         user_id: number,
         address_id: number,
 
@@ -87,8 +92,9 @@ export class InvoiceService {
             const invoiceLargestNumberString = invoiceLargestNumber[0].invoiceNumber//expect 'ABC003'
             const invoiceLargestNumberNumber = Number(
                 invoiceLargestNumberString
-                    .substring(3, invoiceLargestNumberString.length))//3
-            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 100 //4
+                    .substring(3, invoiceLargestNumberString.length))
+            //3
+            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 1 //4
             const invoiceLargestNumberNextString = 'ABC00' + invoiceLargestNumberNextNumber.toString() //'ABC004'
 
             //insert
@@ -169,7 +175,7 @@ export class InvoiceService {
 
     async addProductToCart(
         invoice_id: number,
-        product_id: number,
+        productDetail_id: number,
         number: number,
         price: number,
 
@@ -178,11 +184,11 @@ export class InvoiceService {
         {
 
             //insert
-            let productToCartRecord = await this.knex<Invoice_product>('invoice_product')
+            let productToCartRecord = await this.knex<Invoice_product>('invoice_productDetail')
 
                 .insert({
                     invoice_id: invoice_id,
-                    product_id: product_id,
+                    productDetail_id: productDetail_id,
                     number: number,
                     price: price
                 })
@@ -406,5 +412,38 @@ export class InvoiceService {
 
             return deleteNumberProductRecord
         }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------
+    // get product price by id
+    // -------------------------------------------------------------------------------------------------------------------
+    async getSingleProductDetail(
+        productId: number,
+        colorId: number,
+        sizeId: number,
+    ) {
+        const isolationLevel = 'serializable';
+        const trx = await this.knex.transaction({ isolationLevel });
+        try {
+            const getProductPrice = await trx
+                .raw
+                (/* SQL */
+                    `
+                    select *
+                    from "productDetail" 
+                    where "product_id" = ?
+                    and "color_id" = ?
+                    and "size_id" = ?
+                    `
+                    , [productId, colorId, sizeId]
+                )
+
+            return getProductPrice.rows[0]
+        } catch (error) {
+            await trx.rollback();
+            throw new InsertRejectError()
+        }
+
+
     }
 }

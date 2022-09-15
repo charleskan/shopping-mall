@@ -85,8 +85,10 @@ export class UserController {
 	login = async (req: express.Request, res: express.Response) => {
 		try {
 			const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
+			
 			let username = req.body.username.trim()
 			let password = req.body.password.trim()
+
 			let user = await this.userService.login(username, password)
 
 			const payload = {
@@ -100,11 +102,9 @@ export class UserController {
 				.setExpirationTime(process.env.JWT_EXPIRATION_TIME!) // token expiration time, e.g., "1 day"
 				.sign(secretKey); // secretKey generated from previous step
 
-			console.log(token)
+			// console.log(token)
 			//jwt header
-
 			res.header('X-C21-TOKEN', token);
-
 
 			let invoice = await this.invoiceService.getInvoiceDetailByUserId(
 				user[0].id

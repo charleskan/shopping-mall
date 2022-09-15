@@ -2,10 +2,8 @@
 // imports (DO NOT EXPORT ANYTHING FORM App.ts)
 // -------------------------------------------------------------------------------------------------------------------
 import express from "express";
-// import expressSession from "express-session";
 import { logger } from "./logger";
 import grant from "grant";
-// // import { client } from "./db";
 import dotenv from "dotenv";
 import { UserService } from "./services/userService";
 import { UserController } from "./controllers/userController";
@@ -51,16 +49,6 @@ app.use(
 );
 
 const PORT = process.env.PORT || 8000;
-
-// // session
-// app.use(
-//   expressSession({
-//     secret: process.env.EXPRESS_SESSION!,
-//     resave: false,
-//     saveUninitialized: true,
-    
-//   })
-// );
 
 
 // //grant
@@ -114,7 +102,6 @@ const productController = new ProductController(productService);
 const invoiceController = new InvoiceController(
   profileService,
   invoiceService,
-  productService
 );
 
 app.use(createUserRoutes(userController));

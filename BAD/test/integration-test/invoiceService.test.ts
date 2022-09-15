@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import { InvoiceService } from '../invoiceService'
+import { InvoiceService } from '../../services/invoiceService'
 const knexfile = require('../../knexfile') // Assuming you test case is inside `services/ folder`
 const knex = Knex(knexfile['test']) // Now the connection is a testing connection.
 
@@ -9,15 +9,15 @@ describe('Integration test of invoiceService', () => {
 	invoiceService = new InvoiceService(knex)
 
 
-	beforeAll(async () => {
-		return knex.migrate.rollback()
-			.then(function () {
-				return knex.migrate.latest();
-			})
-			.then(function () {
-				return knex.seed.run();
-			});
-	});
+	// beforeAll(async () => {
+	// 	return knex.migrate.rollback()
+	// 		.then(function () {
+	// 			return knex.migrate.latest();
+	// 		})
+	// 		.then(function () {
+	// 			return knex.seed.run();
+	// 		});
+	// });
 
 	afterAll(async () => {
 		await knex.update('status_id', 1).from('invoice').where('user_id', 1)
@@ -32,7 +32,7 @@ describe('Integration test of invoiceService', () => {
 		const userId = 1
 
 		const invoiceRecord = await invoiceService.getInvoiceDetailByUserId(userId)
-
+		console.log(invoiceRecord)
 		//Assert
 		expect(invoiceRecord[0].id).toBe(1)
 		expect(invoiceRecord[0].user_id).toBe(1)

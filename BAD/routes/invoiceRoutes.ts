@@ -11,7 +11,7 @@ export function createInvoiceRoutes(invoiceController: InvoiceController) {
 	invoiceRoutes.patch('/invoice/:id', invoiceController.deleteInvoice)
 
 
-	invoiceRoutes.post('/cart/:id', invoiceController.addProductToCart)
+	invoiceRoutes.post('/cart/:id', userMiddleware, invoiceController.addProductToCart)
 	invoiceRoutes.delete('/cart/:id', invoiceController.deleteProductFromCart)
 	// invoiceRoutes.put('/cart/:id', invoiceController.updateProductInCart)
 	// invoiceRoutes.get('/cart/:id', invoiceController.getProductInCart)

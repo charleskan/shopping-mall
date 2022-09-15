@@ -34,6 +34,7 @@ export class ProductService {
       const productInfo = await this.knex<Product>("product").select("*");
       // `SELECT * FROM product INNER JOIN product_color pc ON
       // product.id = pc.product_id`
+      
 
       return productInfo;
     }
@@ -351,9 +352,9 @@ export class ProductService {
       const productDetailInfo = await this.knex.raw(
         /*sql */
         `
-        select  * from "productDetail" where product_id = ? and status_id = 1
-		`,
-        [product_id]
+        select * from "productDetail" where "product_id" = ? and "status_id" = 1
+		    `
+          ,[product_id]
       );
 
       return productDetailInfo;
@@ -379,3 +380,5 @@ export class ProductService {
   //     }
   //   }
 }
+
+

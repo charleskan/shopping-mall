@@ -1,6 +1,6 @@
 import Knex from 'knex'
 import { checkPassword } from '../../hash'
-import { UserDuplicateEmailError, UserDuplicateUsernameError, UserMissingRegisterInfoError, UserNotExistError, UserPasswordMissMatchError, UserService, UserStatusError } from '../userService'
+import { UserDuplicateEmailError, UserDuplicateUsernameError, UserMissingRegisterInfoError, UserNotExistError, UserPasswordMissMatchError, UserService, UserStatusError } from '../../services/userService'
 
 const knexfile = require('../../knexfile') // Assuming you test case is inside `services/ folder`
 const knex = Knex(knexfile['test']) // Now the connection is a testing connection.

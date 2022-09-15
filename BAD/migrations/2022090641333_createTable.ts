@@ -246,9 +246,6 @@ export async function down(knex: Knex): Promise<void> {
 
 
 
-
-   await knex.schema.dropTableIfExists("productDetail");
-
  
 
    await knex.schema.dropTableIfExists("coupon");
@@ -256,6 +253,8 @@ export async function down(knex: Knex): Promise<void> {
    await knex.schema.dropTableIfExists("invoice");
    await knex.schema.dropTableIfExists("product");
    await knex.schema.dropTableIfExists("user");
+
+   await knex.schema.dropTableIfExists("productDetail");
 
 
    await knex.schema.dropTableIfExists("color");

@@ -26,7 +26,7 @@ export async function seed(knex: Knex): Promise<void> {
             status_id: 1,
         },
         { 
-            product_id: 2,
+            product_id: 1,
             color_id: 2,
             size_id: 2,
             price: 400,

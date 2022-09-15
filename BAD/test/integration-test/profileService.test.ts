@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import { ProfileService } from '../profileService'
+import { ProfileService } from '../../services/profileService'
 const knexfile = require('../../knexfile') // Assuming you test case is inside `services/ folder`
 const knex = Knex(knexfile['test']) // Now the connection is a testing connection.
 

@@ -9,7 +9,8 @@ export interface User {
 	role_id: number
 }
 export interface User2 {
-	id: number
+	userId: number,
+	invoiceId: number,
 }
 
 export interface Product {
@@ -46,7 +47,7 @@ export interface Invoice {
 export interface Invoice_product {
 	id: number
 	invoice_id: number
-	product_id: number
+	productDetail_id: number
 	number: number
 	price: number
 }

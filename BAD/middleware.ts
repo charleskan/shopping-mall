@@ -15,19 +15,19 @@ const { createSecretKey } = require('crypto');
 // library for signing jwt
 //const { SignJWT } = require('jose-node-cjs-runtime/jwt/sign');
 import * as jose from 'jose'
+import { InvoiceService } from './services/invoiceService';
 
 
+const invoiceService = new InvoiceService(knex);
 
 dotenv.config();
 const permit = new Bearer({ query: 'access_token' })
 // -------------------------------------------------------------------------------------------------------------------
 
-
-
 export const userMiddleware = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
 	const secretKey = createSecretKey(process.env.JWT_SECRET, 'utf-8');
-	console.log(secretKey)
+	// console.log(secretKey)
 	const token = permit.check(req)
 	try {
 		const { payload } = await jose.jwtVerify(token, secretKey,
@@ -35,10 +35,11 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 				issuer: process.env.JWT_ISSUER!,
 				audience: process.env.JWT_AUDIENCE!,
 			})
-		console.log(payload)
+		// console.log(payload)
 
 		req.user = {
-			id: payload.userId as any,
+			userId: payload.userId as any,
+			invoiceId: payload.invoiceId as any
 		}
 
 		next();
@@ -51,12 +52,22 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			email: '',
 		}).into('user').returning('id')
 
+		const userId = newUser[0].id
+
+		const addressId = 1
+		const status_id = 1
+
+		const invoice = await invoiceService.createInvoice(status_id, userId, addressId)
+
 		req.user = {
-			id: newUser[0].id
+			userId: userId,
+			invoiceId: invoice[0].id,
 		}
 
 		const payload = {
-			userId: newUser[0].id
+			userId: userId,
+			invoiceId: invoice[0].id,
+
 		}
 
 		const token = await new jose.SignJWT(payload) // details to  encode in the token
@@ -67,8 +78,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			.setExpirationTime(process.env.JWT_EXPIRATION_TIME!) // token expiration time, e.g., "1 day"
 			.sign(secretKey); // secretKey generated from previous step
 
-		console.log(token)
-
+		// console.log(token)
 		res.header('X-C21-TOKEN', token);
 
 		next()

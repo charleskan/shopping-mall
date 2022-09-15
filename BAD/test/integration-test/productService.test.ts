@@ -3,7 +3,7 @@ import { ProductService,
     ProductPriceError,
     ProductStockError,
     ProductNameError 
- } from '../productService'
+ } from '../../services/productService'
 const knexfile = require('../../knexfile') // Assuming you test case is inside `services/ folder`
 const knex = Knex(knexfile['test']) // Now the connection is a testing connection.
 

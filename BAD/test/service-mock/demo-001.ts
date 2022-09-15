@@ -2,7 +2,7 @@
 import { InvoiceService } from '../../services/invoiceService'
 import { ProductService } from '../../services/productService'
 import { ProfileService } from '../../services/profileService'
-import { InvoiceController } from '../invoiceController'
+import { InvoiceController } from '../../controllers/invoiceController'
 
 
 let invoiceService = {

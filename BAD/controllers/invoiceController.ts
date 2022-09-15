@@ -2,7 +2,7 @@ import express from 'express'
 // import { form } from '../middleware'
 import { logger } from '../logger'
 import { InvoiceService } from '../services/invoiceService'
-import { ProductService } from '../services/productService'
+// import { ProductService } from '../services/productService'
 import { ProfileService } from '../services/profileService'
 
 
@@ -10,7 +10,6 @@ export class InvoiceController {
     constructor(
         private profileService: ProfileService,
         private invoiceService: InvoiceService,
-        private productService: ProductService
     ) { }
 
     // -------------------------------------------------------------------------------------------------------------------
@@ -18,15 +17,7 @@ export class InvoiceController {
     // -------------------------------------------------------------------------------------------------------------------
     getInvoiceDetailByUserId = async (req: express.Request, res: express.Response) => {
         try {
-                const userId = req.user!.id;
-
-                // if (!userId) {
-                //     // res.status(401).send({
-                //     //     message: 'Unauthorized'
-                //     // })
-                //     throw new Error('Unauthorized')
-                // }
-
+                const userId = req.user!.userId
                 const invoiceRecord = await this.invoiceService.getInvoiceDetailByUserId(userId)
                 return res.json({
                     result: true,
@@ -39,7 +30,7 @@ export class InvoiceController {
             }
         }
     // -------------------------------------------------------------------------------------------------------------------
-    // create Invoice
+    // create Invoice DEAD CODE
     // -------------------------------------------------------------------------------------------------------------------
 
     createInvoice = async (req: express.Request, res: express.Response) => {
@@ -151,38 +142,28 @@ export class InvoiceController {
         addProductToCart = async (req: express.Request, res: express.Response) => {
 
             try {
-                const userId = req.session['user']
 
                 const productId = parseInt(req.params.id)
-
-                // ------------------------------
-
-                let invoice = await this.invoiceService.getInvoiceDetailByUserId(userId)
-
-                const addressId = (await this.profileService.userInfo(userId)).address.rows[0].address_id // getUserAddressId(userId)
-
-                // console.log(addressId)
-                // const addressId = 1
-
-                //create invoice if user has no invoice
-                if (invoice == null) {
-                    invoice = await this.invoiceService.createInvoice(1, userId, addressId)
-                }
-
-                const invoiceId = invoice[0].id
-
+                const colorId = req.body.colorId
+                const sizeId = req.body.sizeId
+                const invoiceId = req.user!.invoiceId
                 // console.log(productId)
-
                 const productQuantity = 1
-                const productPrice = (await this.productService.productInfo(productId))[0].price
 
+                const productDetail = (await this.invoiceService.getSingleProductDetail
+                    (
+                        productId, 
+                        colorId, 
+                        sizeId,
+                        
+                        ))
                 // console.log(productPrice)
 
                 const productRecord = await this.invoiceService.addProductToCart(
                     invoiceId,
-                    productId,
+                    productDetail.id,
                     productQuantity,
-                    productPrice,
+                    productDetail.price,
                 )
 
                 return res.json({
@@ -203,7 +184,7 @@ export class InvoiceController {
         // -------------------------------------------------------------------------------------------------------------------
 
         getAllProductInCart = async (req: express.Request, res: express.Response) => {
-            const userId = req.user!.id
+            const userId = req.user!.userId
             let invoice = await this.invoiceService.getInvoiceDetailByUserId(userId)
             const invoiceId = invoice[0].id
             try {
