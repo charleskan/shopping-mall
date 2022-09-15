@@ -31,11 +31,11 @@ export class ProductService {
 
   async allProductInfo() {
     {
-      const productInfo = await this.knex<Product>("product").select("*");
+      const ProductList = await this.knex<Product>("product").select("*");
       // `SELECT * FROM product INNER JOIN product_color pc ON
       // product.id = pc.product_id`
 
-      return productInfo;
+      return ProductList;
     }
   }
 
@@ -60,6 +60,10 @@ export class ProductService {
   async productDetailInfo(productId: number) {
     //console.log(this.tableName)
     {
+      const productInfo = await this.knex("product")
+        .select("*")
+        .where("id", productId); //.andWhere( "status_id", 1)
+
       const productDetailInfo = await this.knex("productDetail")
         .select("*")
         .where("product_id", productId); //.andWhere( "status_id", 1)
@@ -78,7 +82,7 @@ export class ProductService {
       // 	where id in (
       // 	select size_id from product_size where product_id = ?)`,[productId])
 
-      return { productDetailInfo };
+      return { productInfo, productDetailInfo };
     }
   }
 
@@ -93,7 +97,7 @@ export class ProductService {
     image1: string,
     image2: string,
     image3: string,
-    brand_id:number,
+    brand_id: number
   ) {
     // insert new product
 
@@ -285,7 +289,7 @@ export class ProductService {
   }
 
   // -------------------------------------------------------------------------------------------------------------------
-  // create promotion details (promotion_product)
+  // create promotion details by promotionId (promotion_product)
   // -------------------------------------------------------------------------------------------------------------------
 
   async createPromotionDetails(
@@ -310,7 +314,16 @@ export class ProductService {
       return promotionDetails;
     }
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  // get promotion info
+  // -------------------------------------------------------------------------------------------------------------------
+  async getPromotionInfo() {
+    {
+      const allPromotionInfo = await this.knex("promotion").select("*");
 
+      return allPromotionInfo;
+    }
+  }
   // -------------------------------------------------------------------------------------------------------------------
   // search productByName
   // -------------------------------------------------------------------------------------------------------------------

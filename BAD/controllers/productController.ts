@@ -71,7 +71,7 @@ export class ProductController {
       return res.json({
         result: true,
         msg: "Get Product Information success",
-        productInfo,
+        productInfo: productInfo,
       });
     } catch (err) {
       logger.error(err);
@@ -265,13 +265,13 @@ export class ProductController {
             : oldImage1;
 
         const newImage2 =
-          files.newImage2 != null && !Array.isArray(files.newImage2)
-            ? files.newImage2.newFilename
+          files.newImage2 != null && !Array.isArray(files.newImage)
+            ? files.newImage.newFilename
             : oldImage2;
 
         const newImage3 =
-          files.newImage3 != null && !Array.isArray(files.newImage3)
-            ? files.newImage3.newFilename
+          files.newImage3 != null && !Array.isArray(files.newImage)
+            ? files.newImage.newFilename
             : oldImage3;
 
 
@@ -311,7 +311,7 @@ export class ProductController {
 		  const productDetailId = Number(req.params.id);
 	
 		  try {
-			const productInfos = (await this.productService.productDetailInfo(productDetailId)).productDetailInfo[0];
+			const productInfos = (await this.productService.productDetailInfo(productDetailId))[0];
 	
 			let oldPrice = productInfos.price;
 			let oldStock = productInfos.stock;
