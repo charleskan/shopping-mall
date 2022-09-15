@@ -148,6 +148,8 @@ export class ProductService {
             size_id: size_id,
             price: price,
             stock: stock,
+
+            status_id: 1,
           })
           .returning("*");
 

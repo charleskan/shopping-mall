@@ -36,7 +36,7 @@ export class ProductController {
   // get product info
   // -------------------------------------------------------------------------------------------------------------------
 
-  productInfo = async (req: express.Request, res: express.Response) => {
+  productDetailInfo = async (req: express.Request, res: express.Response) => {
     const productId = Number(req.params.id);
     try {
       const productInfo = await this.productService.productDetailInfo(
@@ -45,7 +45,33 @@ export class ProductController {
       return res.json({
         result: true,
         msg: "Get Product Information success",
-        productInfo: productInfo,
+        productInfo,
+      });
+    } catch (err) {
+      logger.error(err);
+
+      res
+        .status(500)
+        .json({ result: false, msg: "Get Product Information fail" });
+      return;
+    }
+  };
+
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // get product info
+  // -------------------------------------------------------------------------------------------------------------------
+
+  productInfo = async (req: express.Request, res: express.Response) => {
+    const productId = Number(req.params.id);
+    try {
+      const productInfo = await this.productService.productInfo(
+        productId
+      );
+      return res.json({
+        result: true,
+        msg: "Get Product Information success",
+        productInfo,
       });
     } catch (err) {
       logger.error(err);
@@ -149,8 +175,8 @@ export class ProductController {
             : err;
 
         const size_id =
-          fields.name != null && !Array.isArray(fields.size_id)
-            ? fields.name
+          fields.size_id != null && !Array.isArray(fields.size_id)
+            ? fields.size_id
             : err;
 
         const price =
@@ -203,10 +229,10 @@ export class ProductController {
       const productId = Number(req.params.id);
 
       try {
-        const productInfos = (await this.productService.productInfo(productId))[0];
+        const productInfos = (await this.productService.productInfo(productId)).productInfo[0];
 
         let oldName = productInfos.name;
-        let oldBrand = productInfos.brand;
+        let oldBrand = productInfos.brand_id;
         let oldDescription = productInfos.description;
         let oldIcon = productInfos.icon;
         let oldImage1 = productInfos.image1;
@@ -215,7 +241,7 @@ export class ProductController {
 
         const newName =
           fields.newName != null && !Array.isArray(fields.newName)
-            ? fields.newName
+            ? String(fields.newName)
             : oldName;
 			
 		const newBrand =
@@ -229,25 +255,23 @@ export class ProductController {
             : oldDescription;
 
         const newIcon =
-          files.newIcon != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newIcon != null && !Array.isArray(files.newIcon)
+            ? files.newIcon.newFilename
             : oldIcon;
-			
-		
 
         const newImage1 =
-          files.newImage1 != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newImage1 != null && !Array.isArray(files.newImage1)
+            ? files.newImage1.newFilename
             : oldImage1;
 
         const newImage2 =
-          files.newImage2 != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newImage2 != null && !Array.isArray(files.newImage2)
+            ? files.newImage2.newFilename
             : oldImage2;
 
         const newImage3 =
-          files.newImage3 != null && !Array.isArray(files.newImage)
-            ? files.newImage.newFilename
+          files.newImage3 != null && !Array.isArray(files.newImage3)
+            ? files.newImage3.newFilename
             : oldImage3;
 
 
@@ -287,7 +311,7 @@ export class ProductController {
 		  const productDetailId = Number(req.params.id);
 	
 		  try {
-			const productInfos = (await this.productService.productDetailInfo(productDetailId))[0];
+			const productInfos = (await this.productService.productDetailInfo(productDetailId)).productDetailInfo[0];
 	
 			let oldPrice = productInfos.price;
 			let oldStock = productInfos.stock;
