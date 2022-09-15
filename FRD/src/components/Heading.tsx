@@ -11,21 +11,14 @@ import { useAppSelector } from '../app/store'
 export function Heading() {
 const [users, setUsers] = useState<any[]>([])
 const token = useAppSelector (state => state.auth.token)
-console.log("token:",token);
+const username:any = useAppSelector (state => state.auth.username)
+
+console.log("token:",username);
 
 async function main(){
-	if(token == null){
-		return
-	}
-	const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/`,{
-		headers:{
-			Authorization:`bearer${token}`,
-		}
-	})
-	const json =await res.json();
 
-	setUsers(json)
-	console.log("json:",json);
+	setUsers(username)
+
 	
 }
 
@@ -34,7 +27,7 @@ async function main(){
 useEffect(() => {
 	if(token){main()}
 	
-}, [token])
+}, [])
 
 
 	return (
@@ -42,17 +35,15 @@ useEffect(() => {
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
 
-				{users&&<a className={heading.a}></a>}
+				{username &&<a className={heading.a}>{users}</a>}
 
 				<PhoneIcon className={heading.imageICon} />
 				<a className={heading.a}>12312123</a>
 			</div>
 			<div className={heading.center}>
-				<Link href='/login'>
-					<LoginIcon className={heading.imageICon} />
-					</Link>
+
 					<Link href='/login'>
-					{<a className={heading.a}>login</a>}
+					{<button className={heading.a}><LoginIcon className={heading.imageICon} />login</button>}
 					</Link>
 				<Link href='/shoppingCar'>
 					<ShoppingCartIcon className={heading.imageICon} />

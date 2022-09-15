@@ -15,7 +15,7 @@ export function ProductCard(props: Props) {
 		<div className={card.cardBigBox}>
 			<Image
 				className={card.s}
-				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo/${props.image1}`}
+				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.image1}`}
 				width={200}
 				height={250}
 			/>

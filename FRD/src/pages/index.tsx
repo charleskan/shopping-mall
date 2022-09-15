@@ -98,11 +98,13 @@ const [products, setProduct] = useState<Product[]>([])
 				</div>
 			</Container>
 			<div className={home.bannerBox}>
-			<Image className={home.banner} src={img}/>
+			<Image className={home.banner} src={img}
+			width={3000}
+			height={700}/>
 			<div className={home.titleBox}>
 			<div className={home.title} >Get Leatest Update By Subscribe<br/>
 			Our Newslater</div>
-			<Link href="/login"><a className={home.button}>Shop Now</a></Link>
+			<Link href="/productPage"><a className={home.button}>Shop Now</a></Link>
 			</div>
 			
 		

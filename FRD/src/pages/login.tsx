@@ -50,9 +50,9 @@ const login: NextPage = () => {
 						)
 						if (res.status === 200) {
 							const user =await res.json()
-							dispatch(loggedIn(user.username , user.token))
-							// console.log(user);
-							localStorage.setItem("token",user.token)
+							dispatch(loggedIn(user.user.username , user.token))
+							
+							// localStorage.setItem("token",user.token)
 							
 							router.push('/')
 						} else if (res.status === 400) {

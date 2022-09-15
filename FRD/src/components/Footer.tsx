@@ -30,7 +30,7 @@ export function Footer() {
 					</p>
 				</div>
 
-				<div className={footer.line}>
+				{/* <div className={footer.line}>
 					<h3 className={footer.footertTitle}>Catagories</h3>
 					<Link href='/login'>
 						<a className={footer.link}>Laptops & Computers</a>
@@ -85,7 +85,7 @@ export function Footer() {
 					<Link href='/login'>
 						<a className={footer.link}>Visual Composer Elements</a>
 					</Link>
-				</div>
+				</div> */}
 			</div>
 
 			<div className={footer.bar}>

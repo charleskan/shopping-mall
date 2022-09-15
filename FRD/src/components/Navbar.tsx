@@ -12,22 +12,17 @@ export function Navbar() {
 				</div>
 
 				<div className={navbar.page}>
-					<Link href='/login'>
+					<Link href='/'>
 						<a className={navbar.pages}>Home</a>
 					</Link>
-					<Link href='/login'>
-						<a className={navbar.pages}>Pages</a>
-					</Link>
-					<Link href='/login'>
+					<Link href='/productPage'>
 						<a className={navbar.pages}>Products</a>
 					</Link>
-					<Link href='/login'>
-						<a className={navbar.pages}>Blog</a>
+					<Link href='/AboutUs'>
+						<a className={navbar.pages}>AboutUS</a>
 					</Link>
-					<Link href='/login'>
-						<a className={navbar.pages}>Shop</a>
-					</Link>
-					<Link href='/login'>
+
+					<Link href='/ContactUs'>
 						<a className={navbar.pages}>Contact</a>
 					</Link>
 				</div>
