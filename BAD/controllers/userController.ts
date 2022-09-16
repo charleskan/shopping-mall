@@ -84,6 +84,9 @@ export class UserController {
 
 	login = async (req: express.Request, res: express.Response) => {
 		try {
+
+
+
 			const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
 			
 			let username = req.body.username.trim()
@@ -94,6 +97,7 @@ export class UserController {
 			const payload = {
 				userId: user[0].id,
 			}
+		
 			const token = await new jose.SignJWT(payload) // details to  encode in the token
 				.setProtectedHeader({ alg: 'HS256' }) // algorithm
 				.setIssuedAt()
@@ -105,7 +109,7 @@ export class UserController {
 			// console.log(token)
 			//jwt header
 			res.header('X-C21-TOKEN', token);
-
+			// console.log("login:",token);
 			let invoice = await this.invoiceService.getInvoiceDetailByUserId(
 				user[0].id
 			) //test after create invoice is done
