@@ -15,21 +15,22 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     // get Invoice Info by userId
     // -------------------------------------------------------------------------------------------------------------------
-    async getInvoiceDetailByUserId(userId: number) {
+    async getInvoiceDetailByUserId(userId: number,status_id:number) {
 
-        let invoiceRecord = this.knex
+        let invoiceRecord = await this.knex
             .raw
             (/* SQL */
                 `
             select *
             from "invoice"
             where "user_id" = ?
-            and "status_id" = 1
+            and "status_id" = ?
+            order by "invoiceNumber" desc
             `
-                , [userId]
+                , [userId, status_id]
             )
 
-        return invoiceRecord
+        return invoiceRecord.rows
 
     }
 
@@ -130,7 +131,7 @@ export class InvoiceService {
         {
 
 
-            let invoiceRecord = this.knex<Invoice>('invoice')
+            let invoiceRecord = await this.knex<Invoice>('invoice')
 
                 .update({
                     invoiceNumber: invoiceNumber,
@@ -154,7 +155,7 @@ export class InvoiceService {
 
         {
 
-            let invoiceRecord = this.knex<Invoice>('invoice')
+            let invoiceRecord = await this.knex<Invoice>('invoice')
 
 
                 .update({
@@ -182,7 +183,6 @@ export class InvoiceService {
     ) {
 
         {
-
             //insert
             let productToCartRecord = await this.knex<Invoice_product>('invoice_productDetail')
 
@@ -239,7 +239,7 @@ export class InvoiceService {
                 )
 
 
-            return productInCartRecord
+            return productInCartRecord.rows
         }
 
     }

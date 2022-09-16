@@ -16,6 +16,7 @@ const { createSecretKey } = require('crypto');
 //const { SignJWT } = require('jose-node-cjs-runtime/jwt/sign');
 import * as jose from 'jose'
 import { InvoiceService } from './services/invoiceService';
+import { Status } from './models';
 
 
 const invoiceService = new InvoiceService(knex);
@@ -54,22 +55,21 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 
 		const userId = newUser[0].id
 
-		const addressId = 1
+		const addressId = Status.Active
 		const status_id = 1
 
 		const invoice = await invoiceService.createInvoice(status_id, userId, addressId)
 
+		
+		const payload = {
+			userId: userId,
+			invoiceId: invoice[0].id,
+		}
 		req.user = {
 			userId: userId,
 			invoiceId: invoice[0].id,
 		}
-
-		const payload = {
-			userId: userId,
-			invoiceId: invoice[0].id,
-
-		}
-
+		
 		const token = await new jose.SignJWT(payload) // details to  encode in the token
 			.setProtectedHeader({ alg: 'HS256' }) // algorithm
 			.setIssuedAt()
