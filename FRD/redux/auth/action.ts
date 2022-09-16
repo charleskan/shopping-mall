@@ -1,10 +1,10 @@
 import { AppDispatch } from "../../src/app/store"
 
-export function loggedIn(username: string , token:string) {
+export function loggedIn() {
   return {
     type: '@@auth/LOGGED_IN' as const,
-    username:username,
-    token:token,
+    username: localStorage.getItem("username"),
+    token:localStorage.getItem("token"),
   }
 }
 
@@ -13,9 +13,10 @@ export function loggedOut() {
     type: '@@auth/LOGGED_OUT' as const,
   }
 }
-export function logOUT(){
+export function logOut(){
   return(dispatch:AppDispatch)=>{
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     dispatch(loggedOut());
   }
 }
