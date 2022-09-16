@@ -57,7 +57,6 @@ export class ProductController {
     }
   };
 
-
   // -------------------------------------------------------------------------------------------------------------------
   // get product info
   // -------------------------------------------------------------------------------------------------------------------
@@ -65,9 +64,7 @@ export class ProductController {
   productInfo = async (req: express.Request, res: express.Response) => {
     const productId = Number(req.params.id);
     try {
-      const productInfo = await this.productService.productInfo(
-        productId
-      );
+      const productInfo = await this.productService.productInfo(productId);
       return res.json({
         result: true,
         msg: "Get Product Information success",
@@ -119,8 +116,8 @@ export class ProductController {
           files.image3 != null && !Array.isArray(files.image3)
             ? files.image3.newFilename
             : err;
-			
-		const brand_id =
+
+        const brand_id =
           fields.brand_id != null && !Array.isArray(fields.brand_id)
             ? fields.brand_id
             : err;
@@ -132,8 +129,7 @@ export class ProductController {
           image1,
           image2,
           image3,
-		  brand_id,
-
+          brand_id
         );
         return res.json({ result: true, msg: "create new product success" });
       } catch (err) {
@@ -157,7 +153,7 @@ export class ProductController {
     });
   };
 
-    // -------------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // create ProductDetail
   // -------------------------------------------------------------------------------------------------------------------
 
@@ -180,16 +176,14 @@ export class ProductController {
             : err;
 
         const price =
-		fields.price != null && !Array.isArray(fields.price)
+          fields.price != null && !Array.isArray(fields.price)
             ? fields.price
             : err;
 
         const stock =
-		fields.stock != null && !Array.isArray(fields.stock)
+          fields.stock != null && !Array.isArray(fields.stock)
             ? fields.stock
             : err;
-
-
 
         await this.productService.createProductDetail(
           product_id,
@@ -229,7 +223,8 @@ export class ProductController {
       const productId = Number(req.params.id);
 
       try {
-        const productInfos = (await this.productService.productInfo(productId)).productInfo[0];
+        const productInfos = (await this.productService.productInfo(productId))
+          .productInfo[0];
 
         let oldName = productInfos.name;
         let oldBrand = productInfos.brand_id;
@@ -243,13 +238,13 @@ export class ProductController {
           fields.newName != null && !Array.isArray(fields.newName)
             ? String(fields.newName)
             : oldName;
-			
-		const newBrand =
+
+        const newBrand =
           fields.newBrand != null && !Array.isArray(fields.newBrand)
             ? String(fields.newBrand)
             : oldBrand;
 
-		const newDescription =
+        const newDescription =
           fields.newDescription != null && !Array.isArray(fields.newDescription)
             ? String(fields.newDescription)
             : oldDescription;
@@ -274,17 +269,15 @@ export class ProductController {
             ? String(files.newImage3.newFilename)
             : oldImage3;
 
-
-
-        const productInfo = await this.productService.updateProduct(
+        const productInfo  = await this.productService.updateProduct(
           productId,
           newName,
-		      newBrand,
-		      newDescription,
-		      newIcon,
+          newBrand,
+          newDescription,
+          newIcon,
           newImage1,
           newImage2,
-          newImage3,
+          newImage3
         );
         return res.json({
           result: true,
@@ -301,60 +294,58 @@ export class ProductController {
     });
   };
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // update ProductDetail
+  // -------------------------------------------------------------------------------------------------------------------
 
-	// -------------------------------------------------------------------------------------------------------------------
- 	 // update ProductDetail
-  	// -------------------------------------------------------------------------------------------------------------------
+  updateProductDetail = async (req: express.Request, res: express.Response) => {
+    form.parse(req, async (err, fields, files) => {
+      const productDetailId = Number(req.params.id);
 
-	  updateProductDetail = async (req: express.Request, res: express.Response) => {
-		form.parse(req, async (err, fields, files) => {
-		  const productDetailId = Number(req.params.id);
-	
-		  try {
-			const productInfos = (await this.productService.productDetailInfo(productDetailId)).productDetailInfo[0];
-	
-			let oldPrice = productInfos.price;
-			let oldStock = productInfos.stock;
-			let oldStatus_id = productInfos.status_id;
-	
-			const newPrice =
-			  fields.newPrice != null && !Array.isArray(fields.newPrice)
-				? Number(fields.newPrice)
-				: oldPrice;
-				
-			const newStock =
-			  fields.newStock != null && !Array.isArray(fields.newStock)
-				? Number(fields.newStock)
-				: oldStock;
-	
-			const newStatus_id =  
-			  fields.newStatus_id != null && !Array.isArray(fields.newStatus_id)
-				? Number(fields.newStatus_id)
-				: oldStatus_id;
-	
-	
-	
-			const productInfo = await this.productService.updateProductDetail(
-			  productDetailId,
-			  newPrice,
-			  newStock,
-			  newStatus_id,
-			);
-			return res.json({
-			  result: true,
-			  msg: "Update Product Information success",
-			  productInfo,
-			});
-		  } catch (err) {
-			logger.error(err);
-			return res.json({
-			  result: false,
-			  msg: "Update Product Information fail",
-			});
-		  }
-		});
-	  };
-	
+      try {
+        const productInfos = (
+          await this.productService.productDetailInfo(productDetailId)
+        ).productDetailInfo[0];
+
+        let oldPrice = productInfos.price;
+        let oldStock = productInfos.stock;
+        let oldStatus_id = productInfos.status_id;
+
+        const newPrice =  
+          fields.newPrice != null && !Array.isArray(fields.newPrice)
+            ? Number(fields.newPrice)
+            : oldPrice;
+
+        const newStock =
+          fields.newStock != null && !Array.isArray(fields.newStock)
+            ? Number(fields.newStock)
+            : oldStock;
+
+        const newStatus_id =  
+          fields.newStatus_id != null && !Array.isArray(fields.newStatus_id)
+            ? Number(fields.newStatus_id)
+            : oldStatus_id;
+
+        const productInfo  = await this.productService.updateProductDetail(
+          productDetailId,  
+          newPrice,
+          newStock,
+          newStatus_id
+        );
+        return res.json({
+          result: true,
+          msg: "Update Product Information success",
+          productInfo,
+        });
+      } catch (err) {
+        logger.error(err);
+        return res.json({
+          result: false,
+          msg: "Update Product Information fail",
+        });
+      }
+    });
+  };
 
   // -------------------------------------------------------------------------------------------------------------------
   // create promotion 🤗
@@ -363,15 +354,11 @@ export class ProductController {
   createPromotion = async (req: express.Request, res: express.Response) => {
     form.parse(req, async (err, fields, files) => {
       try {
-        const name =
-          fields.name != null && !Array.isArray(fields.name)
+        const name = fields.name != null && !Array.isArray(fields.name)
             ? fields.name
             : err;
 
-        const promotionInfo = await this.productService.createPromotion(
-          name,
-
-        );
+        const promotionInfo = await this.productService.createPromotion(name);
         return res.json({
           result: true,
           msg: "Create Promotion success",
@@ -385,25 +372,26 @@ export class ProductController {
         });
       }
     });
-    
-  }
+  };
 
   // -------------------------------------------------------------------------------------------------------------------
   // create promotion detail 🤗
   // -------------------------------------------------------------------------------------------------------------------
 
-
-  createPromotionDetail = async (req: express.Request, res: express.Response) => {
+  createPromotionDetail = async (
+    req: express.Request,
+    res: express.Response
+  ) => {
     form.parse(req, async (err, fields, files) => {
       try {
         const promotion_id =
-          fields.name != null && !Array.isArray(fields.promotion_id)
+          fields.promotion_id != null && !Array.isArray(fields.promotion_id)
             ? fields.promotion_id
             : err;
 
-        const product_id =
-          fields.product_id != null && !Array.isArray(fields.product_id)
-            ? fields.product_id
+        const productDetail_id =
+          fields.productDetail_id != null && !Array.isArray(fields.productDetail_id)
+            ? fields.productDetail_id
             : err;
 
         const product_number =
@@ -411,27 +399,24 @@ export class ProductController {
             ? fields.product_number
             : err;
 
-			
-		const freebie_id =
+        const freebie_id =
           fields.freebie_id != null && !Array.isArray(fields.freebie_id)
             ? fields.freebie_id
             : err;
 
-		const freebie_number =
+        const freebie_number =
           fields.freebie_number != null && !Array.isArray(fields.freebie_number)
             ? fields.freebie_number
             : err;
 
-
         await this.productService.createPromotionDetail(
           promotion_id,
-          product_id,
+          productDetail_id,
           product_number,
           freebie_id,
           freebie_number
-
         );
-        return res.json({ result: true, msg: "create new product success" });
+        return res.json({ result: true, msg: "create new PromotionDetail success" });
       } catch (err) {
         // if (err instanceof ProductPriceError) {
         //   return res.status(500).json({
@@ -446,12 +431,32 @@ export class ProductController {
         // }
 
         logger.error(err);
-        res.status(500).json({ result: false, msg: "create product error" });
+        res.status(500).json({ result: false, msg: "create PromotionDetail error" });
 
         return;
       }
     });
   };
+
+
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Delete Promotion By Id 🤗
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  deletePromotionDetail = async (req: express.Request, res: express.Response) => {
+    form.parse(req, async (err, fields, files) => {
+    try {
+      const promotionDetailId = Number(req.params.id);
+      await this.productService.deletePromotionDetail(promotionDetailId);
+      return res.json({ result: true, msg: "Delete PromotionDetail success" });
+    } catch (err) {
+      logger.error(err);
+      return res.json({ result: false, msg: "Delete PromotionDetail fail" });
+    }
+  });
+  };
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // search productIdByName
@@ -462,19 +467,20 @@ export class ProductController {
   ) => {
     try {
       const keyword = String(req.query.keyword);
-      const productInfos = await this.productService.productByName(
-        keyword
-      );
+      const productInfos = await this.productService.productByName(keyword);
 
       // console.log(productId)
       return res.json({
         result: true,
         msg: "Search Product List by Name success",
-        ProductList:productInfos,
+        ProductList: productInfos,
       });
     } catch (err) {
       logger.error(err);
-      return res.json({ result: false, msg: "Search Product List by Name Fail" });
+      return res.json({
+        result: false,
+        msg: "Search Product List by Name Fail",
+      });
     }
   };
 
@@ -486,9 +492,10 @@ export class ProductController {
     req: express.Request,
     res: express.Response
   ) => {
+    
     try {
       const product_id = Number(req.params.id);
-      const productId = await this.productService.productDetailByProductId(
+      const productDetail = await this.productService.productDetailByProductId(
         product_id
       );
 
@@ -496,32 +503,83 @@ export class ProductController {
       return res.json({
         result: true,
         msg: "Search ProductDetail  by product_id success",
-        productId,
+        productDetail
       });
     } catch (err) {
       logger.error(err);
-      return res.json({ result: false, msg: "Search ProductDetail  by product_id Fail" });
+      return res.json({
+        result: false,
+        msg: "Search ProductDetail  by product_id Fail",
+      });
     }
+  };
+
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // get productDetailByproductId
+  // -------------------------------------------------------------------------------------------------------------------
+
+  productDetailByColorAndSize = async (
+    req: express.Request,
+    res: express.Response
+  ) => {
+    form.parse(req, async (err, fields, files) => {
+    try {
+      const product_id = Number(req.params.id);
+
+      const productColor =
+          fields.productColor != null && !Array.isArray(fields.productColor)
+            ? fields.productColor
+            : err;
+
+
+      const productSize =
+          fields.productSize != null && !Array.isArray(fields.productSize)
+            ? fields.productSize
+            : err;
+
+
+
+      const productDetail = await this.productService.productDetailByColorAndSize(
+        product_id,
+        productColor,
+        productSize
+      );
+
+      // console.log(productId)
+      return res.json({
+        result: true,
+        msg: "Search ProductDetail  by ColorAndSize success",
+        productDetail
+      });
+    } catch (err) {
+      logger.error(err);
+      return res.json({
+        result: false,
+        msg: "Search ProductDetail  by ColorAndSize Fail",
+      });
+    }
+  });
   };
 
   // -------------------------------------------------------------------------------------------------------------------
   // get productIdByName（未用到）
   // -------------------------------------------------------------------------------------------------------------------
-//   productIdByName = async (req: express.Request, res: express.Response) => {
-//     try {
-//       const product = String(req.query.product);
+  //   productIdByName = async (req: express.Request, res: express.Response) => {
+  //     try {
+  //       const product = String(req.query.product);
 
-//       const productId = await this.productService.productDetailByName(product);
+  //       const productId = await this.productService.productDetailByName(product);
 
-//       // console.log(productId)
-//       return res.json({
-//         result: true,
-//         msg: "Get Product Id by Name success",
-//         productId,
-//       });
-//     } catch (err) {
-//       logger.error(err);
-//       return res.json({ result: false, msg: "Get Product ID by Name Fail" });
-//     }
-//   };
+  //       // console.log(productId)
+  //       return res.json({
+  //         result: true,
+  //         msg: "Get Product Id by Name success",
+  //         productId,
+  //       });
+  //     } catch (err) {
+  //       logger.error(err);
+  //       return res.json({ result: false, msg: "Get Product ID by Name Fail" });
+  //     }
+  //   };
 }

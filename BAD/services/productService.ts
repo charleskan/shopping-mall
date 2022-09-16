@@ -34,7 +34,6 @@ export class ProductService {
       const ProductList = await this.knex<Product>("product").select("*");
       // `SELECT * FROM product INNER JOIN product_color pc ON
       // product.id = pc.product_id`
-      
 
       return ProductList;
     }
@@ -295,16 +294,16 @@ export class ProductService {
 
   async createPromotionDetail(
     promotion_id: number,
-    product_id: number,
+    productDetail_id: number,
     product_number: number,
     freebie_id: number,
     freebie_number: number
   ) {
     {
-      const promotionDetails = await this.knex("promotion_product")
+      const promotionDetails = await this.knex("promotion_productDetail")
         .insert({
           promotion_id: promotion_id,
-          product_id: product_id,
+          productDetail_id: productDetail_id,
           product_number: product_number,
           freebie_id: freebie_id,
           freebie_number: freebie_number,
@@ -319,15 +318,14 @@ export class ProductService {
   // delete promotion details by promotionId (promotion_product)
   // -------------------------------------------------------------------------------------------------------------------
 
-  async deletePromotionDetail(
-    promotionDetailID: number 
-  ) {
+  async deletePromotionDetail(promotionDetailId: number) {
     {
       const promotionDetails = await this.knex.raw(
         /*sql */
-        `delete from promotion_product where id = ?`,[promotionDetailID]
-      )      
-      
+        `delete from "promotion_productDetail" where id = ?`,
+        [promotionDetailId]
+      );
+
       // ("promotion_product")
       // .returning("*");
 
@@ -377,21 +375,83 @@ export class ProductService {
 
   async productDetailByProductId(product_id: number) {
     {
+    //   const productDetailInfo = await this.knex.raw(
+    //     /*sql */
+    //     `
+    //     select  * from "productDetail" where product_id = ? 
+		// `,
+    //     [product_id]
+    //   );
+
+      const productDetailColor = await this.knex.raw(
+        /*sql */
+      `select "name"  from "color" inner join "productDetail" 
+      on "color".id = "productDetail".color_id where "productDetail".product_id = ?  group by color.id `,[product_id])
+
+
+      const productDetailSize = await this.knex.raw(
+        /*sql */
+      `select "name"  from "size" inner join "productDetail"
+      on "size".id = "productDetail".size_id where "productDetail".product_id = ?  group by size.id `,[product_id])
+
+      return {productDetailColor,productDetailSize};
+    }
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // search productDetailByColorAndSize
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async productDetailByColorAndSize(
+    product_id: number,
+    productColor: String,
+    productSize: String
+  ) {
+    {
       //   const productInfo = await this.knex.raw(
       //     /*sql */
       //     `SELECT id FROM product WHERE name ILIKE ? order by updated_at desc`,
       //     ["%" +  + "%"]
       //   );
 
-      const productDetailInfo = await this.knex.raw(
+      const productColor_id = await this.knex.raw(
+        /*sql */
+        `select "id" 
+        from "color" 
+        where "name" ILIKE ?`,
+        [productColor])
+
+        // console.log(productColor_id.rows[0].id);
+        
+
+      const productSize_id = await this.knex.raw(
+        /*sql */
+        `select id from "size" s  where  "name" Ilike ?`,
+        [productSize])
+
+
+        // console.log(productSize_id);
+        
+
+
+      const productPrice = await this.knex.raw(
         /*sql */
         `
-        select * from "productDetail" where "product_id" = ? and "status_id" = 1
-		    `
-          ,[product_id]
+        select "price" from "productDetail" where "product_id" = ? and "color_id" = ? and "size_id" = ?
+		`,
+        [product_id, productColor_id.rows[0].id, productSize_id.rows[0].id]
       );
 
-      return productDetailInfo;
+      const productStock = await this.knex.raw(
+        /*sql */
+        `
+        select "stock" from "productDetail" where "product_id" = ? and "color_id" = ? and "size_id" = ?
+		`,
+        [product_id, productColor_id.rows[0].id, productSize_id.rows[0].id]
+      );
+      
+
+      return {productPrice,productStock};
     }
   }
 
@@ -414,5 +474,3 @@ export class ProductService {
   //     }
   //   }
 }
-
-
