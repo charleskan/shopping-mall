@@ -10,7 +10,7 @@ describe('Invoice Controller Test', () => {
         const invoiceController = new InvoiceController(
             {} as any,
             InvoiceService as any,
-        );
+        ); 
 
         const res = {
             json: jest.fn()

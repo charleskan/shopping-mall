@@ -3,7 +3,6 @@
 // -------------------------------------------------------------------------------------------------------------------
 import express from "express";
 import { logger } from "./logger";
-import grant from "grant";
 import dotenv from "dotenv";
 import { UserService } from "./services/userService";
 import { UserController } from "./controllers/userController";
@@ -50,23 +49,6 @@ app.use(
 
 const PORT = process.env.PORT || 8000;
 
-
-// //grant
-const grantExpress = grant.express({
-  defaults: {
-    origin: "http://localhost:8080",
-    transport: "session",
-    state: true,
-  },
-  google: {
-    key: process.env.GOOGLE_CLIENT_ID || "",
-    secret: process.env.GOOGLE_CLIENT_SECRET || "",
-    scope: ["profile", "email"],
-    callback: "/login/google",
-  },
-});
-
-app.use(grantExpress as express.RequestHandler);
 // -------------------------------------------------------------------------------------------------------------------
 // others
 // -------------------------------------------------------------------------------------------------------------------

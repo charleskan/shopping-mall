@@ -11,9 +11,9 @@ export class ProfileController {
 	// get User Info
 	// -------------------------------------------------------------------------------------------------------------------
 	userInfo = async (req: express.Request, res: express.Response) => {
-		const userId = req.session['user']
 		
 		try {
+			const userId = req.user!.userId
 			const userInfo = await this.profileService.userInfo(userId)
 			return res.json({
 				result: true,
@@ -34,16 +34,12 @@ export class ProfileController {
 	editUser = async (req: express.Request, res: express.Response) => {
 		form.parse(req, async (err, fields, files) => {
 			try {
-				const userId = req.session['user']
-				
-				
-
+				const userId = req.user!.userId
 				const userInfos = await this.profileService.userInfo(userId)
 				let oldNickname = userInfos.user[0].nickname
 				let oldIcon = userInfos.user[0].icon
-				console.log(userInfos);
+				// console.log(userInfos);
 				
-
 				const newIcon =
 					files.icon != null && !Array.isArray(files.icon)
 						? files.icon.newFilename
@@ -77,11 +73,11 @@ export class ProfileController {
 	// -------------------------------------------------------------------------------------------------------------------
 
 	deleteUser = async (req: express.Request, res: express.Response) => {
-		const adminId = req.session['user']
-		let result = await this.profileService.userInfo(adminId)
-		let deleteUserId = parseInt(req.params.id)
-
+		
 		try {
+			const adminId = req.user!.userId
+			let result = await this.profileService.userInfo(adminId)
+			let deleteUserId = parseInt(req.params.id)
 			if (isAdmin(result[0].role_id)) {
 				await this.profileService.deleteUser(deleteUserId)
 				return res.json({

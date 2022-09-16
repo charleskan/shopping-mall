@@ -15,7 +15,7 @@ export function createInvoiceRoutes(invoiceController: InvoiceController) {
 	invoiceRoutes.delete('/cart/:id', invoiceController.deleteProductFromCart)
 	// invoiceRoutes.put('/cart/:id', invoiceController.updateProductInCart)
 	// invoiceRoutes.get('/cart/:id', invoiceController.getProductInCart)
-	invoiceRoutes.get('/cart', invoiceController.getAllProductInCart)
+	invoiceRoutes.get('/cart', userMiddleware, invoiceController.getAllProductInCart)
 	invoiceRoutes.get('/freebie', invoiceController.checkFreebieInCart)
 	invoiceRoutes.get('/totalPrice', invoiceController.getTotalPrice)
 	invoiceRoutes.delete('/minusProductInCart/:id', invoiceController.minusProductInCart)
