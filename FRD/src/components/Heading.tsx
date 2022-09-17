@@ -7,44 +7,45 @@ import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
 import { useAppSelector } from '../app/store'
 
-
 export function Heading() {
-const [users, setUsers] = useState<any[]>([])
-const token = useAppSelector (state => state.auth.token)
-const username:any = useAppSelector (state => state.auth.username)
+	const token = useAppSelector((state) => state.auth.token)
+	const username: any = useAppSelector((state) => state.auth.username)
+	const [users, setUsers] = useState('')
+	console.log('token:', username, token)
 
-console.log("token:",username);
+	async function main() {
+		setUsers(username)
+		console.log('main')
+	}
 
-async function main(){
-
-	setUsers(username)
-
-	
-}
-
-
-
-useEffect(() => {
-	if(token){main()}
-	
-}, [])
-
+	useEffect(() => {
+		main()
+	}, [token, username, users])
 
 	return (
 		<div className={heading.color}>
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
 
-				{username &&<a className={heading.a}>{users}</a>}
-
-				<PhoneIcon className={heading.imageICon} />
-				<a className={heading.a}>12312123</a>
+				{username === undefined || (
+					<div className={heading.a}>{users}</div>
+				)}
 			</div>
 			<div className={heading.center}>
-
+				{username === undefined ? (
 					<Link href='/login'>
-					{<button className={heading.a}><LoginIcon className={heading.imageICon} />login</button>}
+						<button className={heading.a}>
+							<LoginIcon className={heading.imageICon} />
+							login
+						</button>
 					</Link>
+				) : (
+					<button className={heading.a}>
+						<LoginIcon className={heading.imageICon} />
+						logout
+					</button>
+				)}
+
 				<Link href='/shoppingCar'>
 					<ShoppingCartIcon className={heading.imageICon} />
 				</Link>

@@ -8,10 +8,7 @@ import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
 import { loggedIn } from '../../redux/auth/action'
-import {  useDispatch } from 'react-redux'
-
-
-
+import { useDispatch } from 'react-redux'
 
 const login: NextPage = () => {
 	const [username, setUsername] = useState('')
@@ -19,7 +16,6 @@ const login: NextPage = () => {
 	const [error, setError] = useState('')
 	const dispatch = useDispatch()
 	const router = useRouter()
-
 
 	return (
 		<div>
@@ -49,11 +45,11 @@ const login: NextPage = () => {
 							}
 						)
 						if (res.status === 200) {
-							const user =await res.json()
-							dispatch(loggedIn(user.user.username , user.token))
-							
-							// localStorage.setItem("token",user.token)
-							
+							const user = await res.json()
+
+							localStorage.setItem('token', user.token)
+							localStorage.setItem('username', user.user.username)
+							dispatch(loggedIn())
 							router.push('/')
 						} else if (res.status === 400) {
 							setError('Password Error')

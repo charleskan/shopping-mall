@@ -7,18 +7,17 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  username: null,
-  loggedIn: null,
-  token : null
-}
+  username:typeof window !== 'undefined' ? localStorage.getItem('username') :null,
+  loggedIn: typeof window !== 'undefined' ? (localStorage.getItem('token') !=null):null,
+  token : typeof window !== 'undefined' ? localStorage.getItem('token'):null}
 
 export function authReducer(state: AuthState = initialState, action: AuthActions): AuthState {
   switch (action.type) {
     case '@@auth/LOGGED_IN':
       return {
         ...state,
-        username: action.username,
-        token :action.token,
+        username: localStorage.getItem("username"),
+        token :	localStorage.getItem("token"),
         loggedIn: true
       };
     case '@@auth/LOGGED_OUT':
