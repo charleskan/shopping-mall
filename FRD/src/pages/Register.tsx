@@ -33,7 +33,7 @@ const Register: NextPage = () => {
 					className={loginStyles.loginForm}
 					action='/send-data-here'
 					method='post'
-					onSubmit={handleSubmit(async (data) => {
+					onSubmit={handleSubmit(async (data:any) => {
 						const formObject :any={}
 						formObject['username']= data.username
 						formObject['password']=data.password

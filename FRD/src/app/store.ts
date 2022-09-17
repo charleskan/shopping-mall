@@ -4,6 +4,7 @@ import { authReducer } from "../../redux/auth/reducer";
 
 const reducers = combineReducers({
   auth: authReducer,
+  
 
 })
 
