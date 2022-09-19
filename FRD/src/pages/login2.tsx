@@ -7,16 +7,19 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
-import { loggedIn } from '../redux/auth/action'
-import { useDispatch } from 'react-redux'
+import { loginSucceeded, login } from '../redux/auth2/action'
+import React, { useEffect } from 'react';
+import { useAppDispatch } from '../store'
 
-const login: NextPage = () => {
+const login2: NextPage = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const router = useRouter()
 
+
+	
 	return (
 		<div>
 			<Heading />
@@ -46,11 +49,13 @@ const login: NextPage = () => {
 						)
 						if (res.status === 200) {
 							const user = await res.json()
+							const token2 = localStorage.getItem('token2')
 
-							localStorage.setItem('token', user.token)
-							localStorage.setItem('username', user.user.username)
-							dispatch(loggedIn())
-							router.push('/')
+							if (token2 != null) {
+								dispatch(login(token2));
+							  }
+							router.push('/');
+
 						} else if (res.status === 400) {
 							setError('Password Error')
 						} else if (res.status === 404) {
@@ -95,4 +100,4 @@ const login: NextPage = () => {
 	)
 }
 
-export default login
+export default login2

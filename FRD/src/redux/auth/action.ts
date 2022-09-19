@@ -1,5 +1,14 @@
-import { LineAxisOutlined } from "@mui/icons-material";
-import { AppDispatch } from "../../src/app/store"
+
+import { AppDispatch } from "../../store"
+import axios, { AxiosResponse } from "axios";
+
+export function checkResponse(res: AxiosResponse<any, any>) {
+  return (dispatch: AppDispatch) => {
+    if (res.status === 401) {
+      dispatch(loggedIn())
+    }
+  }
+}
 
 export function loggedIn() {
   return {
@@ -15,17 +24,6 @@ export function loggedOut() {
   }
 }
 
-// export function login(res: Response, username: string, token: string) {
-//   return async (dispatch: AppDispatch) => {
-
-//     if (res.headers.get("X-C21-TOKEN") !== null) {
-//       const token = localStorage.setItem("token", res.headers.get("X-C21-TOKEN")!);
-//     }
-
-//     dispatch(loggedIn(username, token));
-//   }
-// }
-
 export function logOut() {
   return (dispatch: AppDispatch) => {
     localStorage.removeItem("token");
@@ -38,4 +36,4 @@ export type LoggedInAction = ReturnType<typeof loggedIn>
 
 export type LoggedOutAction = ReturnType<typeof loggedOut>
 
-export type AuthActions = LoggedInAction | LoggedOutAction
+export type AuthActions = LoggedInAction | LoggedOutAction 

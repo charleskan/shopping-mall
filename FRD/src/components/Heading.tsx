@@ -5,11 +5,12 @@ import LoginIcon from '@mui/icons-material/Login'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
-import { useAppSelector } from '../app/store'
+import { useAppSelector } from '../store'
 
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
 	const username: any = useAppSelector((state) => state.auth.username)
+	const logout = useAppSelector((state) => state.auth.logout)
 	const [users, setUsers] = useState('')
 	console.log('token:', username, token)
 
@@ -20,7 +21,7 @@ export function Heading() {
 
 	useEffect(() => {
 		main()
-	}, [token, username, users])
+	}, [token, username, users, logout])
 
 	return (
 		<div className={heading.color}>
@@ -37,13 +38,16 @@ export function Heading() {
 						<button className={heading.a}>
 							<LoginIcon className={heading.imageICon} />
 							login
-						</button>
+						</button>  
 					</Link>
 				) : (
-					<button className={heading.a}>
+					<button className={heading.a}
+					>
 						<LoginIcon className={heading.imageICon} />
 						logout
+						
 					</button>
+						
 				)}
 
 				<Link href='/shoppingCar'>

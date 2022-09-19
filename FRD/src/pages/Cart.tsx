@@ -3,13 +3,39 @@ import Head from 'next/head'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
+import React, { useEffect, useState } from 'react';
+import { loadCart } from '../redux/cart/action';
+import { login } from '../redux/auth2/action';
+import { useAppSelector, useAppDispatch } from '../store';
+import { LoadingState } from '../models'
+import { loadOneProduct } from '../redux/product/action'
+import Skeleton from 'react-loading-skeleton'
+import { Container } from '@mui/material'
+import home from '../styles/Index.module.css'
+import styles from '../styles/Home.module.css'
+import cartItem from '../components/CartItem'
+
 
 
 
 const Cart: NextPage = () => {
+
+	const cartLoaded = useAppSelector(state => state.cart.loading)
+	const carts = useAppSelector(state => state.cart.products)
+	// const products = useAppSelector(state => state.product.products)
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		// for (const cart of carts) {
+		  dispatch(loadCart())
+		// }
+	  }, [])
+
 	return (
-        
-		<div>
+
+	<>
+			<Heading />
+			<Navbar />
 			<Head>
 				<title>Create Next App</title>
 				<meta
@@ -18,14 +44,27 @@ const Cart: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Heading />
-			<Navbar />
+				<>
+				{console.log('carts:',carts)}
+				{/* {console.log('cartLoaded:',cartLoaded ,)} */}
+				</>
+				
+
+					
+					{
+						// cartLoaded !== LoadingState.Loaded ? <Skeleton count={1} /> :
+						
+						carts.map(cartList => (<div>{cartList.color_id}</div>))
+							
+}
+
+
 
 
 
 
 			<Footer />
-		</div>
+	</>
 	)
 }
 

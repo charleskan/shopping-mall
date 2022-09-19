@@ -12,6 +12,9 @@ import logo2 from '../pages/photo/aboutus2.png'
 import logo3 from '../pages/photo/aboutus3.png'
 import logo4 from '../pages/photo/aboutus4.png'
 
+
+
+
 const AboutUs: NextPage = () => {
 	return (
 		<div>
