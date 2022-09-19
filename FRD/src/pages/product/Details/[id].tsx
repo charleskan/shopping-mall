@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
-import { Navbar } from '../components/Navbar'
-import { HeadTitle } from '../components/HeadTitle'
-import { Heading } from '../components/Heading'
-import { Footer } from '../components/Footer'
-import { DetailBox2 } from '../components/detailBox2'
+import { Navbar } from '../../../components/Navbar'
+import { HeadTitle } from '../../../components/HeadTitle'
+import { Heading } from '../../../components/Heading'
+import { Footer } from '../../../components/Footer'
+import { DetailBox2 } from '../../../components/detailBox2'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import {  useRouter } from 'next/router'
 
 
 interface product {
@@ -20,16 +20,20 @@ interface product {
 
 
 const ProductDetails: NextPage = () => {
-	
+
+	const router = useRouter()
+	const { id } = router.query
 	
 	const [product, setProduct] = useState<product []>([])
 
 	async function fetchProduct() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${useParams}`
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
 		)
-		let product = (await res.json()).productDetailByproductId
+		let product = (await res.json()).productInfo.productInfo
 		setProduct(product)
-	}{}
+
+		console.log(product)
+	}
 
 	useEffect(()=>{
 		fetchProduct()

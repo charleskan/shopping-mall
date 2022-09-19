@@ -2,21 +2,53 @@ import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
 import Image from 'next/image'
 import Link from 'next/link'
-import Watch from '../uploads/watch.png'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
-export default function ProductList() {
+interface props {
+	  id: number
+	  name: string
+	  icon: string
+	  description: string
+}
+
+export function GotoProductDetail(props: props) {
+    const router = useRouter()
+    const handleSubmit = (e:any) => {
+
+        e.preventDefault()
+        router.push(`/product/Details/${props.id}`)
+    }
+    return(
+        <div>
+            <form onSubmit={handleSubmit}>
+				<Button variant="contained"  className='btn' type="submit">Details</Button>
+            </form>
+        </div>
+    )
+}
+
+
+
+export default function ProductList(props: props) {
 	return (
 		<Wrapper>
 			<article>
 				<Link href='/products'>
-					<Image src={Watch} />
+					<Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
+					width={200}
+					height={250} />
 				</Link>
 
 				<div>
-					<h4>Product Name</h4>
+					<h4>{props.name}</h4>
 					<h5>Product Price</h5>
-					<p>Cutie bear pure cotton t-shirt from Japan....Description</p>
-                    <Button variant="contained" href='/productsInfo' className='btn'>Details</Button>
+					<p>{props.description}</p>
+					<GotoProductDetail 
+						id={props.id}
+						name=''
+						icon=''
+						description=''/>
 				</div>
 			</article>
 		</Wrapper>
