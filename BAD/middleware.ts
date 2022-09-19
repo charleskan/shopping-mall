@@ -42,6 +42,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			userId: payload.userId as any,
 			invoiceId: payload.invoiceId as any
 		}
+		// res.status(401).json({ token: token })
 
 		next();
 
@@ -79,7 +80,9 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			.sign(secretKey); // secretKey generated from previous step
 
 		// console.log(token)
-		res.header('X-C21-TOKEN', token);
+		// res.header('X-C21-TOKEN', token);
+		res.status(401).json({ token: token })
+		console.log('訪客')
 
 		next()
 	}
