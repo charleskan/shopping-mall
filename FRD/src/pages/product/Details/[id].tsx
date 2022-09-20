@@ -26,24 +26,30 @@ interface productOption {
 }
 
 const ProductDetails: NextPage = () => {
+
 	const router = useRouter()
 	const { id } = router.query
-
-	const [product, setProduct] = useState<product[]>([])
+	
+	const [product, setProduct] = useState<product []>([])
 
 	async function fetchProduct() {
-		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
 		)
-		let product = (await res.json()).productInfo.productInfo
+		let product = ((await res.json()).productInfo).productInfo
 		setProduct(product)
 
 		console.log(product)
 	}
 
-	useEffect(() => {
-		fetchProduct()
-	}, [setProduct])
+	useEffect(()=>{
+		
+		if(router.isReady){
+			const { id } = router.query
+			console.log(id);
+			
+			fetchProduct()
+		}
+	},[[router.isReady],setProduct])
 
 	return (
 		<>

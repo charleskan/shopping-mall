@@ -23,6 +23,20 @@ export function AddToCart(props: props) {
 					/>
 				</RadioGroup>
 			</FormControl>
+			<FormControl>
+				<FormLabel id='demo-radio-buttons-group-label'>
+					Size
+				</FormLabel>
+				<RadioGroup
+					aria-labelledby='demo-radio-buttons-group-label'
+					name='radio-buttons-group'>
+					<FormControlLabel
+						value={props.size}
+						control={<Radio />}
+						label={props.size}
+					/>
+				</RadioGroup>
+			</FormControl>
 		</div>
 	)
 }

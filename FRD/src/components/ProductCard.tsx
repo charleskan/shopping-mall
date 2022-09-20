@@ -1,6 +1,7 @@
 import card from '../styles/ProductCard.module.css'
 import Image from 'next/image'
 import { Link } from 'react-router-dom'
+import { useRouter } from 'next/router'
 
 
 interface Props {
