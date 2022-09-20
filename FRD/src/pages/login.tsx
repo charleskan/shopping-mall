@@ -70,7 +70,7 @@ const login: NextPage = () => {
 						placeholder='Email Address'
 						value={username}
 						onChange={(e) => setUsername(e.currentTarget.value)}
-					/>
+				/>
 					<input
 						className={loginStyles.textBox}
 						type='text'

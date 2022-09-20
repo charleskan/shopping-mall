@@ -451,6 +451,8 @@ export class InvoiceService {
                     `
                     , [productId, colorId, sizeId]
                 )
+                console.log('getProductPrice: ', getProductPrice.rows[0]);
+                
 
             return getProductPrice.rows[0]
         } catch (error) {

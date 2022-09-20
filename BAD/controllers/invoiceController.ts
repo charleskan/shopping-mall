@@ -160,7 +160,9 @@ export class InvoiceController {
 
             // const invoiceId = invoice[0].id
 
-            // console.log(productId)
+            // console.log('productId: ',productId)
+            // console.log('colorId: ',colorId)
+            // console.log('sizeId: ',sizeId)
             const productQuantity = 1
 
             const productDetail = (await this.invoiceService.getSingleProductDetail
@@ -170,7 +172,7 @@ export class InvoiceController {
                     sizeId,
 
                 ))
-            // console.log(productPrice)
+            // console.log('productDetail: ', productDetail)
 
             const productRecord = await this.invoiceService.addProductToCart(
                 invoiceId,

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AppDispatch } from "../../store"
 import { checkResponse, loggedIn, logIn } from "../auth/action"
-import { Product } from "./state";
 
 
 export function loadedCart(products: []) {
@@ -11,28 +10,33 @@ export function loadedCart(products: []) {
     }
 }
 
-export function addToCart(product: Product) {
+export function addToCart(
+    productId: number,
+    colorId: number,
+    sizeId: number) {
     return {
         type: '@@cart/ADD_TO_CART' as const,
-        product
+        productId,
+        colorId,
+        sizeId
     }
 }
 
-// export function removeFromCart(products: number) {
-//     return {
-//       type: '@@cart/REMOVE_FROM_CART' as const,
-//       productId
-//     }
-//   }
+export function removeFromCart(productId: number) {
+    return {
+        type: '@@cart/REMOVE_FROM_CART' as const,
+        productId
+    }
+}
 
 
 
 type LoadedCartAction = ReturnType<typeof loadedCart>
 type AddToCartAction = ReturnType<typeof addToCart>
-// type RemoveToCartAction = ReturnType<typeof removeFromCart>
+type RemoveToCartAction = ReturnType<typeof removeFromCart>
 
-export type CartActions = LoadedCartAction | AddToCartAction 
-// export type CartActions = LoadedCartAction | AddToCartAction | RemoveToCartAction
+// export type CartActions = LoadedCartAction | AddToCartAction 
+export type CartActions = LoadedCartAction | AddToCartAction | RemoveToCartAction
 
 export function loadCart() {
     return async (dispatch: AppDispatch) => {
@@ -59,29 +63,44 @@ export function loadCart() {
     }
 }
 
-export function fetchAddToCart(product: Product) {
+export function fetchAddToCart(
+    productId: number,
+    colorId: number,
+    sizeId: number,
+) {
     return async (dispatch: AppDispatch) => {
-        dispatch(addToCart(product))
+        dispatch(addToCart(productId,
+            colorId,
+            sizeId))
 
         try {
             // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-            //     product: product
+            //     productId: productId,
+            //     colorId: colorId,
+            //     sizeId: sizeId
             // })
-            const res = await fetch (`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, 
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({
-                    product: product
-
-            })
-        })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        productId,
+                        colorId,
+                        sizeId,
+                    })
+                })
+                console.log(res);
+                
             const data = await res.json()
 
-            dispatch(checkResponse(data))
+            if (res.status === 401) {
+                dispatch(logIn(data))
+            }
+
+            // dispatch(checkResponse(data))
         } catch (e) {
             // dispatch(removeFromCart(productId));
             dispatch(loadCart())
