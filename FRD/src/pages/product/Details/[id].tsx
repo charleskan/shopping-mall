@@ -6,7 +6,11 @@ import { Footer } from '../../../components/Footer'
 import { DetailBox2 } from '../../../components/detailBox2'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { AddToCart } from '../../../components/AddToCart'
+// import { AddToCart } from '../../../components/AddToCart'
+// import { useAppSelector } from '../../../store'
+// import loginStyles from '../styles/Login.module.css'
+import { useDispatch } from 'react-redux'
+import { fetchAddToCart } from '../../../redux/cart/action'
 
 interface product {
 	id: number
@@ -28,8 +32,12 @@ const ProductDetails: NextPage = () => {
 
 	const router = useRouter()
 	const { id } = router.query
-	
-	const [product, setProduct] = useState<product []>([])
+	// const carts = useAppSelector(state => state.cart.productIds)
+
+	const [colorId, setColorId] = useState('')
+	const [sizeId, setSizeId] = useState('')
+	const [product, setProduct] = useState<product[]>([])
+	const dispatch = useDispatch()
 
 	async function fetchProduct() {
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
@@ -39,16 +47,14 @@ const ProductDetails: NextPage = () => {
 
 		console.log(product)
 	}
+	useEffect(() => {
+		if (router.isReady) {
+			const query = router.query.id
+			const id = Number(query)
 
-	useEffect(()=>{
-		
-		if(router.isReady){
-			const { id } = router.query
-			console.log(id);
-			
 			fetchProduct()
 		}
-	},[[router.isReady],setProduct])
+	}, [setProduct, router.isReady])
 
 	return (
 		<>
@@ -66,9 +72,37 @@ const ProductDetails: NextPage = () => {
 					Brand={product.Brand}
 				/>
 			))}
-			{product.map((product) => (
+			{/* {product.map((product) => (
 			<AddToCart id={product.id} color='' size=''/>
-			))}
+			))} */}
+			<form>
+				<input
+					type='text'
+					placeholder='colorId'
+					value={colorId}
+					onChange={(e) => setColorId(e.currentTarget.value)}
+				/>
+				<input
+					type='text'
+					placeholder='sizeId'
+					value={sizeId}
+					onChange={(e) => setSizeId(e.currentTarget.value)}
+				/>
+			<button type='submit'
+			onClick={(e) => {
+				e.preventDefault()
+				dispatch<any>(fetchAddToCart(
+					Number(id),
+					Number(colorId),
+					Number(sizeId)))
+
+				
+			}}
+			>
+				Add to Cart
+			</button>
+			</form>
+
 			<Footer />
 		</>
 	)

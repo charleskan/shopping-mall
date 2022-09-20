@@ -5,7 +5,6 @@ import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import React, { useEffect, useState } from 'react';
 import { loadCart } from '../redux/cart/action';
-import { login } from '../redux/auth2/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'

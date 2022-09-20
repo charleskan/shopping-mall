@@ -10,6 +10,7 @@ import { logOut } from '../redux/auth/action'
 
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
+	const cartCount = useAppSelector(state => state.cart.productDetailIds)
 
 	const [username, setUsername] = useState<string | null>(null);
 	useEffect(() => {
@@ -56,8 +57,9 @@ export function Heading() {
 				)}
 
 				<Link href='/shoppingCar'>
-					<ShoppingCartIcon className={heading.imageICon} />
+					<ShoppingCartIcon className={heading.imageICon}/>
 				</Link>
+					{cartCount.length}
 			</div>
 		</div>
 	)

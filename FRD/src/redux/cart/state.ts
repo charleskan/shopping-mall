@@ -1,12 +1,10 @@
 import { LoadingState } from "../../models";
 
 
-export interface  Product {
-    product: string,
-    color: string,
-    size: string,
-    price: number,
-    number: string,
+export interface  productDetailId {
+    productId: number,
+    colorId: number,
+    sizeId: number,
 }
 export interface  ProductInCart {
     product: string,
@@ -19,6 +17,7 @@ export interface  ProductInCart {
 }
 export interface CartState {
     // product: Product,
+    productDetailIds: productDetailId[],
     products:ProductInCart[],
     loading: LoadingState;
 
