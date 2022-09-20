@@ -30,6 +30,7 @@ export function logIn(data:any) {
   return (dispatch: AppDispatch) => {
     localStorage.setItem('token', data.token)
     localStorage.setItem('username', data.username)
+    
     dispatch(loggedIn());
   }
 }

@@ -9,8 +9,9 @@ import { useRouter } from 'next/router'
 // import { AddToCart } from '../../../components/AddToCart'
 // import { useAppSelector } from '../../../store'
 // import loginStyles from '../styles/Login.module.css'
-import { useDispatch } from 'react-redux'
+
 import { fetchAddToCart } from '../../../redux/cart/action'
+import { useAppDispatch } from '../../../store'
 
 interface product {
 	id: number
@@ -37,7 +38,7 @@ const ProductDetails: NextPage = () => {
 	const [colorId, setColorId] = useState('')
 	const [sizeId, setSizeId] = useState('')
 	const [product, setProduct] = useState<product[]>([])
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	async function fetchProduct() {
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
@@ -91,12 +92,10 @@ const ProductDetails: NextPage = () => {
 			<button type='submit'
 			onClick={(e) => {
 				e.preventDefault()
-				dispatch<any>(fetchAddToCart(
+				dispatch(fetchAddToCart(
 					Number(id),
 					Number(colorId),
 					Number(sizeId)))
-
-				
 			}}
 			>
 				Add to Cart

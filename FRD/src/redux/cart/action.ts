@@ -69,9 +69,12 @@ export function fetchAddToCart(
     sizeId: number,
 ) {
     return async (dispatch: AppDispatch) => {
-        dispatch(addToCart(productId,
+        dispatch(addToCart
+            (
+            productId,
             colorId,
-            sizeId))
+            sizeId
+            ))
 
         try {
             // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
@@ -90,6 +93,51 @@ export function fetchAddToCart(
                         productId,
                         colorId,
                         sizeId,
+                    })
+                })
+                console.log(res);
+                
+            const data = await res.json()
+
+            if (res.status === 401) {
+                dispatch(logIn(data))
+            }
+
+            // dispatch(checkResponse(data))
+        } catch (e) {
+            // dispatch(removeFromCart(productId));
+            dispatch(loadCart())
+        }
+    }
+}
+export function fetchRemoveFromCart(
+    productId: number,
+    colorId: number,
+    sizeId: number,
+) {
+    return async (dispatch: AppDispatch) => {
+        dispatch(addToCart
+            (
+            productId,
+            colorId,
+            sizeId
+            ))
+
+        try {
+            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
+            //     productId: productId,
+            //     colorId: colorId,
+            //     sizeId: sizeId
+            // })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        productId,
                     })
                 })
                 console.log(res);

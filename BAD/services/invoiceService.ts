@@ -15,7 +15,7 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     // get Invoice Info by userId
     // -------------------------------------------------------------------------------------------------------------------
-    async getInvoiceDetailByUserId(userId: number,status_id:number) {
+    async getInvoiceDetailByUserId(userId: number, status_id: number) {
 
         let invoiceRecord = await this.knex
             .raw
@@ -451,8 +451,8 @@ export class InvoiceService {
                     `
                     , [productId, colorId, sizeId]
                 )
-                console.log('getProductPrice: ', getProductPrice.rows[0]);
-                
+            // console.log('getProductPrice: ', getProductPrice.rows[0]);
+            await trx.commit()
 
             return getProductPrice.rows[0]
         } catch (error) {
