@@ -375,17 +375,10 @@ export class ProductService {
 
   async productDetailByProductId(product_id: number) {
     {
-    //   const productDetailInfo = await this.knex.raw(
-    //     /*sql */
-    //     `
-    //     select  * from "productDetail" where product_id = ? 
-		// `,
-    //     [product_id]
-    //   );
 
       const productDetailColor = await this.knex.raw(
         /*sql */
-      `select "name"  from "color" inner join "productDetail" 
+      `select "name" from "color" inner join "productDetail" 
       on "color".id = "productDetail".color_id where "productDetail".product_id = ?  group by color.id `,[product_id])
 
 
@@ -394,7 +387,13 @@ export class ProductService {
       `select "name"  from "size" inner join "productDetail"
       on "size".id = "productDetail".size_id where "productDetail".product_id = ?  group by size.id `,[product_id])
 
-      return {productDetailColor,productDetailSize};
+      const thisProductAllColors = productDetailColor.rows;
+      const thisProductAllSizes = productDetailSize.rows;
+
+      return {
+        thisProductAllColors,
+        thisProductAllSizes
+        };
     }
   }
 
