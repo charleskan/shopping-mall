@@ -9,12 +9,13 @@ import { login } from '../redux/auth2/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
-import Skeleton from 'react-loading-skeleton'
+// import Skeleton from 'react-loading-skeleton'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
-import styles from '../styles/Home.module.css'
+import cart from '../styles/Cart.module.css'
 import CartItem from '../components/CartItem'
 import Link from 'next/link'
+import SubmitTotal from '../components/CartForm'
 
 
 
@@ -26,6 +27,8 @@ const Cart: NextPage = () => {
 	// const products = useAppSelector(state => state.product.products)
 	const dispatch = useAppDispatch()
 
+
+	
 	useEffect(() => {
 		// for (const cart of carts) {
 		dispatch(loadCart())
@@ -50,9 +53,29 @@ const Cart: NextPage = () => {
 				{console.log('carts:', carts)}
 				{/* {console.log('cartLoaded:',cartLoaded ,)} */}
 			</>
+			<div className={cart.pageBox}>
+				<div>
+					<h1 className={cart.Title}>Cart</h1>
 
+					<span className={cart.page}>Home. Pages.</span>
+					<span className={cart.nowPage}>
+					Cart
+					</span>
+				</div>
+				<div></div>
+			</div>
 
+				{/* <div className={cart.title}>
+				<div>Product</div>
+				<div>Name</div>
+				<div>Color</div>
+				<div>Size</div>
+				<div>Stoke</div>
+				<div>Price</div>
+				</div> */}
 
+<div className={cart.box}>
+	<div>
 			{
 				carts.length > 0 ? carts.map(productInCart =>
 
@@ -64,8 +87,21 @@ const Cart: NextPage = () => {
 						tc_number={productInCart.tc_number}
 						tc_price={productInCart.tc_price}
 					/>
-				) : <div>Cart is empty</div>
+				) : <div className={cart.empty}>Cart is empty</div>
 			}
+			</div>
+			<form className={cart.totalBox} >
+                <div >
+                    <div>Total</div>
+                    <div>$</div>
+
+                </div>
+                <button>Proceed To Checkout</button>
+
+			</form>
+			
+
+			</div>
 
 
 			<Footer />
