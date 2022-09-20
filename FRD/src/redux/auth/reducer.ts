@@ -1,10 +1,6 @@
 import { AuthActions } from "./action";
+import { AuthState } from "./state";
 
-export interface AuthState {
-  username: string | null;
-  loggedIn: boolean | null;
-  token : string |null;
-}
 
 const initialState: AuthState = {
   username:typeof window !== 'undefined' ? localStorage.getItem('username') :null,

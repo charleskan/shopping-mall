@@ -34,3 +34,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+node_modules
+.DS_Store
+.env
+.vscode
+uploads
+yarn.lock
+yarn-error.log
+.prettierignore
+.prettierrc.json
+package-lock.json
+.gitignore
+pgdata

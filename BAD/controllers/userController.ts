@@ -24,7 +24,7 @@ export class UserController {
 
 	register = async (req: express.Request, res: express.Response) => {
 
-		const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
+		// const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
 		try {
 			console.log("body:", req.body);
 
@@ -54,23 +54,23 @@ export class UserController {
 				invoiceId: invoice[0].id,
 			}
 
-			const payload = {
-				userId: newUser[0].id,
-				invoiceId: invoice[0].id,
-			}
-			const token = await new jose.SignJWT(payload) // details to  encode in the token
-				.setProtectedHeader({ alg: 'HS256' }) // algorithm
-				.setIssuedAt()
-				.setIssuer(process.env.JWT_ISSUER!) // issuer
-				.setAudience(process.env.JWT_AUDIENCE!) // audience
-				.setExpirationTime(process.env.JWT_EXPIRATION_TIME!) // token expiration time, e.g., "1 day"
-				.sign(secretKey); // secretKey generated from previous step
+			// const payload = {
+			// 	userId: newUser[0].id,
+			// 	invoiceId: invoice[0].id,
+			// }
+			// const token = await new jose.SignJWT(payload) // details to  encode in the token
+			// 	.setProtectedHeader({ alg: 'HS256' }) // algorithm
+			// 	.setIssuedAt()
+			// 	.setIssuer(process.env.JWT_ISSUER!) // issuer
+			// 	.setAudience(process.env.JWT_AUDIENCE!) // audience
+			// 	.setExpirationTime(process.env.JWT_EXPIRATION_TIME!) // token expiration time, e.g., "1 day"
+			// 	.sign(secretKey); // secretKey generated from previous step
 
 			// console.log(token)
 			//jwt header
-			res.header('X-C21-TOKEN', token);
+			// res.header('X-C21-TOKEN', token);
 
-			return res.json({ result: true, msg: 'register success' })
+			return res.status(401).json({ result: true, msg: 'register success'})
 
 		} catch (err) {
 			if (err instanceof UserDuplicateUsernameError) {

@@ -1,21 +1,25 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
+import { loginSucceeded, login } from '../redux/auth2/action'
+import React, { useEffect } from 'react';
+import { useAppDispatch } from '../store'
 
-const Register: NextPage = () => {
-	const { handleSubmit, register } = useForm()
+const login2: NextPage = () => {
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
+	const dispatch = useAppDispatch()
 	const router = useRouter()
 
 
+	
 	return (
 		<div>
 			<Heading />
@@ -33,70 +37,60 @@ const Register: NextPage = () => {
 					className={loginStyles.loginForm}
 					action='/send-data-here'
 					method='post'
-					onSubmit={handleSubmit(async (data:any) => {
-						const formObject :any={}
-						formObject['username']= data.username
-						formObject['password']=data.password
-						formObject['email']=data.email
-						formObject['nickName']=data.nickName
-
+					onSubmit={async (e) => {
+						e.preventDefault()
 						const res = await fetch(
-							
-							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
+							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/login`,
 							{
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
-								credentials: 'include',
-								body: JSON.stringify(formObject)
+								body: JSON.stringify({ username, password })
 							}
 						)
 						if (res.status === 200) {
-							router.push('/login')
+							const user = await res.json()
+							const token2 = localStorage.getItem('token2')
+
+							if (token2 != null) {
+								dispatch(login(token2));
+							  }
+							router.push('/');
+
 						} else if (res.status === 400) {
 							setError('Password Error')
-						} else if (res.status === 500) {
-							setError('打錯呀')
+						} else if (res.status === 404) {
+							setError('Not Firm you')
 						}
-					})}>
+					}}>
 					{error}
-					<div className={loginStyles.loginWork}>Register</div>
+					<div className={loginStyles.loginWork}>Login</div>
 					<div className={loginStyles.loginCommet}>
-						Create your Account
+						Please login using account detail bellow.
 					</div>
 					<input
-						{...register('username')}
 						className={loginStyles.textBox}
 						type='text'
-						id='name'
-						placeholder='Username'
+						id='username'
+						name='first'
+						placeholder='Email Address'
+						value={username}
+						onChange={(e) => setUsername(e.currentTarget.value)}
 					/>
 					<input
-						{...register('password')}
 						className={loginStyles.textBox}
 						type='text'
-						id='Password'
+						id='last'
+						name='last'
 						placeholder='Password'
-					/>
-					<input
-						{...register('email')}
-						className={loginStyles.textBox}
-						type='text'
-						id='email'
-						placeholder='EmailAddress'
-					/>
-					<input
-						{...register('nickName')}
-						className={loginStyles.textBox}
-						type='text'
-						id='nickName'
-						placeholder='Nickname'
+						value={password}
+						onChange={(e) => setPassword(e.currentTarget.value)}
 					/>
 					<button className={loginStyles.button} type='submit'>
-						Register
+						Sign In
 					</button>
-					<Link href='/login'>
-						<p className={loginStyles.regiseterCommet}>
-							Have Account ? Sign in account
+					<Link href='/Register'>
+						<p className={loginStyles.loginRegister}>
+							Don't have Account ? Create account
 						</p>
 					</Link>
 				</form>
@@ -106,4 +100,4 @@ const Register: NextPage = () => {
 	)
 }
 
-export default Register
+export default login2

@@ -7,7 +7,36 @@ import { Container } from '@mui/system'
 import Grid from '@mui/material/Grid' // Grid version 1
 import ProductList from '../components/ProductList'
 
+import { useEffect, useState } from 'react'
+
+
+interface product {
+	id:number,
+	name: string,
+	icon: string,
+	description: string,
+
+}
+
 const productPage: NextPage = () => {
+
+	const [products, setProduct] = useState<product []>([])
+
+	async function fetchProduct() {
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+		)
+		let product = (await res.json()).allProductInfo
+		setProduct(product)
+	}{}
+
+	useEffect(()=>{
+		fetchProduct()
+	},[setProduct])
+
+
+
+
+
 	return (
 		<>
 			<HeadTitle />
@@ -19,7 +48,13 @@ const productPage: NextPage = () => {
 				<SlideFilter />
 				</Grid>
 				<Grid xs={8}>
-				<ProductList />
+				{products.map((product) => (
+						<ProductList
+							id={product.id}
+							name={product.name}
+							description={product.description}
+							icon={product.icon}/>
+					))}
 				</Grid>
 			</Grid>
 			</Container>

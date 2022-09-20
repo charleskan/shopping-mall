@@ -433,6 +433,14 @@ export class ProductService {
         // console.log(productSize_id);
         
 
+        const productDetailId = await this.knex.raw(
+          /*sql */
+          `
+          select "id" from "productDetail" where "product_id" = ? and "color_id" = ? and "size_id" = ?
+      `,
+          [product_id, productColor_id.rows[0].id, productSize_id.rows[0].id]
+        );  
+
 
       const productPrice = await this.knex.raw(
         /*sql */
@@ -451,7 +459,7 @@ export class ProductService {
       );
       
 
-      return {productPrice,productStock};
+      return {productDetailId,productPrice,productStock};
     }
   }
 

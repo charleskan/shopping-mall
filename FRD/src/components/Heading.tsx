@@ -5,17 +5,16 @@ import LoginIcon from '@mui/icons-material/Login'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
-import { useAppSelector } from '../app/store'
-import { useDispatch } from 'react-redux'
-import { loggedOut, logOut } from '../../redux/auth/action'
+import { useAppDispatch, useAppSelector } from '../store'
+import { logOut } from '../redux/auth/action'
 
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
 	const username: any = useAppSelector((state) => state.auth.username)
-	const logOut = useAppSelector((state) => state.auth.log)
+	const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
+	const dispatch = useAppDispatch();
+
 	const [users, setUsers] = useState('')
-	const dispatch = useDispatch()
-	console.log('token:', username, token)
 
 	async function main() {
 		setUsers(username)
@@ -25,6 +24,8 @@ export function Heading() {
 	useEffect(() => {
 		main()
 	}, [token, username, users])
+
+
 
 	return (
 		<div className={heading.color}>
@@ -44,11 +45,28 @@ export function Heading() {
 						</button>
 					</Link>
 				) : (
-					<button className={heading.a} onClick={()=> dispatch(logOut())}>
-						<LoginIcon className={heading.imageICon} />
+
+					<button className={heading.a}
+					>
+
 						logout
+
+
+
 					</button>
+
 				)}
+				{/* {isLoggedIn === true && (
+					<a
+						href="#"
+						onClick={() => {
+							dispatch(logOut());
+						}}
+					>
+						<LoginIcon className={heading.imageICon} />
+						Logout
+					</a>
+				)} */}
 
 				<Link href='/shoppingCar'>
 					<ShoppingCartIcon className={heading.imageICon} />

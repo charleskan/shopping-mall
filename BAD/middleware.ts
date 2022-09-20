@@ -17,6 +17,7 @@ const { createSecretKey } = require('crypto');
 import * as jose from 'jose'
 import { InvoiceService } from './services/invoiceService';
 import { Status } from './models';
+import { logger } from './logger';
 
 
 const invoiceService = new InvoiceService(knex);
@@ -42,6 +43,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			userId: payload.userId as any,
 			invoiceId: payload.invoiceId as any
 		}
+		// res.status(401).json({ token: token })
 
 		next();
 
@@ -79,9 +81,11 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			.sign(secretKey); // secretKey generated from previous step
 
 		// console.log(token)
-		res.header('X-C21-TOKEN', token);
+		// res.header('X-C21-TOKEN', token);
+		res.status(401).json({ username: "visitor", token: token })
+		logger.info(`id: ${userId} visitor logged in`)
 
-		next()
+		// next()
 	}
 }
 

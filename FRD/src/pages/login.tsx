@@ -7,7 +7,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
-import { loggedIn } from '../../redux/auth/action'
+import { loggedIn } from '../redux/auth/action'
 import { useDispatch } from 'react-redux'
 
 const login: NextPage = () => {

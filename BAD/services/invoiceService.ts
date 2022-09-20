@@ -213,27 +213,41 @@ export class InvoiceService {
                     /* SQL */
                     `
                     with 
-                    TT_Cart as
+                    product_detail as
                     (
-                    select *
-                    from "invoice_productDetail"
-                    where "invoice_id" = ?
-                    ),
-                    TT_CartSum as 
-                    (
-                    select sum("price") as TC_Price, 
-                    "productDetail_id",
-                    "invoice_id",
-                    sum("number") as TC_Number
-                    from TT_Cart
-                    group by "productDetail_id", "invoice_id"
+                    select pd.id,
+                    p.name as product,
+                    c."name" as color,
+                    s.name as size,
+                    price as productPrice,
+                    stock,
+                    s2.name as status,
+                    icon
+                    from 
+                    ((("productDetail" pd inner join
+                    product p on p.id = pd.product_id)
+                    inner join color c on c.id=pd.color_id)
+                    inner join "size" s on s.id = pd.size_id )
+                    inner join status s2 on s2.id = pd.status_id 
                     )
-
-
-                    select *
-                    from TT_CartSum
-                    inner join "productDetail" 
-                    on "productDetail".id = TT_CartSum."productDetail_id";
+                    
+                    select 
+                    product, 
+                    color, 
+                    "size", 
+                    icon, 
+                    sum("number") as TC_Number, 
+                    sum(productPrice) as TC_Price
+                    from product_detail inner join
+                    "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
+                    where "invoice_id" = ?
+                    group by 
+                    product, 
+                    color, 
+                    "size", 
+                    icon, 
+                    productPrice
+                    
                     `,
                     [invoiceId]
                 )

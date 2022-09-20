@@ -10,14 +10,14 @@ import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
-
+import axios from "axios";
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 interface Product {
-	id:number,
+	id: number,
 	name: string
 	image1: string
 
@@ -25,21 +25,30 @@ interface Product {
 
 const Home: NextPage = () => {
 
-const [products, setProduct] = useState<Product[]>([])
+	// axios.defaults.baseURL = process.env.NEXT_PUBLIC_ANALYTICS_ID;
+
+	const [products, setProduct] = useState<Product[]>([])
 
 	async function fetchProduct() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
-		)
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem('token')}`
+				}
+			})
+
+		
 		let product = (await res.json()).allProductInfo
 		setProduct(product)
-	}{}
+	} { }
 
-	useEffect(()=>{
+	useEffect(() => {
 		fetchProduct()
-	},[setProduct])
+	}, [setProduct])
 
-	interface BigProduct{
-		id:number,
+	interface BigProduct {
+		id: number,
 		name: string
 		image1: string
 	}
@@ -50,11 +59,11 @@ const [products, setProduct] = useState<Product[]>([])
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
 		let product = (await res.json()).allProductInfo
 		setBigProduct(product)
-	}{}
+	} { }
 
-	useEffect(()=>{
+	useEffect(() => {
 		fetchBigProduct()
-	},[setBigProduct])
+	}, [setBigProduct])
 
 
 	return (
@@ -70,10 +79,10 @@ const [products, setProduct] = useState<Product[]>([])
 			<Heading />
 			<Navbar />
 			<div>
-				<ImageSlider slides={dataSlider}/>
-				</div>
-			
-			
+				<ImageSlider slides={dataSlider} />
+			</div>
+
+
 			<Container>
 				<div className={home.productCardTitle}>Featured Product</div>
 				<div className={styles.productcard}>
@@ -82,7 +91,7 @@ const [products, setProduct] = useState<Product[]>([])
 							key={product.id}
 							name={product.name}
 							id={product.id}
-							image1={product.image1}/>
+							image1={product.image1} />
 					))}
 				</div>
 				<div className={home.productCardTitle}>Leatest Product</div>
@@ -92,22 +101,21 @@ const [products, setProduct] = useState<Product[]>([])
 							key={productCard.id}
 							name={productCard.name}
 							image1={productCard.image1}
-
 						/>
 					))} */}
 				</div>
 			</Container>
 			<div className={home.bannerBox}>
-			<Image className={home.banner} src={img}
-			width={3000}
-			height={700}/>
-			<div className={home.titleBox}>
-			<div className={home.title} >Get Leatest Update By Subscribe<br/>
-			Our Newslater</div>
-			<Link href="/productPage"><a className={home.button}>Shop Now</a></Link>
-			</div>
-			
-		
+				<Image className={home.banner} src={img}
+					width={3000}
+					height={700} />
+				<div className={home.titleBox}>
+					<div className={home.title} >Get Leatest Update By Subscribe<br />
+						Our Newslater</div>
+					<Link href="/productPage"><a className={home.button}>Shop Now</a></Link>
+				</div>
+
+
 
 			</div>
 			<Footer />
