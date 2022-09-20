@@ -36,8 +36,14 @@ const ProductDetails: NextPage = () => {
 	}
 
 	useEffect(()=>{
-		fetchProduct()
-	},[setProduct])
+		
+		if(router.isReady){
+			const { id } = router.query
+			console.log(id);
+			
+			fetchProduct()
+		}
+	},[setProduct,[router.isReady]])
 
 
 

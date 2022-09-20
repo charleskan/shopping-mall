@@ -2,19 +2,33 @@
     display: flex;
     justify-content: center;
     margin: 100px;
+
 }
 
 .box{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 1000px;
-    height: 900px;
-    border: solid 1px
+    height: 600px;
+    box-shadow: 0 0 20px 0 #F2F0F7, 0 10px 10px 0 #F2F0F7;
 }
 
 .imageBox{
     display: flex;
     flex-direction: column;
-    margin: 12px;
+}
+
+.photo{
+background-color: brown;
+width: 150px;
+height: 150px;
+margin: 10px;
+
+}
+
+.bigPhoto{
+    background-color: blue;
+    width: 600px;
+    height: 500px;
 }

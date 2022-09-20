@@ -10,7 +10,6 @@ import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
-import axios from "axios";
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ import { useEffect, useState } from 'react'
 interface Product {
 	id: number,
 	name: string
-	image1: string
+	icon: string
 
 }
 
@@ -40,6 +39,8 @@ const Home: NextPage = () => {
 
 		
 		let product = (await res.json()).allProductInfo
+		console.log(products);
+		
 		setProduct(product)
 	} { }
 
@@ -47,23 +48,23 @@ const Home: NextPage = () => {
 		fetchProduct()
 	}, [setProduct])
 
-	interface BigProduct {
-		id: number,
-		name: string
-		image1: string
-	}
+	// interface BigProduct {
+	// 	id: number,
+	// 	name: string
+	// 	image1: string
+	// }
 
-	const [bigProduct, setBigProduct] = useState<BigProduct[]>([])
+	// const [bigProduct, setBigProduct] = useState<BigProduct[]>([])
 
-	async function fetchBigProduct() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
-		let product = (await res.json()).allProductInfo
-		setBigProduct(product)
-	} { }
+	// async function fetchBigProduct() {
+	// 	let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
+	// 	let product = (await res.json()).allProductInfo
+	// 	setBigProduct(product)
+	// } { }
 
-	useEffect(() => {
-		fetchBigProduct()
-	}, [setBigProduct])
+	// useEffect(() => {
+	// 	fetchBigProduct()
+	// }, [setBigProduct])
 
 
 	return (
@@ -91,10 +92,10 @@ const Home: NextPage = () => {
 							key={product.id}
 							name={product.name}
 							id={product.id}
-							image1={product.image1} />
+							icon={product.icon} />
 					))}
 				</div>
-				<div className={home.productCardTitle}>Leatest Product</div>
+				{/* <div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>
 					{/* {bigProduct.map((productCard) => (
 						<ProductBigCard
@@ -102,8 +103,8 @@ const Home: NextPage = () => {
 							name={productCard.name}
 							image1={productCard.image1}
 						/>
-					))} */}
-				</div>
+					))} 
+				</div> */}
 			</Container>
 			<div className={home.bannerBox}>
 				<Image className={home.banner} src={img}
