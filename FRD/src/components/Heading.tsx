@@ -11,7 +11,10 @@ import { logOut } from '../redux/auth/action'
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
 
-	const username = typeof window !== 'undefined' ? localStorage.getItem('username') :null
+	const [username, setUsername] = useState<string | null>(null);
+	useEffect(() => {
+		setUsername(typeof window !== 'undefined' ? localStorage.getItem('username')! : null)
+	}, [setUsername])
 	// const username: any = useAppSelector((state) => state.auth.username)
 	
 	// const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
@@ -19,14 +22,13 @@ export function Heading() {
 
 	const [users, setUsers] = useState('')
 
-	async function main() {
-		setUsers(username!)
-		console.log('main')
-	}
-
-	useEffect(() => {
-		main()
-	}, [token, username, users])
+	// async function main() {
+	// 	console.log('main')
+	// }
+	
+	// useEffect(() => {
+	// 	setUsers(username!)
+	// }, [token, username, users])
 
 
 
@@ -34,10 +36,10 @@ export function Heading() {
 		<div className={heading.color}>
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
-
-				{username === undefined || (
-					<div className={heading.a}>{users}</div>
-				)}
+{/* 
+				// {username === undefined || (
+				// 	<div className={heading.a}>{users}</div>
+				// )} */}
 			</div>
 			<div className={heading.center}>
 				{!username ? (
