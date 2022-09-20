@@ -17,7 +17,6 @@ interface product {
 	image3: string
 	Brand: string
 }
-<<<<<<< HEAD
 
 interface productOption {
 	id: number
