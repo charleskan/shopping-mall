@@ -6,11 +6,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
 import { useAppSelector } from '../app/store'
+import { useDispatch } from 'react-redux'
+import { loggedOut, logOut } from '../../redux/auth/action'
 
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
 	const username: any = useAppSelector((state) => state.auth.username)
+	const logOut = useAppSelector((state) => state.auth.log)
 	const [users, setUsers] = useState('')
+	const dispatch = useDispatch()
 	console.log('token:', username, token)
 
 	async function main() {
@@ -40,7 +44,7 @@ export function Heading() {
 						</button>
 					</Link>
 				) : (
-					<button className={heading.a}>
+					<button className={heading.a} onClick={()=> dispatch(logOut())}>
 						<LoginIcon className={heading.imageICon} />
 						logout
 					</button>

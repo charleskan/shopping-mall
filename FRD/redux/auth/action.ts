@@ -13,6 +13,7 @@ export function loggedOut() {
     type: '@@auth/LOGGED_OUT' as const,
   }
 }
+
 export function logOut(){
   return(dispatch:AppDispatch)=>{
     localStorage.removeItem("token");

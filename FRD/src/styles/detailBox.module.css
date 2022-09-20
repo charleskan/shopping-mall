@@ -1,13 +1,20 @@
+.boxDiv{
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+
 .box{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 1000px;
-    height: 700px;
+    height: 900px;
     border: solid 1px
 }
 
 .imageBox{
     display: flex;
     flex-direction: column;
+    margin: 12px;
 }
