@@ -229,17 +229,7 @@ export class InvoiceService {
                     inner join color c on c.id=pd.color_id)
                     inner join "size" s on s.id = pd.size_id )
                     inner join status s2 on s2.id = pd.status_id 
-                    ), 
-                    
-                    TT_Final as
-                    (
-                    select 
-                    product, color, "size", icon, number, productPrice
-                    from product_detail inner join
-                    "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
-                    where "invoice_id" = ?
                     )
-                    
                     
                     select 
                     product, 
@@ -248,16 +238,16 @@ export class InvoiceService {
                     icon, 
                     sum("number") as TC_Number, 
                     sum(productPrice) as TC_Price
-                    from 
-                    TT_Final
-                    
-                    
+                    from product_detail inner join
+                    "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
+                    where "invoice_id" = ?
                     group by 
                     product, 
                     color, 
                     "size", 
                     icon, 
                     productPrice
+                    
                     `,
                     [invoiceId]
                 )
