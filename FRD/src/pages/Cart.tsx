@@ -13,7 +13,7 @@ import Skeleton from 'react-loading-skeleton'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
 import styles from '../styles/Home.module.css'
-import cartItem from '../components/CartItem'
+import CartItem from '../components/CartItem'
 
 
 
@@ -27,13 +27,13 @@ const Cart: NextPage = () => {
 
 	useEffect(() => {
 		// for (const cart of carts) {
-		  dispatch(loadCart())
+		dispatch(loadCart())
 		// }
-	  }, [])
+	}, [])
 
 	return (
 
-	<>
+		<>
 			<Heading />
 			<Navbar />
 			<Head>
@@ -44,19 +44,30 @@ const Cart: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-				<>
-				{console.log('carts:',carts)}
+			<>
+				{console.log('carts:', carts)}
 				{/* {console.log('cartLoaded:',cartLoaded ,)} */}
-				</>
-				
+			</>
 
-					
-					{
-						// cartLoaded !== LoadingState.Loaded ? <Skeleton count={1} /> :
-						
-						carts.map(cartList => (<div>{cartList.color_id}</div>))
-							
-}
+
+
+			{
+				cartLoaded !== LoadingState.Loaded ? <Skeleton count={10} /> :
+
+				carts.map(productInCart =>
+
+					<CartItem
+						product={productInCart.product}
+						icon={productInCart.icon}
+						color={productInCart.color}
+						size={productInCart.size}
+						tc_number={productInCart.tc_number}
+						tc_price={productInCart.tc_price}
+					/>
+
+				)
+
+			}
 
 
 
@@ -64,7 +75,7 @@ const Cart: NextPage = () => {
 
 
 			<Footer />
-	</>
+		</>
 	)
 }
 

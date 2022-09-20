@@ -1,33 +1,26 @@
 import card from '../styles/ProductCard.module.css'
 // import Image from 'next/image'
-
 interface Props {
-    tc_price: string,
-    productDetail_id: number,
-    invoice_id: number,
-    tc_number: string,
-    id: number,
-    product_id: number,
-    color_id: number,
-    size_id: number,
-    price: number,
-    stock: number,
-    status_id: number,
-    created_at: string,
-    updated_at: string,
+  product: string,
+  icon: string,
+  color: string,
+  size: string,
+  tc_price: number,
+  tc_number: string,
+
 }
 
-function cartItem(props: Props) 
+function CartItem(props: Props) 
 {
   return (
-
-    <li className={card.cardBigBox}>
-      
-        <div className={card.cardBigBox}>
-          <h3>{props.id}</h3>
-        </div>
-        
-    </li>
+            <div>
+							{props.product}
+							{props.icon}
+							{props.color}
+							{props.size}
+							{props.tc_number}
+							{props.tc_price}
+						</div>
     )}
 
-export default cartItem;
+export default CartItem;
