@@ -12,7 +12,7 @@ export function createInvoiceRoutes(invoiceController: InvoiceController) {
 
 
 	invoiceRoutes.post('/cart/:id', userMiddleware, invoiceController.addProductToCart)
-	invoiceRoutes.delete('/cart/:id', invoiceController.deleteProductFromCart)
+	invoiceRoutes.delete('/cart/:id', userMiddleware, invoiceController.deleteProductFromCart)
 	// invoiceRoutes.put('/cart/:id', invoiceController.updateProductInCart)
 	// invoiceRoutes.get('/cart/:id', invoiceController.getProductInCart)
 	invoiceRoutes.get('/cart', userMiddleware, invoiceController.getAllProductInCart)

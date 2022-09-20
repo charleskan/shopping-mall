@@ -14,7 +14,7 @@ function CartItem(props: Props)
 {
   return (
             <div>
-							{props.product}
+							<div className={card.asd}>{props.product}</div>
 							{props.icon}
 							{props.color}
 							{props.size}

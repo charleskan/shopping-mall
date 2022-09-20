@@ -62,6 +62,12 @@ app.use(express.urlencoded({ extended: true }));
 //json
 app.use(express.json());
 
+// app.use((req, res, next) => {
+//   setTimeout(() => {
+//     next();
+//   }, 500000)
+// })
+
 //get HTML files from public, default images & uploads
 app.use(express.static("public")); //get files from private
 const userService = new UserService(knex);
