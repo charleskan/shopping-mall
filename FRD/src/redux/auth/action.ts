@@ -4,17 +4,24 @@ import axios, { AxiosResponse } from "axios";
 
 export function checkResponse(res: AxiosResponse<any, any>) {
   return (dispatch: AppDispatch) => {
-    if (res.status === 401) {
-      dispatch(loggedIn())
+    
+
+      dispatch(logIn(res))
     }
+
+    // return (dispatch: AppDispatch) => {
+    //   if (res.headers['x-c21-token'] != null) {
+    //     dispatch(login(res.headers['x-c21-token']))
+    //   }
+    // }
   }
-}
+
 
 export function loggedIn() {
   return {
     type: '@@auth/LOGGED_IN' as const,
-    username: localStorage.getItem("username"),
     token:localStorage.getItem("token"),
+    username: localStorage.getItem("username"),
   }
 }
 
@@ -24,6 +31,13 @@ export function loggedOut() {
   }
 }
 
+export function logIn(data:any) {
+  return (dispatch: AppDispatch) => {
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('username', data.username)
+    dispatch(loggedIn());
+  }
+}
 export function logOut() {
   return (dispatch: AppDispatch) => {
     localStorage.removeItem("token");

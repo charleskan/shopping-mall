@@ -15,7 +15,6 @@ export function Heading() {
 	const dispatch = useAppDispatch();
 
 	const [users, setUsers] = useState('')
-	console.log('token:', username, token)
 
 	async function main() {
 		setUsers(username)

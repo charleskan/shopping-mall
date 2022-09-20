@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AppDispatch } from "../../store"
-import { checkResponse } from "../auth/action"
+import { checkResponse, loggedIn, logIn } from "../auth/action"
 
 
 export function loadedCart(products: []) {
@@ -30,27 +30,32 @@ type LoadedCartAction = ReturnType<typeof loadedCart>
 // type AddToCartAction = ReturnType<typeof addToCart>
 // type RemoveToCartAction = ReturnType<typeof removeFromCart>
 
-export type CartActions = LoadedCartAction 
+export type CartActions = LoadedCartAction
 // export type CartActions = LoadedCartAction | AddToCartAction | RemoveToCartAction
 
 export function loadCart() {
     return async (dispatch: AppDispatch) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`,
-        {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+        try {
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+            const data = await res.json()
+
+            if (res.status === 401) {
+                dispatch(logIn(data))
+                // dispatch(checkResponse(data))
+            } else {
+                dispatch(loadedCart(data.productRecord))
             }
-        })
-                
-        let data = await res.json()
-        console.log('data:',data);
-        
-        // if (checkResponse(res.data)) {
-            dispatch(loadedCart(data.productRecord))
-        // }
-        // dispatch(checkResponse(res))
-    //    dispatch(loadedCart(data))
+        } catch {
+            dispatch(loadCart())
+        }
+
     }
 }
 
