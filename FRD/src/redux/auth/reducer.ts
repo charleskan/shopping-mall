@@ -3,9 +3,10 @@ import { AuthState } from "./state";
 
 
 const initialState: AuthState = {
-  username:typeof window !== 'undefined' ? localStorage.getItem('username') :null,
-  loggedIn: typeof window !== 'undefined' ? (localStorage.getItem('token') !=null):null,
-  token : typeof window !== 'undefined' ? localStorage.getItem('token'):null}
+  username: typeof window !== 'undefined' ? localStorage.getItem('username') : null,
+  loggedIn: typeof window !== 'undefined' ? (localStorage.getItem('token') != null) : null,
+  token: typeof window !== 'undefined' ? localStorage.getItem('token') : null
+}
 
 export function authReducer(state: AuthState = initialState, action: AuthActions): AuthState {
   switch (action.type) {
@@ -13,17 +14,17 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
       return {
         ...state,
         username: localStorage.getItem("username"),
-        token :	localStorage.getItem("token"),
+        token: localStorage.getItem("token"),
         loggedIn: true
       };
     case '@@auth/LOGGED_OUT':
       return {
         ...state,
         username: null,
-        token:null,
+        token: null,
         loggedIn: false,
       }
-    default: 
+    default:
       return state;
   }
 }

@@ -16,16 +16,13 @@ export function Heading() {
 		setUsername(typeof window !== 'undefined' ? localStorage.getItem('username')! : null)
 	}, [setUsername])
 	// const username: any = useAppSelector((state) => state.auth.username)
-	
+
 	// const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
 	const dispatch = useAppDispatch();
 
-	const [users, setUsers] = useState('')
+	// const [users, setUsers] = useState('')
 
-	// async function main() {
-	// 	console.log('main')
-	// }
-	
+
 	// useEffect(() => {
 	// 	setUsers(username!)
 	// }, [token, username, users])
@@ -36,10 +33,10 @@ export function Heading() {
 		<div className={heading.color}>
 			<div className={heading.center}>
 				<MailIcon className={heading.imageICon} />
-{/* 
-				// {username === undefined || (
-				// 	<div className={heading.a}>{users}</div>
-				// )} */}
+
+				{username === undefined || (
+					<div className={heading.a}>{username}</div>
+				)}
 			</div>
 			<div className={heading.center}>
 				{!username ? (
@@ -51,23 +48,12 @@ export function Heading() {
 					</Link>
 				) : (
 
-					<button className={heading.a} 
-					onClick={() => dispatch(logOut())}>
+					<button className={heading.a}
+						onClick={() => dispatch(logOut())}>
 						logout
 					</button>
 
 				)}
-				{/* {isLoggedIn === true && (
-					<a
-						href="#"
-						onClick={() => {
-							dispatch(logOut());
-						}}
-					>
-						<LoginIcon className={heading.imageICon} />
-						Logout
-					</a>
-				)} */}
 
 				<Link href='/shoppingCar'>
 					<ShoppingCartIcon className={heading.imageICon} />

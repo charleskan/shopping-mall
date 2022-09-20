@@ -1,9 +1,10 @@
 // import produce from "immer";
 import { LoadingState } from "../../models";
 import { CartActions } from "./action";
-import { CartState} from "./state";
+import { CartState } from "./state";
 
 const initialState: CartState = {
+  // product: {},
   products: [],
   loading: LoadingState.NotLoaded
 }
@@ -19,13 +20,13 @@ export function cartReducer(state: CartState = initialState, action: CartActions
     // case '@@cart/ADD_TO_CART':
     //   return {
     //     ...state,
-    //     productIds: [...state.productIds, action.productId]
+    //     product: [...state.product, action.product]
     //   };
     // case '@@cart/REMOVE_FROM_CART':
     //   return produce(state, state => {
     //     const index = state.productIds.indexOf(action.productId)
     //     state.productIds.splice(index, 1)
-      // });
+    //   });
   }
   return state;
 }
