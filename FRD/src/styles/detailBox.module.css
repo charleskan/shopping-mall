@@ -20,7 +20,7 @@
 }
 
 .photo{
-background-color: brown;
+
 width: 150px;
 height: 150px;
 margin: 10px;
@@ -28,7 +28,7 @@ margin: 10px;
 }
 
 .bigPhoto{
-    background-color: blue;
+
     width: 600px;
     height: 500px;
 }
