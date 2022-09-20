@@ -6,6 +6,7 @@ import { Footer } from '../../../components/Footer'
 import { DetailBox2 } from '../../../components/detailBox2'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { AddToCart } from '../../../components/AddToCart'
 
 interface product {
 	id: number
@@ -16,14 +17,21 @@ interface product {
 	image3: string
 	Brand: string
 }
+<<<<<<< HEAD
+
+interface productOption {
+	id: number
+	color: string
+	size: string
+}
 
 const ProductDetails: NextPage = () => {
 	const router = useRouter()
-	// const { id } = router.query
+	const { id } = router.query
 
 	const [product, setProduct] = useState<product[]>([])
 
-	async function fetchProduct(id: number) {
+	async function fetchProduct() {
 		let res = await fetch(
 			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
 		)
@@ -34,13 +42,8 @@ const ProductDetails: NextPage = () => {
 	}
 
 	useEffect(() => {
-		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
-
-			fetchProduct(id)
-		}
-	}, [setProduct, router.isReady])
+		fetchProduct()
+	}, [setProduct])
 
 	return (
 		<>
@@ -58,7 +61,9 @@ const ProductDetails: NextPage = () => {
 					Brand={product.Brand}
 				/>
 			))}
-
+			{product.map((product) => (
+			<AddToCart id={product.id} color='' size=''/>
+			))}
 			<Footer />
 		</>
 	)

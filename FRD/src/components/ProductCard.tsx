@@ -1,6 +1,7 @@
 import card from '../styles/ProductCard.module.css'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { Link } from 'react-router-dom'
+
 
 interface Props {
 	id: number
