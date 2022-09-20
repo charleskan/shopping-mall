@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid' // Grid version 1
 import ProductList from '../components/ProductList'
 
 import { useEffect, useState } from 'react'
+import { log } from 'console'
 
 
 interface product {
@@ -20,20 +21,19 @@ interface product {
 
 const productPage: NextPage = () => {
 
-	const [products, setProduct] = useState<product []>([])
+	const [products, setProduct] = useState<product[]>([])
 
 	async function fetchProduct() {
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
 		)
 		let product = (await res.json()).allProductInfo
 		setProduct(product)
+		console.log(product)
 	}{}
 
 	useEffect(()=>{
 		fetchProduct()
 	},[setProduct])
-
-
 
 
 

@@ -63,7 +63,7 @@ export function loadCart() {
     }
 }
 
-export function fetchAddToCart(
+export   function fetchAddToCart(
     productId: number,
     colorId: number,
     sizeId: number,

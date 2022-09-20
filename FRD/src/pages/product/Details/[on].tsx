@@ -12,9 +12,6 @@ import { useRouter } from 'next/router'
 
 import { fetchAddToCart } from '../../../redux/cart/action'
 import { useAppDispatch } from '../../../store'
-import {SelectColor} from '../../../components/SelectColor'
-import React from 'react'
-import { FormControl, FormLabel, RadioGroup } from '@mui/material'
 
 interface product {
 	id: number
@@ -31,19 +28,6 @@ interface productOption {
 	color: string
 	size: string
 }
-interface addCart {
-	productId: number
-	colorId: number
-	sizeId: number
-}
-
-interface productColor{
-	name: string
-}
-
-interface productSize{
-	name: string
-}
 
 const ProductDetails: NextPage = () => {
 
@@ -54,11 +38,6 @@ const ProductDetails: NextPage = () => {
 	const [colorId, setColorId] = useState('')
 	const [sizeId, setSizeId] = useState('')
 	const [product, setProduct] = useState<product[]>([])
-
-	const [addCart, setAddCart] = useState<addCart[]>([])
-	const [productColor,setProductColor] = useState<productColor[]>([])
-	const [productSize,setProductSize] = useState<productSize[]>([])
-
 	const dispatch = useAppDispatch()
 
 	async function fetchProduct() {
@@ -66,24 +45,9 @@ const ProductDetails: NextPage = () => {
 		)
 		let product = ((await res.json()).productInfo).productInfo
 		setProduct(product)
+
+		console.log(product)
 	}
-
-	async function fetchProductColorAndSize() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${id}`
-		)
-		let ColorAndSize =(await res.json()).productDetail
-		let productColor = ColorAndSize.thisProductAllColors
-		let productSize = ColorAndSize.thisProductAllSizes;
-
-
-		
-		setProductColor(productColor)
-		setProductSize(productSize)
-		console.log(productColor)
-		console.log(productSize)
-	}
-
-
 	useEffect(() => {
 		if (router.isReady) {
 			const query = router.query.id
@@ -93,23 +57,7 @@ const ProductDetails: NextPage = () => {
 		}
 	}, [setProduct, router.isReady])
 
-	useEffect(() => {
-		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
-
-			fetchAddToCart(id, Number(colorId), Number(sizeId))
-		}
-	}, [setAddCart, router.isReady])
-
-	useEffect(() => {
-		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
-
-			fetchProductColorAndSize()
-		}
-	}, [setProductColor,setProductSize, router.isReady])
+	
 
 	return (
 		<>
@@ -127,30 +75,9 @@ const ProductDetails: NextPage = () => {
 					Brand={product.Brand}
 				/>
 			))}
-
-            <FormControl>
-				<FormLabel id='demo-radio-buttons-group-label'>👿講吖！要咩色👿</FormLabel>
-				<RadioGroup
-					aria-labelledby='demo-radio-buttons-group-label'
-					name='radio-buttons-group'>
-            {productColor.map((productColor) => (
-			<SelectColor name={productColor.name} />
-			))}
-				</RadioGroup>
-			</FormControl>
-
-			<FormControl>
-				<FormLabel id='demo-radio-buttons-group-label'>😤俾埋Size我😤</FormLabel>
-				<RadioGroup
-					row
-					aria-labelledby='demo-radio-buttons-group-label'
-					name='radio-buttons-group'>
-            {productSize.map((productSize) => (
-			<SelectColor name={productSize.name} />
-			))}
-				</RadioGroup>
-			</FormControl>
-
+			{/* {product.map((product) => (
+			<AddToCart id={product.id} color='' size=''/>
+			))} */}
 			<form>
 				<input
 					type='text'
