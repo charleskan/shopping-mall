@@ -26,6 +26,7 @@ dotenv.config();
 const permit = new Bearer({ query: 'access_token' })
 // -------------------------------------------------------------------------------------------------------------------
 
+
 export const userMiddleware = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
 	const secretKey = createSecretKey(process.env.JWT_SECRET, 'utf-8');

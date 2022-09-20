@@ -10,14 +10,17 @@ import { logOut } from '../redux/auth/action'
 
 export function Heading() {
 	const token = useAppSelector((state) => state.auth.token)
-	const username: any = useAppSelector((state) => state.auth.username)
-	const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
+
+	const username = typeof window !== 'undefined' ? localStorage.getItem('username') :null
+	// const username: any = useAppSelector((state) => state.auth.username)
+	
+	// const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
 	const dispatch = useAppDispatch();
 
 	const [users, setUsers] = useState('')
 
 	async function main() {
-		setUsers(username)
+		setUsers(username!)
 		console.log('main')
 	}
 
@@ -37,7 +40,7 @@ export function Heading() {
 				)}
 			</div>
 			<div className={heading.center}>
-				{username === undefined ? (
+				{!username ? (
 					<Link href='/login'>
 						<button className={heading.a}>
 							<LoginIcon className={heading.imageICon} />
@@ -46,13 +49,9 @@ export function Heading() {
 					</Link>
 				) : (
 
-					<button className={heading.a}
-					>
-
+					<button className={heading.a} 
+					onClick={() => dispatch(logOut())}>
 						logout
-
-
-
 					</button>
 
 				)}

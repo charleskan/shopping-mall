@@ -5,16 +5,11 @@ import axios, { AxiosResponse } from "axios";
 export function checkResponse(res: AxiosResponse<any, any>) {
   return (dispatch: AppDispatch) => {
     
-
+    if (res.status === 401) {
       dispatch(logIn(res))
     }
-
-    // return (dispatch: AppDispatch) => {
-    //   if (res.headers['x-c21-token'] != null) {
-    //     dispatch(login(res.headers['x-c21-token']))
-    //   }
-    // }
   }
+}
 
 
 export function loggedIn() {
