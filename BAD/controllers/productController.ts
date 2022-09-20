@@ -546,11 +546,19 @@ export class ProductController {
         productSize
       );
 
+
+      const productDetailId = productDetail.productDetailId.rows[0].id
+      const productPrice = productDetail.productPrice.rows[0].price;
+      const productStock = productDetail.productStock.rows[0].stock;
+
+
       // console.log(productId)
       return res.json({
         result: true,
         msg: "Search ProductDetail  by ColorAndSize success",
-        productDetail
+        productDetailId,
+        productPrice,
+        productStock
       });
     } catch (err) {
       logger.error(err);

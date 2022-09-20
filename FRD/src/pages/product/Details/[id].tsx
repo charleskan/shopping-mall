@@ -29,7 +29,7 @@ const ProductDetails: NextPage = () => {
 	async function fetchProduct() {
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
 		)
-		let product = (await res.json()).productInfo.productInfo
+		let product = ((await res.json()).productInfo).productInfo
 		setProduct(product)
 
 		console.log(product)
