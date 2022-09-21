@@ -15,6 +15,7 @@ import cart from '../styles/Cart.module.css'
 import CartItem from '../components/CartItem'
 import Link from 'next/link'
 import SubmitTotal from '../components/CartForm'
+import { iteratorSymbol } from 'immer/dist/internal'
 
 
 
@@ -27,9 +28,20 @@ const Cart: NextPage = () => {
 	const dispatch = useAppDispatch()
 
 
+	const [total, setTotal] = useState(0)
+
+
 	
 	useEffect(() => {
 		// for (const cart of carts) {
+// 			const getTotal = () => {
+// 				const res = (prev :any,item :any):number=> {
+// 					return prev +(item.tc_price * item.tc_number)
+// 				}
+// 				setTotal(res)
+// 			}
+
+// getTotal()
 		dispatch(loadCart())
 		// }
 	}, [])
@@ -92,7 +104,7 @@ const Cart: NextPage = () => {
 			<form className={cart.totalBox} >
                 <div >
                     <div>Total</div>
-                    <div>$</div>
+                    <div>${total}</div>
 
                 </div>
                 <button>Proceed To Checkout</button>
