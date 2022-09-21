@@ -529,16 +529,12 @@ export class ProductController {
       const productColor = String(req.query.color);
       const productSize = String(req.query.size);
 
-      // const productColor =
-      //     fields.productColor != null && !Array.isArray(fields.productColor)
-      //       ? fields.productColor
-      //       : err;
-
-
-      // const productSize =
-      //     fields.productSize != null && !Array.isArray(fields.productSize)
-      //       ? fields.productSize
-      //       : err;
+      console.log(
+        'product_id: ',product_id, 
+        'productColor: ',productColor, 
+        'productSize: ',productSize
+        );
+      
 
 
 
