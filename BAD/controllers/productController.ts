@@ -523,20 +523,22 @@ export class ProductController {
     req: express.Request,
     res: express.Response
   ) => {
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err, fields) => {
     try {
-      const product_id = Number(req.params.id);
+      const product_id = Number(req.query.id);
+      const productColor = String(req.query.color);
+      const productSize = String(req.query.size);
 
-      const productColor =
-          fields.productColor != null && !Array.isArray(fields.productColor)
-            ? fields.productColor
-            : err;
+      // const productColor =
+      //     fields.productColor != null && !Array.isArray(fields.productColor)
+      //       ? fields.productColor
+      //       : err;
 
 
-      const productSize =
-          fields.productSize != null && !Array.isArray(fields.productSize)
-            ? fields.productSize
-            : err;
+      // const productSize =
+      //     fields.productSize != null && !Array.isArray(fields.productSize)
+      //       ? fields.productSize
+      //       : err;
 
 
 
