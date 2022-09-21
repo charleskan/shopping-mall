@@ -3,6 +3,7 @@ import Button from '@mui/material/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import product from '../styles/Product.module.css'
 
 interface props {
 	  id: number
@@ -32,11 +33,12 @@ export function GotoProductDetail(props: props) {
 export default function ProductList(props: props) {
 	return (
 		<Wrapper>
-			<article>
+			<div className={product.productBox}>
+			<article >
 				<Link href='/products'>
 					<Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
 					width={200}
-					height={250} />
+					height={200} />
 				</Link>
 
 				<div>
@@ -50,6 +52,7 @@ export default function ProductList(props: props) {
 						description=''/>
 				</div>
 			</article>
+			</div>
 		</Wrapper>
 	)
 }
@@ -68,7 +71,7 @@ const Wrapper = styled.section`
 		margin-bottom: 1rem;
 	}
 	h4 {
-		margin-bottom: 0.5rem;
+		margin-bottom: 0.1rem;
 	}
 	.price {
 		color: var(--clr-primary-6);

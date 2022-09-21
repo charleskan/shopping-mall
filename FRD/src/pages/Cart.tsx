@@ -79,26 +79,17 @@ const Cart: NextPage = () => {
 				{/* {console.log('cartLoaded:',cartLoaded ,)} */}
 			</>
 			<div className={cart.pageBox}>
-				<div>
-					<h1 className={cart.Title}>Cart</h1>
-
-					<span className={cart.page}>Home. Pages.</span>
-					<span className={cart.nowPage}>
-						Cart
-					</span>
-				</div>
-				<div></div>
+				<Container>
+					<div>
+						<h1 className={cart.Title}>Cart</h1>
+						<span className={cart.page}>Home. Pages.</span>
+						<span className={cart.nowPage}>
+							Cart
+						</span>
+					</div>
+				</Container>
 			</div>
-
-			{/* <div className={cart.title}>
-				<div>Product</div>
-				<div>Name</div>
-				<div>Color</div>
-				<div>Size</div>
-				<div>Stoke</div>
-				<div>Price</div>
-				</div> */}
-
+			<Container>
 			<div className={cart.box}>
 				<div>
 					{
@@ -111,13 +102,15 @@ const Cart: NextPage = () => {
 								size={productInCart.size}
 								tc_number={productInCart.tc_number}
 								tc_price={productInCart.tc_price}
-								
+
 								onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id))}
 								onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
 								onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
 
 							/>
-						) : <div className={cart.empty}>Cart is empty</div>
+						)
+
+							: <div className={cart.empty}>Cart is empty</div>
 					}
 				</div>
 				<form className={cart.totalBox} >
@@ -133,7 +126,7 @@ const Cart: NextPage = () => {
 
 			</div>
 
-
+			</Container>
 			<Footer />
 		</>
 	)

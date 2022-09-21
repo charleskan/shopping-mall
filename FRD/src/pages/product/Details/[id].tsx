@@ -248,7 +248,7 @@ const ProductDetails: NextPage = () => {
 						e.preventDefault()
 						dispatch(
 							fetchAddToCart(
-								Number(id)
+								Number(id),
 							)
 						)
 					}}>
