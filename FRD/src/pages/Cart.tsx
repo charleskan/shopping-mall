@@ -15,6 +15,8 @@ import cart from '../styles/Cart.module.css'
 import CartItem from '../components/CartItem'
 import Link from 'next/link'
 import SubmitTotal from '../components/CartForm'
+import CancelIcon from '@mui/icons-material/Cancel';
+import { fetchRemoveFromCart } from '../redux/cart/action';
 
 
 
@@ -25,7 +27,7 @@ const Cart: NextPage = () => {
 	const carts = useAppSelector(state => state.cart.products)
 	// const products = useAppSelector(state => state.product.products)
 	const dispatch = useAppDispatch()
-
+	
 
 	
 	useEffect(() => {
@@ -69,7 +71,7 @@ const Cart: NextPage = () => {
 				<div>Name</div>
 				<div>Color</div>
 				<div>Size</div>
-				<div>Stoke</div>
+				<div>Stoke</div>x
 				<div>Price</div>
 				</div> */}
 
@@ -85,9 +87,14 @@ const Cart: NextPage = () => {
 						size={productInCart.size}
 						tc_number={productInCart.tc_number}
 						tc_price={productInCart.tc_price}
+						
+						onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
+						
 					/>
 				) : <div className={cart.empty}>Cart is empty</div>
+				
 			}
+			
 			</div>
 			<form className={cart.totalBox} >
                 <div >

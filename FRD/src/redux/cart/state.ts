@@ -7,6 +7,7 @@ export interface  productDetailId {
     sizeId: number,
 }
 export interface  ProductInCart {
+    id: number,
     product: string,
     icon: string,
     color: string,

@@ -212,10 +212,11 @@ export class InvoiceService {
                 (
                     /* SQL */
                     `
-                    with 
+                    with
                     product_detail as
                     (
-                    select pd.id,
+                    select 
+                    pd.id,
                     p.name as product,
                     c."name" as color,
                     s.name as size,
@@ -224,28 +225,31 @@ export class InvoiceService {
                     s2.name as status,
                     icon
                     from 
-                    ((("productDetail" pd inner join
-                    product p on p.id = pd.product_id)
+                    ((("productDetail" pd 
+                    inner join product p on p.id = pd.product_id)
                     inner join color c on c.id=pd.color_id)
                     inner join "size" s on s.id = pd.size_id )
                     inner join status s2 on s2.id = pd.status_id 
                     )
                     
-                    select 
+                    select
                     product, 
                     color, 
                     "size", 
                     icon, 
+              		"product_detail".id,
                     sum("number") as TC_Number, 
                     sum(productPrice) as TC_Price
-                    from product_detail inner join
+                    from product_detail 
+                    inner join
                     "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
                     where "invoice_id" = ?
                     group by 
                     product, 
                     color, 
                     "size", 
-                    icon, 
+                    icon,
+                    "product_detail".id,
                     productPrice
                     
                     `,
@@ -365,27 +369,27 @@ export class InvoiceService {
                     WITH Cart as
                     (
                     select *
-                    FROM invoice_product
+                    FROM "invoice_productDetail" ipd
                     where invoice_id = ?
                     ),
                     
                     productInCart as 
                     (
                     select sum(price) as sum_of_Price, 
-                    product_id,
+                    "productDetail_id",
                     invoice_id,
                     sum(number) as sum_of_Number
                     from Cart
-                    group by product_id, invoice_id
-                
+                    group by "productDetail_id", invoice_id
                     )
                     
                     
-                select invoice_id, SUM(sum_of_price) as total_price
-                from productInCart
-                inner join product 
-                on product.id = productInCart.product_id
-                group by invoice_id
+                    select 
+                    invoice_id, SUM(sum_of_price) as total_price
+                    from productInCart
+                    inner join product 
+                    on product.id = productInCart."productDetail_id"
+                    group by invoice_id
                         `,
                     [invoiceId]
                 )

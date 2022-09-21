@@ -56,7 +56,7 @@ export function Heading() {
 
 				)}
 
-				<Link href='/shoppingCar'>
+				<Link href='/Cart'>
 					<ShoppingCartIcon className={heading.imageICon}/>
 				</Link>
 					{cartCount.length}

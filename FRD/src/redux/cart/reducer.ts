@@ -25,11 +25,12 @@ export function cartReducer(state: CartState = initialState, action: CartActions
             colorId: action.colorId, 
             sizeId: action.sizeId }],
       };
-    // case '@@cart/REMOVE_FROM_CART':
-    //   return produce(state, state => {
-    //     const index = state.productIds.indexOf(action.productId)
-    //     state.productIds.splice(index, 1)
-    //   });
+    case '@@cart/REMOVE_FROM_CART':
+      return produce(state, state => {
+        const index = state.productDetailIds.
+          findIndex(p => p.productId === action.productId)
+        state.productDetailIds.splice(index, 1)
+      });
   }
   return state;
 }
