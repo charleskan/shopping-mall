@@ -8,6 +8,8 @@ import { useAppDispatch } from '../store';
 interface Props {
 	// id: Promise<any>
 	onRemoveFromCart: () => void;
+	// onMinusFromCart: () => void;
+	onAddToCart: () => void;
 	product: string
 	icon: string
 	color: string
@@ -30,16 +32,20 @@ function CartItem(props: Props) {
 			<div className={cart.icon}>{props.product}</div>
 			<div className={cart.icon}> {props.color}</div>
 			<div className={cart.icon}> {props.size}</div>
-			<RemoveCircleIcon />
+			{/* <RemoveCircleIcon 
+			onClick={props.onMinusFromCart}
+			/> */}
 
 			<div className={cart.icon}> {props.tc_number}</div>
-			<AddCircleIcon />
+			<AddCircleIcon 
+			onClick={props.onAddToCart}
+			/>
 			<div className={cart.icon}>${props.tc_price}</div>
-			<button>
+			
 				<CancelIcon className={cart.icon} 
 				onClick={props.onRemoveFromCart}
 				/>
-			</button>
+			
 		</div>
 
 	)

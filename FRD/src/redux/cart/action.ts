@@ -12,13 +12,10 @@ export function loadedCart(products: []) {
 
 export function addToCart(
     productId: number,
-    colorId: number,
-    sizeId: number) {
+) {
     return {
         type: '@@cart/ADD_TO_CART' as const,
         productId,
-        colorId,
-        sizeId
     }
 }
 
@@ -28,6 +25,12 @@ export function removeFromCart(productId: number) {
         productId
     }
 }
+// export function removeFromCart(productId: number) {
+//     return {
+//         type: '@@cart/REMOVE_FROM_CART' as const,
+//         productId
+//     }
+// }
 
 
 
@@ -65,15 +68,11 @@ export function loadCart() {
 
 export   function fetchAddToCart(
     productId: number,
-    colorId: number,
-    sizeId: number,
 ) {
     return async (dispatch: AppDispatch) => {
         dispatch(addToCart
             (
             productId,
-            colorId,
-            sizeId
             ))
 
         try {
@@ -91,8 +90,6 @@ export   function fetchAddToCart(
                     },
                     body: JSON.stringify({
                         productId,
-                        colorId,
-                        sizeId,
                     })
                 })
                 console.log(res);
@@ -151,49 +148,45 @@ export function fetchRemoveFromCart(
         }
     }
 }
-export function fetchMinusFromCart(
-    productId: number,
-    colorId: number,
-    sizeId: number,
-) {
-    return async (dispatch: AppDispatch) => {
-        dispatch(addToCart
-            (
-            productId,
-            colorId,
-            sizeId
-            ))
+// export function fetchMinusFromCart(
+//     productId: number,
+// ) {
+//     return async (dispatch: AppDispatch) => {
+//         dispatch(addToCart
+//             (
+//             productId,
+//             ))
 
-        try {
-            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-            //     productId: productId,
-            //     colorId: colorId,
-            //     sizeId: sizeId
-            // })
-            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
-                {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        productId,
-                    })
-                })
-                console.log(res);
+//         try {
+//             // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
+//             //     productId: productId,
+//             //     colorId: colorId,
+//             //     sizeId: sizeId
+//             // })
+//             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+//                 {
+//                     method: 'DELETE',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                         'Authorization': `Bearer ${localStorage.getItem('token')}`
+//                     },
+//                     body: JSON.stringify({
+//                         productId,
+//                     })
+//                 })
+//                 console.log(res);
                 
-            const data = await res.json()
+//             const data = await res.json()
 
-            if (res.status === 401) {
-                dispatch(logIn(data))
-            }
+//             if (res.status === 401) {
+//                 dispatch(logIn(data))
+//             }
 
-            // dispatch(checkResponse(data))
-        } catch (e) {
-            // dispatch(removeFromCart(productId));
-            dispatch(loadCart())
-        }
-    }
-}
+//             // dispatch(checkResponse(data))
+//         } catch (e) {
+//             // dispatch(removeFromCart(productId));
+//             dispatch(loadCart())
+//         }
+//     }
+// }
 
