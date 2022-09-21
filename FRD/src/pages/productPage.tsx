@@ -10,72 +10,66 @@ import product from '../styles/Product.module.css'
 import { useEffect, useState } from 'react'
 import { log } from 'console'
 
-
 interface product {
-	id:number,
-	name: string,
-	icon: string,
-	description: string,
-
+	id: number
+	name: string
+	icon: string
+	description: string
 }
 
 const productPage: NextPage = () => {
-
 	const [products, setProduct] = useState<product[]>([])
 
 	async function fetchProduct() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+		let res = await fetch(
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
 		)
 		let product = (await res.json()).allProductInfo
 		setProduct(product)
 		console.log(product)
-	}{}
+	}
+	{
+	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		fetchProduct()
-	},[setProduct])
-
-
+	}, [setProduct])
 
 	return (
 		<>
 			<HeadTitle />
 			<Heading />
 			<Navbar />
-		
-			<div className={product.pageBox}>
-			<Container>
-				<div>
-					
-					<h1 className={product.Title}>Product</h1>
 
-					<span className={product.page}>Home. Pages.</span>
-					<span className={product.nowPage}>
-					Product
-					</span>
-					
-				</div>
-				
-				
+			<div className={product.pageBox}>
+				<Container>
+					<div>
+						<h1 className={product.Title}>Product</h1>
+
+						<span className={product.page}>Home. Pages.</span>
+						<span className={product.nowPage}>Product</span>
+					</div>
 				</Container>
 			</div>
-			<Container maxWidth='lg'>
+			<Container>
+				{/* <Container maxWidth='lg'>
 			<Grid container spacing={2}>
 				<Grid xs={4}>
 				<SlideFilter />
 				</Grid>
-				<Grid xs={8}>
+				<Grid xs={8}> */}
 				{products.map((product) => (
-						<ProductList
-							id={product.id}
-							name={product.name}
-							description={product.description}
-							icon={product.icon}/>
-					))}
-				</Grid>
+					<ProductList
+						id={product.id}
+						name={product.name}
+						description={product.description}
+						icon={product.icon}
+					/>
+				))}
+				{/* </Grid>
 			</Grid>
+			</Container> */}
 			</Container>
-
 		</>
 	)
 }

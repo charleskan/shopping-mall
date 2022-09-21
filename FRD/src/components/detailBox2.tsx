@@ -46,7 +46,7 @@ export function DetailBox2(props: Props) {
 				/>
 			</div>
 			<div>
-				<div>{props.name}</div>
+				<div className={detail.productName}>{props.name}</div>
 			</div>
 		</div>
 	)

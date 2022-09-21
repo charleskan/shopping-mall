@@ -114,12 +114,19 @@ const total = carts.map((price)=>{
 						onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
 						
 					/>
-					
 				) : <div className={cart.empty}>Cart is empty</div>
 			}
-			</div>
-
 			
+			</div>
+			<form className={cart.totalBox} >
+                <div >
+                    <div>Total</div>
+             
+
+                </div>
+                <button>Proceed To Checkout</button>
+
+			</form>
 
 			</div>
 

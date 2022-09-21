@@ -18,3 +18,17 @@
     color: #FF2E79;
     padding: 6px;
 }
+
+
+.productBox{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+    box-shadow: 0 0 20px 0 #F2F0F7, 0 10px 10px 0 #F2F0F7;
+    padding: 20px;
+}
+
+.box{
+
+}
