@@ -15,6 +15,7 @@ import { fetchAddToCart2 } from '../../../redux/cart/action'
 import { useAppDispatch } from '../../../store'
 import { SelectColor } from '../../../components/SelectColor'
 import React from 'react'
+import detail from '../../../styles/detailBox.module.css'
 import { FormControl, FormLabel, RadioGroup } from '@mui/material'
 
 interface product {
@@ -167,6 +168,8 @@ const ProductDetails: NextPage = () => {
 			<HeadTitle />
 			<Heading />
 			<Navbar />
+			<div className={detail.boxDiv}>
+			<div className={detail.box}>
 			{product.map((product) => (
 				<DetailBox2
 					id={product.id}
@@ -213,6 +216,7 @@ const ProductDetails: NextPage = () => {
 					))}
 				</RadioGroup>
 			</FormControl>
+		
 
 			<div>{productDetailPrice}</div>
 			<div>{productDetailStock}</div>
@@ -228,9 +232,10 @@ const ProductDetails: NextPage = () => {
 					}}>
 					Add to Cart
 				</button>
+				</div>
+			</div>
 
-
-			<form>
+			{/* <form>
 				<input
 					type='text'
 					placeholder='colorId'
@@ -257,9 +262,11 @@ const ProductDetails: NextPage = () => {
 					}}>
 					Add to Cart
 				</button>
-			</form>
-
+			</form> */}
+		<div>{productDetailPrice}</div>
+			<div>{productDetailStock}</div>
 			<Footer />
+	
 		</>
 	)
 }
