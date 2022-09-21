@@ -410,21 +410,21 @@ export class InvoiceService {
                 .raw
                 (
                     `
-                with Cart as
-			   (
-               select * 
-               from invoice_product
-               where invoice_id = ?
-               and product_id = ?
-               )
-               
-             delete 
-             from invoice_product where id=(select max(id) from Cart)
-             returning *
+                    with Cart as
+                    (
+                    select * 
+                    from "invoice_productDetail"
+                    where invoice_id = ?
+                    and "productDetail_id" = ?
+                    )
+                    
+                    delete 
+                    from "invoice_productDetail" where id=(select max(id) from Cart)
+                    returning *
             
-             `,
+                `,
                     [invoiceId,
-                        minusProductInCartId]
+                    minusProductInCartId]
                 )
 
 

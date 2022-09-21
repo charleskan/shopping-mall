@@ -23,12 +23,17 @@ export function cartReducer(state: CartState = initialState, action: CartActions
         productDetailIds: [...state.productDetailIds, 
           { productId: action.productId}]
       };
-    case '@@cart/REMOVE_FROM_CART':
+    case '@@cart/MINUS_FROM_CART':
       return produce(state, state => {
         const index = state.productDetailIds.
           findIndex(p => p.productId === action.productId)
         state.productDetailIds.splice(index, 1)
       });
+    case '@@cart/REMOVE_FROM_CART':
+      return produce(state, state => {
+        state.productDetailIds = []
+      }
+      );
   }
   return state;
 }

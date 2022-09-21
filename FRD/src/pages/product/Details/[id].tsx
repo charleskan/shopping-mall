@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 // import loginStyles from '../styles/Login.module.css'
 
 import { fetchAddToCart } from '../../../redux/cart/action'
-import { fetchAddToCart2 } from '../../../redux/cart/action'
 import { useAppDispatch } from '../../../store'
 import { SelectColor } from '../../../components/SelectColor'
 import React from 'react'
@@ -134,7 +133,7 @@ const ProductDetails: NextPage = () => {
 			const query = router.query.id
 			const id = Number(query)
 
-			fetchAddToCart(id, Number(colorId), Number(sizeId))
+			fetchAddToCart(id)
 		}
 	}, [setAddCart, router.isReady])
 
@@ -221,7 +220,7 @@ const ProductDetails: NextPage = () => {
 					onClick={(e) => {
 						e.preventDefault()
 						dispatch(
-							fetchAddToCart2(
+							fetchAddToCart(
 								Number(id)
 							)
 						)
@@ -249,9 +248,7 @@ const ProductDetails: NextPage = () => {
 						e.preventDefault()
 						dispatch(
 							fetchAddToCart(
-								Number(id),
-								Number(colorId),
-								Number(sizeId)
+								Number(id)
 							)
 						)
 					}}>

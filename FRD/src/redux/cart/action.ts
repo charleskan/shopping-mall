@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "next/router";
 import { AppDispatch } from "../../store"
 import { checkResponse, loggedIn, logIn } from "../auth/action"
 
@@ -10,43 +11,36 @@ export function loadedCart(products: []) {
     }
 }
 
-export function addToCart(
-    productId: number,
-) {
+export function addToCart(productId: number) {
     return {
         type: '@@cart/ADD_TO_CART' as const,
         productId,
     }
 }
-export function addToCart2(
-    productId: number) {
+
+export function minusFromCart(productId: number) {
     return {
-        type: '@@cart/ADD_TO_CART' as const,
+        type: '@@cart/MINUS_FROM_CART' as const,
         productId
     }
 }
 
-export function removeFromCart(productId: number) {
+export function removeFromCart(products: []) {
     return {
         type: '@@cart/REMOVE_FROM_CART' as const,
-        productId
+        products
     }
 }
-// export function removeFromCart(productId: number) {
-//     return {
-//         type: '@@cart/REMOVE_FROM_CART' as const,
-//         productId
-//     }
-// }
 
 
 
 type LoadedCartAction = ReturnType<typeof loadedCart>
 type AddToCartAction = ReturnType<typeof addToCart>
+type MinusToCartAction = ReturnType<typeof minusFromCart>
 type RemoveToCartAction = ReturnType<typeof removeFromCart>
 
 // export type CartActions = LoadedCartAction | AddToCartAction 
-export type CartActions = LoadedCartAction | AddToCartAction | RemoveToCartAction
+export type CartActions = LoadedCartAction | AddToCartAction | MinusToCartAction | RemoveToCartAction
 
 export function loadCart() {
     return async (dispatch: AppDispatch) => {
@@ -59,10 +53,13 @@ export function loadCart() {
                     }
                 })
             const data = await res.json()
+            console.log(data)
+            
 
             if (res.status === 401) {
                 dispatch(logIn(data))
                 // dispatch(checkResponse(data))
+
             } else {
                 dispatch(loadedCart(data.productRecord))
             }
@@ -109,34 +106,39 @@ export   function fetchAddToCart(
 
             // dispatch(checkResponse(data))
         } catch (e) {
-            // dispatch(removeFromCart(productId));
+            // dispatch(MINUSFromCart(productId));
             dispatch(loadCart())
         }
     }
 }
 
-export   function fetchAddToCart2(
-    productId: number
+export function fetchMinusFromCart(
+    productId: number,
 ) {
     return async (dispatch: AppDispatch) => {
-        dispatch(addToCart2
+        dispatch(minusFromCart
             (
-            productId
+            productId,
             ))
 
         try {
-            
-            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
+            //     productId: productId,
+            //     colorId: colorId,
+            //     sizeId: sizeId
+            // })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/minusProductInCart/${productId}`,
                 {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify({
-                        productId
+                        productId,
                     })
                 })
+                // console.log(res);
                 
             const data = await res.json()
 
@@ -146,18 +148,18 @@ export   function fetchAddToCart2(
 
             // dispatch(checkResponse(data))
         } catch (e) {
-            // dispatch(removeFromCart(productId));
+            // dispatch(MINUSFromCart(productId));
             dispatch(loadCart())
         }
     }
 }
 export function fetchRemoveFromCart(
-    productId: number,
+    productId: any,
 ) {
     return async (dispatch: AppDispatch) => {
         dispatch(removeFromCart
             (
-            productId,
+                productId,
             ))
 
         try {
@@ -187,50 +189,9 @@ export function fetchRemoveFromCart(
 
             // dispatch(checkResponse(data))
         } catch (e) {
-            // dispatch(removeFromCart(productId));
+            // dispatch(MINUSFromCart(productId));
             dispatch(loadCart())
         }
     }
 }
-// export function fetchMinusFromCart(
-//     productId: number,
-// ) {
-//     return async (dispatch: AppDispatch) => {
-//         dispatch(addToCart
-//             (
-//             productId,
-//             ))
-
-//         try {
-//             // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-//             //     productId: productId,
-//             //     colorId: colorId,
-//             //     sizeId: sizeId
-//             // })
-//             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
-//                 {
-//                     method: 'DELETE',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': `Bearer ${localStorage.getItem('token')}`
-//                     },
-//                     body: JSON.stringify({
-//                         productId,
-//                     })
-//                 })
-//                 console.log(res);
-                
-//             const data = await res.json()
-
-//             if (res.status === 401) {
-//                 dispatch(logIn(data))
-//             }
-
-//             // dispatch(checkResponse(data))
-//         } catch (e) {
-//             // dispatch(removeFromCart(productId));
-//             dispatch(loadCart())
-//         }
-//     }
-// }
 

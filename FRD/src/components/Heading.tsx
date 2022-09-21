@@ -48,19 +48,19 @@ export function Heading() {
 						</button>
 					</Link>
 				) : (
-<Link href='/login'>
-					<button className={heading.a}
-						onClick={() => dispatch(logOut())}><LogoutIcon />logout
-						
-					</button>
+					<Link href='/login'>
+						<button className={heading.a}
+							onClick={() => dispatch(logOut())}><LogoutIcon />logout
+
+						</button>
 					</Link>
 
 				)}
 
 				<Link href='/Cart'>
-					<ShoppingCartIcon className={heading.imageICon}/>
+					<ShoppingCartIcon className={heading.imageICon} />
 				</Link>
-					{cartCount.length}
+				{cartCount.length}
 			</div>
 		</div>
 	)
