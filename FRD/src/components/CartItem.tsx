@@ -29,6 +29,7 @@ function CartItem(props: Props) {
 			<div className={cart.icon}>{props.product}</div>
 			<div className={cart.icon}> {props.color}</div>
 			<div className={cart.icon}> {props.size}</div>
+			<div className={cart.icon}>
 			<button className={cart.button}>
 				<RemoveCircleIcon />
 			</button>
@@ -36,6 +37,7 @@ function CartItem(props: Props) {
 			<button className={cart.button}>
 				<AddCircleIcon />
 			</button>
+			</div>
 			<div className={cart.icon}>${props.tc_price}</div>
 			<button className={cart.button}>
 				<CancelIcon onClick={props.onRemoveFromCart} />

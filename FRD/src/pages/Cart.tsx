@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import React, { useEffect, useState } from 'react';
-import { fetchAddToCart, loadCart } from '../redux/cart/action';
+import { fetchAddToCart, fetchRemoveFromCart, loadCart } from '../redux/cart/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
@@ -76,6 +76,7 @@ const total = carts.map((price)=>{
 				{/* {console.log('cartLoaded:',cartLoaded ,)} */}
 			</>
 			<div className={cart.pageBox}>
+				<Container>
 				<div>
 					<h1 className={cart.Title}>Cart</h1>
 
@@ -84,7 +85,7 @@ const total = carts.map((price)=>{
 					Cart
 					</span>
 				</div>
-				<div></div>
+				</Container>
 			</div>
 
 				{/* <div className={cart.title}>
@@ -95,7 +96,7 @@ const total = carts.map((price)=>{
 				<div>Stoke</div>
 				<div>Price</div>
 				</div> */}
-
+<Container>
 <div className={cart.box}>
 	<div>
 			{
@@ -124,13 +125,14 @@ const total = carts.map((price)=>{
              
 
                 </div>
-                <button>Proceed To Checkout</button>
-
+				<Link href='/orderCompleted'>
+                <button className={cart.addButton}>Proceed To Checkout</button>
+				</Link>
 			</form>
 
 			</div>
 
-
+</Container>
 			<Footer />
 		</>
 	)
