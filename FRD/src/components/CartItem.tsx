@@ -1,13 +1,13 @@
 import cart from '../styles/Cart.module.css'
 import Image from 'next/image'
-import CancelIcon from '@mui/icons-material/Cancel';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import CancelIcon from '@mui/icons-material/Cancel'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
-import { useAppDispatch } from '../store';
+import { useAppDispatch } from '../store'
 interface Props {
 	// id: Promise<any>
-	onRemoveFromCart: () => void;
+	onRemoveFromCart: () => void
 	product: string
 	icon: string
 	color: string
@@ -16,11 +16,8 @@ interface Props {
 	tc_number: string
 }
 
-
-
 function CartItem(props: Props) {
 	return (
-
 		<div className={cart.cartBox}>
 			<Image
 				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
@@ -30,19 +27,19 @@ function CartItem(props: Props) {
 			<div className={cart.icon}>{props.product}</div>
 			<div className={cart.icon}> {props.color}</div>
 			<div className={cart.icon}> {props.size}</div>
-			<RemoveCircleIcon />
-
+			<button className={cart.button}>
+				<RemoveCircleIcon />
+			</button>
 			<div className={cart.icon}> {props.tc_number}</div>
-			<AddCircleIcon />
+			<button className={cart.button}>
+				<AddCircleIcon />
+			</button>
 			<div className={cart.icon}>${props.tc_price}</div>
-			<button>
-				<CancelIcon className={cart.icon} 
-				onClick={props.onRemoveFromCart}
-				/>
+			<button className={cart.button}>
+				<CancelIcon onClick={props.onRemoveFromCart} />
 			</button>
 		</div>
-
-	)
+	)	
 }
 
 export default CartItem

@@ -6,7 +6,7 @@ import SlideFilter from '../components/SlideFilter'
 import { Container } from '@mui/system'
 import Grid from '@mui/material/Grid' // Grid version 1
 import ProductList from '../components/ProductList'
-
+import product from '../styles/Product.module.css'
 import { useEffect, useState } from 'react'
 import { log } from 'console'
 
@@ -42,6 +42,23 @@ const productPage: NextPage = () => {
 			<HeadTitle />
 			<Heading />
 			<Navbar />
+		
+			<div className={product.pageBox}>
+			<Container>
+				<div>
+					
+					<h1 className={product.Title}>Product</h1>
+
+					<span className={product.page}>Home. Pages.</span>
+					<span className={product.nowPage}>
+					Product
+					</span>
+					
+				</div>
+				
+				
+				</Container>
+			</div>
 			<Container maxWidth='lg'>
 			<Grid container spacing={2}>
 				<Grid xs={4}>

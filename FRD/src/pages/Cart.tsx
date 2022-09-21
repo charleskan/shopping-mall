@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import React, { useEffect, useState } from 'react';
-import { loadCart } from '../redux/cart/action';
+import { fetchRemoveFromCart, loadCart } from '../redux/cart/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
@@ -14,9 +14,8 @@ import home from '../styles/Index.module.css'
 import cart from '../styles/Cart.module.css'
 import CartItem from '../components/CartItem'
 import Link from 'next/link'
-import SubmitTotal from '../components/CartForm'
-import CancelIcon from '@mui/icons-material/Cancel';
-import { fetchRemoveFromCart } from '../redux/cart/action';
+import { PrintDisabled } from '@mui/icons-material'
+
 
 
 
@@ -27,22 +26,33 @@ const Cart: NextPage = () => {
 	const carts = useAppSelector(state => state.cart.products)
 	// const products = useAppSelector(state => state.product.products)
 	const dispatch = useAppDispatch()
+
+console.log(carts);
+
+const total = carts.map((price)=>{
 	
 
-	const [total, setTotal] = useState(0)
+
+})
+
+
+
+
+// 	const [total, setTotal] = useState(0)
+// 	useEffect(() => {
+// 		const getTotal = () =>{
+// 		const res = ((prev :any, item :any) =>{
+// 			return prev +(item.tc_price * item.tc_number)
+// 		},0)
+// setTotal(res)
+// 	}
+// getTotal()
+// 	}, [])
 
 
 	
 	useEffect(() => {
 		// for (const cart of carts) {
-// 			const getTotal = () => {
-// 				const res = (prev :any,item :any):number=> {
-// 					return prev +(item.tc_price * item.tc_number)
-// 				}
-// 				setTotal(res)
-// 			}
-
-// getTotal()
 		dispatch(loadCart())
 		// }
 	}, [])
@@ -82,7 +92,7 @@ const Cart: NextPage = () => {
 				<div>Name</div>
 				<div>Color</div>
 				<div>Size</div>
-				<div>Stoke</div>x
+				<div>Stoke</div>
 				<div>Price</div>
 				</div> */}
 
@@ -98,19 +108,16 @@ const Cart: NextPage = () => {
 						size={productInCart.size}
 						tc_number={productInCart.tc_number}
 						tc_price={productInCart.tc_price}
-						
+
 						onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-						
 					/>
 				) : <div className={cart.empty}>Cart is empty</div>
-				
 			}
-			
 			</div>
 			<form className={cart.totalBox} >
                 <div >
                     <div>Total</div>
-                    <div>${total}</div>
+             
 
                 </div>
                 <button>Proceed To Checkout</button>

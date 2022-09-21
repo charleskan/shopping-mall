@@ -11,6 +11,7 @@ import logo1 from '../pages/photo/aboutus1.png'
 import logo2 from '../pages/photo/aboutus2.png'
 import logo3 from '../pages/photo/aboutus3.png'
 import logo4 from '../pages/photo/aboutus4.png'
+import { Container } from '@mui/system'
 
 
 
@@ -29,15 +30,20 @@ const AboutUs: NextPage = () => {
 			<Heading />
 			<Navbar />
 			<div className={about.pageBox}>
+			<Container>
 				<div>
+					
 					<h1 className={about.Title}>About Us</h1>
 
 					<span className={about.page}>Home. Pages.</span>
 					<span className={about.nowPage}>
 					About Us
 					</span>
+					
 				</div>
-				<div></div>
+				
+				
+				</Container>
 			</div>
 
 			<div className={about.mainTopic}>
@@ -97,9 +103,7 @@ const AboutUs: NextPage = () => {
 					</div>
 				</div>
 
-				<div className={about.clientTopic}>
-          <h4 className={about.clientTitle}>Our Client Say!</h4>
-        </div>
+
 			</div>
 
 			<Footer />

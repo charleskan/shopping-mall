@@ -8,6 +8,7 @@ import Link from 'next/link'
 import errorPhoto from '../pages/photo/error.png'
 import { Footer } from '../components/Footer'
 import errorImage from './error.png'
+import { Container } from '@mui/system'
 
 const Error: NextPage = () => {
 	return (
@@ -24,6 +25,7 @@ const Error: NextPage = () => {
 			<Navbar />
 
 			<div className={error.errorBackground}>
+			 <Container>
 			<div>
 				<h1 className={error.errorTitle}>404 Not Found</h1>
 
@@ -31,8 +33,8 @@ const Error: NextPage = () => {
 					<span className={error.page}>Home. Pages.</span>
 					<span className={error.nowPage}>404 Not Found</span>
 				</div>
-
-				<div></div>
+				</Container>
+				
 			</div>
 
 			<div className={error.errorBox}>

@@ -18,14 +18,16 @@ export function ProductCard(props: Props) {
 	}
 	return (
 		<div className={card.cardBigBox} onClick={handleSubmit}>
+			
 			<Image
-				className={card.s}
 				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
 				width={200}
-				height={250}
+				height={200}
 			/>
+			<div>
 
 			<div className={card.productName}>{props.name}</div>
+			</div>
 		</div>
 	)
 }

@@ -9,6 +9,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
+import { Container } from '@mui/material'
 
 const Register: NextPage = () => {
 	const { handleSubmit, register } = useForm()
@@ -28,6 +29,22 @@ const Register: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+			<div className={loginStyles.pageBox}>
+			<Container>
+				<div>
+					
+					<h1 className={loginStyles.Title}>Register</h1>
+
+					<span className={loginStyles.page}>Home. Pages.</span>
+					<span className={loginStyles.nowPage}>
+					Register
+					</span>
+					
+				</div>
+				
+				
+				</Container>
+			</div>
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}

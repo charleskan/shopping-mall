@@ -4,7 +4,6 @@
     background-color: #F5F4FE;
     height: 400px;
     padding-top: 100px;
-    justify-content: space-around;
 }
 
 .Title{
@@ -67,6 +66,7 @@
     align-items: center;
     flex-direction: column;
    margin-top: 100px;
+   margin-bottom: 100px;
 
 }
 

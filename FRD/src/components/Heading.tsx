@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import MailIcon from '@mui/icons-material/Mail'
-import PhoneIcon from '@mui/icons-material/Phone'
+import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login'
+import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
 import { useEffect, useState } from 'react'
@@ -33,7 +33,7 @@ export function Heading() {
 	return (
 		<div className={heading.color}>
 			<div className={heading.center}>
-				<MailIcon className={heading.imageICon} />
+				<PersonIcon className={heading.imageICon} />
 
 				{username === undefined || (
 					<div className={heading.a}>{username}</div>
@@ -48,11 +48,12 @@ export function Heading() {
 						</button>
 					</Link>
 				) : (
-
+<Link href='/login'>
 					<button className={heading.a}
-						onClick={() => dispatch(logOut())}>
-						logout
+						onClick={() => dispatch(logOut())}><LogoutIcon />logout
+						
 					</button>
+					</Link>
 
 				)}
 

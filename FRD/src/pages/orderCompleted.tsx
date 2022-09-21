@@ -7,6 +7,7 @@ import { Navbar } from '../components/Navbar'
 import orderComplet from '../styles/OrderCompleted.module.css'
 import completed from '../pages/photo/completed.png'
 import Link from 'next/link'
+import { Container } from '@mui/material'
 
 const orderCompleted: NextPage = () => {
 	return (
@@ -23,16 +24,22 @@ const orderCompleted: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className={orderComplet.pageBox}>
+			<Container>
 				<div>
+					
 					<h1 className={orderComplet.Title}>Order Completed</h1>
 
 					<span className={orderComplet.page}>Home. Pages.</span>
 					<span className={orderComplet.nowPage}>
-						Order Completed
+					Order Completed
 					</span>
+					
 				</div>
-				<div></div>
+				
+				
+				</Container>
 			</div>
+		
 
 			<div className={orderComplet.box}>
 				<div className={orderComplet.boxBorder}>

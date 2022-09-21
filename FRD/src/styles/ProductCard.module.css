@@ -4,22 +4,23 @@
     align-items: center;
     flex-direction: column;
     width: 200px;
-    height: 250px;
-    border: solid 1px;
+    height: 300px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     margin: 20px;
 }
+
+
 
 .cardBox{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
-.s{
-height: 150px;
-width: 100%;
-
+.productName{
+    margin: 10px;
 }
 
 .colorBox{

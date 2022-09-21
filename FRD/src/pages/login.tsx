@@ -9,6 +9,7 @@ import { Navbar } from '../components/Navbar'
 import loginStyles from '../styles/Login.module.css'
 import { loggedIn } from '../redux/auth/action'
 import { useDispatch } from 'react-redux'
+import { Container } from '@mui/material'
 
 const login: NextPage = () => {
 	const [username, setUsername] = useState('')
@@ -29,6 +30,22 @@ const login: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+			<div className={loginStyles.pageBox}>
+			<Container>
+				<div>
+					
+					<h1 className={loginStyles.Title}>Login</h1>
+
+					<span className={loginStyles.page}>Home. Pages.</span>
+					<span className={loginStyles.nowPage}>
+					Login
+					</span>
+					
+				</div>
+				
+				
+				</Container>
+			</div>
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}
