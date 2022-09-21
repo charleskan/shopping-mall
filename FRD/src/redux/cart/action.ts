@@ -18,6 +18,13 @@ export function addToCart(
         productId,
     }
 }
+export function addToCart2(
+    productId: number) {
+    return {
+        type: '@@cart/ADD_TO_CART' as const,
+        productId
+    }
+}
 
 export function removeFromCart(productId: number) {
     return {
@@ -93,6 +100,43 @@ export   function fetchAddToCart(
                     })
                 })
                 console.log(res);
+                
+            const data = await res.json()
+
+            if (res.status === 401) {
+                dispatch(logIn(data))
+            }
+
+            // dispatch(checkResponse(data))
+        } catch (e) {
+            // dispatch(removeFromCart(productId));
+            dispatch(loadCart())
+        }
+    }
+}
+
+export   function fetchAddToCart2(
+    productId: number
+) {
+    return async (dispatch: AppDispatch) => {
+        dispatch(addToCart2
+            (
+            productId
+            ))
+
+        try {
+            
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        productId
+                    })
+                })
                 
             const data = await res.json()
 
