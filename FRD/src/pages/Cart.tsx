@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import React, { useEffect, useState } from 'react';
-import { fetchRemoveFromCart, loadCart } from '../redux/cart/action';
+import { fetchAddToCart, loadCart } from '../redux/cart/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
@@ -110,6 +110,9 @@ const total = carts.map((price)=>{
 						tc_price={productInCart.tc_price}
 
 						onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
+						// onMinusFromCart={() => dispatch(onMinusFromCart(productInCart.id))}
+						onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
+						
 					/>
 				) : <div className={cart.empty}>Cart is empty</div>
 			}

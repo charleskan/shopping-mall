@@ -3,8 +3,6 @@ import { LoadingState } from "../../models";
 
 export interface  productDetailId {
     productId: number,
-    colorId: number,
-    sizeId: number,
 }
 export interface  ProductInCart {
     id: number,

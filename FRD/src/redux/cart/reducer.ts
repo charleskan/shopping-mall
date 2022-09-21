@@ -21,9 +21,7 @@ export function cartReducer(state: CartState = initialState, action: CartActions
       return {
         ...state,
         productDetailIds: [...state.productDetailIds, 
-          { productId: action.productId, 
-            colorId: action.colorId, 
-            sizeId: action.sizeId }],
+          { productId: action.productId}]
       };
     case '@@cart/REMOVE_FROM_CART':
       return produce(state, state => {

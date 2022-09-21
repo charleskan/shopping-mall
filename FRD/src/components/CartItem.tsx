@@ -7,7 +7,9 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { useAppDispatch } from '../store'
 interface Props {
 	// id: Promise<any>
-	onRemoveFromCart: () => void
+	onRemoveFromCart: () => void;
+	// onMinusFromCart: () => void;
+	onAddToCart: () => void;
 	product: string
 	icon: string
 	color: string
