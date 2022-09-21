@@ -436,9 +436,7 @@ export class InvoiceService {
     // get product price by id
     // -------------------------------------------------------------------------------------------------------------------
     async getSingleProductDetail(
-        productId: number,
-        colorId: number,
-        sizeId: number,
+        productDetailId: number
     ) {
         const isolationLevel = 'serializable';
         const trx = await this.knex.transaction({ isolationLevel });
@@ -449,11 +447,9 @@ export class InvoiceService {
                     `
                     select *
                     from "productDetail" 
-                    where "product_id" = ?
-                    and "color_id" = ?
-                    and "size_id" = ?
+                    where "id" = ?
                     `
-                    , [productId, colorId, sizeId]
+                    , [productDetailId]
                 )
             // console.log('getProductPrice: ', getProductPrice.rows[0]);
             await trx.commit()

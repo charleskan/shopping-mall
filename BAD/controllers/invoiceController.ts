@@ -147,9 +147,7 @@ export class InvoiceController {
     addProductToCart = async (req: express.Request, res: express.Response) => {
 
         try {
-            const productId = parseInt(req.params.id)
-            const colorId = req.body.colorId
-            const sizeId = req.body.sizeId
+            const productDetailId = parseInt(req.params.id)
             //create invoice if not exist
             const invoiceId = req.user!.invoiceId
 
@@ -160,19 +158,17 @@ export class InvoiceController {
 
             // const invoiceId = invoice[0].id
 
-            // console.log('productId: ',productId)
+            console.log('productId: ',productDetailId)
             // console.log('colorId: ',colorId)
             // console.log('sizeId: ',sizeId)
             const productQuantity = 1
 
             const productDetail = (await this.invoiceService.getSingleProductDetail
                 (
-                    productId,
-                    colorId,
-                    sizeId,
+                    productDetailId
 
                 ))
-            // console.log('productDetail: ', productDetail)
+            console.log('productDetail: ', productDetail)
 
             const productRecord = await this.invoiceService.addProductToCart(
                 invoiceId,
