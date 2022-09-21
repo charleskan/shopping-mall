@@ -112,6 +112,47 @@ export   function fetchAddToCart(
 }
 export function fetchRemoveFromCart(
     productId: number,
+) {
+    return async (dispatch: AppDispatch) => {
+        dispatch(removeFromCart
+            (
+            productId,
+            ))
+
+        try {
+            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
+            //     productId: productId,
+            //     colorId: colorId,
+            //     sizeId: sizeId
+            // })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        productId,
+                    })
+                })
+                console.log(res);
+                
+            const data = await res.json()
+
+            if (res.status === 401) {
+                dispatch(logIn(data))
+            }
+
+            // dispatch(checkResponse(data))
+        } catch (e) {
+            // dispatch(removeFromCart(productId));
+            dispatch(loadCart())
+        }
+    }
+}
+export function fetchMinusFromCart(
+    productId: number,
     colorId: number,
     sizeId: number,
 ) {
@@ -155,3 +196,4 @@ export function fetchRemoveFromCart(
         }
     }
 }
+
