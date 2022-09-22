@@ -39,55 +39,17 @@ const Cart: NextPage = () => {
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
 
-	// const cartCount = useAppSelector(state => state.cart.productDetailIds)
-	
-
-
 
 	
-	// const totalPrice = useMemo(() => {
-	// 	let total = carts.map((item) => 
-	// 	Number(item.product_price) * Number(item.tc_number))
-	// 	.reduce((a, b) => a + b, 0)
-	// 	return total;
-	// }, [carts])
 	
 
-
-
-	const [totalPrice, setTotalPrice] = useState(0)
-
-	// const [cartItems, setCartItems] = useState<Array<CartItems>>([]);
-
-	// useEffect(() => {
-	// 	dispatch(loadCart())
-		
-	// 	JSON.parse(localStorage.getItem('cartItems')!)
-	// 	// setCartItems(JSON.parse(localStorage.getItem('cartItems')!))
-	// }, [totalPrice])
-	
-	// useEffect(() => {
-	// 	dispatch(loadCart())
-	// }, [])
-	
-
-	function getTotalPrice() {
-
+	const totalPrice = useMemo(() => {
 		let total = carts.map((item) => 
 		Number(item.product_price) * Number(item.tc_number))
 		.reduce((a, b) => a + b, 0)
-		console.log('carts inside: ', carts);
-		
-		console.log('total:', total);
-		
-		setTotalPrice(total)
-	}
-	
-	useEffect(() => {
-		getTotalPrice();
+		return total;
 	}, [carts])
-
-
+	
 
 	const router = useRouter()
 
