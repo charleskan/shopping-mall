@@ -10,8 +10,10 @@ export interface  ProductInCart {
     icon: string,
     color: string,
     size: string,
-    tc_price: number,
-    tc_number: string,
+    number: number,
+    product_price: number,
+    tc_price: number | string,
+    tc_number: number | string,
 
 }
 export interface CartState {

@@ -3,12 +3,12 @@ import Head from 'next/head'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { fetchAddToCart, fetchMinusFromCart, fetchRemoveFromCart, loadCart } from '../redux/cart/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
-// import Skeleton from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
 import cart from '../styles/Cart.module.css'
@@ -18,55 +18,40 @@ import { PrintDisabled } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 
 
+interface CartItems {
+	id: number,
+	product: string,
+	color: string,
+	size: string,
+	icon: string,
+	number: number,
+	product_price: number,
+	tc_number: number | string,
+	tc_price: number
+}
 
 
 
 const Cart: NextPage = () => {
-
+	
+	const dispatch = useAppDispatch()
+	
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
-	const cartCount = useAppSelector(state => state.cart.productDetailIds)
-	const dispatch = useAppDispatch()
 
 
+	
+	
 
-	// const getTotalPrice = () => {
-	// 	let total = 0
-	// 	carts.map((cart) => {
-	// 		total += cart.tc_price * cartCount.length
-	// 	})
-	// 	return total
-	// }
-	const getTotalPrice = () => {
-		carts.map((cart) => {
-			return cart.tc_price 
-		}
-		)
-	}
+	const totalPrice = useMemo(() => {
+		let total = carts.map((item) => 
+		Number(item.product_price) * Number(item.tc_number))
+		.reduce((a, b) => a + b, 0)
+		return total;
+	}, [carts])
+	
+
 	const router = useRouter()
-
-
-
-	// 	const [total, setTotal] = useState(0)
-	// 	useEffect(() => {
-	// 		const getTotal = () =>{
-	// 		const res = ((prev :any, item :any) =>{
-	// 			return prev +(item.tc_price * item.tc_number)
-	// 		},0)
-	// setTotal(res)
-	// 	}
-	// getTotal()
-	// 	}, [])
-
-	// const [addToCart, onAddToCart] = useState('')
-
-	
-	
-
-	useEffect(() => {
-		dispatch(loadCart())
-	}, [cartCount])
-
 
 	return (
 
@@ -99,43 +84,38 @@ const Cart: NextPage = () => {
 			<Container>
 				<div className={cart.box}>
 					<div>
-						{
+						{cartLoaded !== LoadingState.Loaded ?
+							<Skeleton /> :
 							carts.length > 0 ? carts.map(productInCart =>
 
+
 								<CartItem
+									key={productInCart.id}
 									product={productInCart.product}
 									icon={productInCart.icon}
 									color={productInCart.color}
 									size={productInCart.size}
-									tc_number={String(cartCount.length)}
+									tc_number={productInCart.tc_number}
 									tc_price={productInCart.tc_price}
-
-									onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id))}
+					
+									onMinusFromCart={() =>  {dispatch(fetchMinusFromCart(productInCart.id))}}
 									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-									onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
+									onAddToCart={() => {dispatch(fetchAddToCart(productInCart.id))}}
 
 								/>
-							)
 
+							)
 								: <div className={cart.empty}>Cart is empty</div>
 						}
 					</div>
 					<form className={cart.totalBox} >
 						<div >
 							<div>Total</div>
-							<div>{
-							carts.map(productInCart => 
-								productInCart.tc_price
-							)
-							}</div>
-								
-
-
+							<div className={cart.totalPrice}>{totalPrice}</div>
 						</div>
 						<button>Proceed To Checkout</button>
 
 					</form>
-
 
 				</div>
 
