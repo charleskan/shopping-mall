@@ -99,13 +99,10 @@ export   function fetchAddToCart(
 
             const data = await res.json()
             
-            
-            
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
-            
-            
+            dispatch(loadCart())
             
         } catch (e) {
             dispatch(loadCart())
@@ -141,6 +138,7 @@ export function fetchMinusFromCart(
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
+            dispatch(loadCart())
             
         } catch (e) {
             dispatch(loadCart())
@@ -175,6 +173,7 @@ export function fetchRemoveFromCart(
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
+            dispatch(loadCart())
 
         } catch (e) {
             dispatch(loadCart())

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { fetchAddToCart, fetchMinusFromCart, fetchRemoveFromCart, loadCart } from '../redux/cart/action';
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
@@ -33,37 +33,60 @@ interface CartItems {
 
 
 const Cart: NextPage = () => {
-
+	
+	const dispatch = useAppDispatch()
+	
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
+
 	// const cartCount = useAppSelector(state => state.cart.productDetailIds)
 	
-	const [totalPrice, setGetTotalPrice] = useState(0)
-	const dispatch = useAppDispatch()
 
 
-	useEffect(() => {
-		dispatch(loadCart())
+
+	
+	// const totalPrice = useMemo(() => {
+	// 	let total = carts.map((item) => 
+	// 	Number(item.product_price) * Number(item.tc_number))
+	// 	.reduce((a, b) => a + b, 0)
+	// 	return total;
+	// }, [carts])
+	
+
+
+
+	const [totalPrice, setTotalPrice] = useState(0)
+
+	// const [cartItems, setCartItems] = useState<Array<CartItems>>([]);
+
+	// useEffect(() => {
+	// 	dispatch(loadCart())
 		
-		JSON.parse(localStorage.getItem('cartItems')!)
+	// 	JSON.parse(localStorage.getItem('cartItems')!)
+	// 	// setCartItems(JSON.parse(localStorage.getItem('cartItems')!))
+	// }, [totalPrice])
+	
+	// useEffect(() => {
+	// 	dispatch(loadCart())
+	// }, [])
+	
 
-	}, [totalPrice])
-	
-	useEffect(() => {
-		dispatch(loadCart())
-		getTotalPrice()
-	}, [])
-	
 	function getTotalPrice() {
-		let carts:CartItems[]= JSON.parse(localStorage.getItem('cartItems')!)
-		
+
 		let total = carts.map((item) => 
 		Number(item.product_price) * Number(item.tc_number))
 		.reduce((a, b) => a + b, 0)
+		console.log('carts inside: ', carts);
 		
-		setGetTotalPrice(total)
+		console.log('total:', total);
+		
+		setTotalPrice(total)
 	}
 	
+	useEffect(() => {
+		getTotalPrice();
+	}, [carts])
+
 
 
 	const router = useRouter()
@@ -112,11 +135,10 @@ const Cart: NextPage = () => {
 									size={productInCart.size}
 									tc_number={productInCart.tc_number}
 									tc_price={productInCart.tc_price}
-
 					
-									onMinusFromCart={() =>  {dispatch(fetchMinusFromCart(productInCart.id)) ;getTotalPrice()}}
+									onMinusFromCart={() =>  {dispatch(fetchMinusFromCart(productInCart.id))}}
 									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-									onAddToCart={() => {dispatch(fetchAddToCart(productInCart.id)) ;getTotalPrice()}}
+									onAddToCart={() => {dispatch(fetchAddToCart(productInCart.id))}}
 
 								/>
 
