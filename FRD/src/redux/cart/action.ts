@@ -4,7 +4,7 @@ import { AppDispatch } from "../../store"
 import { checkResponse, loggedIn, logIn } from "../auth/action"
 
 
-export function loadedCart(products: []) {
+export function loadedCart(products: any) {
     return {
         type: '@@cart/LOADED_CART' as const,
         products
@@ -53,16 +53,21 @@ export function loadCart() {
                     }
                 })
             const data = await res.json()
-            console.log(data)
+            console.log("data: ",data)
             
 
             if (res.status === 401) {
                 dispatch(logIn(data))
                 // dispatch(checkResponse(data))
-
+                
             } else {
                 dispatch(loadedCart(data.productRecord))
             }
+            
+            localStorage.setItem('cartItems', JSON.stringify(data.productRecord));
+
+            
+            
         } catch {
             dispatch(loadCart())
         }
@@ -80,7 +85,6 @@ export   function fetchAddToCart(
             ))
 
         try {
-
             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
                 {
                     method: 'POST',
@@ -93,23 +97,17 @@ export   function fetchAddToCart(
                     })
                 })
 
-
             const data = await res.json()
-
+            
+            
+            
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
-
             
-            loadCart()
-            console.log(data);
-            
-            localStorage.setItem('cartItems', JSON.stringify(data.productRecord));
-
             
             
         } catch (e) {
-
             dispatch(loadCart())
         }
     }
@@ -125,11 +123,6 @@ export function fetchMinusFromCart(
             ))
 
         try {
-            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-            //     productId: productId,
-            //     colorId: colorId,
-            //     sizeId: sizeId
-            // })
             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/minusProductInCart/${productId}`,
                 {
                     method: 'DELETE',
@@ -148,10 +141,8 @@ export function fetchMinusFromCart(
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
-
-            // dispatch(checkResponse(data))
+            
         } catch (e) {
-            // dispatch(MINUSFromCart(productId));
             dispatch(loadCart())
         }
     }
@@ -166,11 +157,6 @@ export function fetchRemoveFromCart(
             ))
 
         try {
-            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-            //     productId: productId,
-            //     colorId: colorId,
-            //     sizeId: sizeId
-            // })
             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
                 {
                     method: 'DELETE',
@@ -188,12 +174,9 @@ export function fetchRemoveFromCart(
 
             if (res.status === 401) {
                 dispatch(logIn(data))
-                // dispatch(loadCart())
             }
 
-            // dispatch(checkResponse(data))
         } catch (e) {
-            // dispatch(MINUSFromCart(productId));
             dispatch(loadCart())
         }
     }

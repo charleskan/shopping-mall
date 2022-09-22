@@ -220,7 +220,7 @@ export class InvoiceService {
                     p.name as product,
                     c."name" as color,
                     s.name as size,
-                    price as productPrice,
+                    price as product_price,
                     stock,
                     s2.name as status,
                     icon
@@ -233,13 +233,15 @@ export class InvoiceService {
                     )
                     
                     select
+                    "product_detail".id,
                     product, 
                     color, 
                     "size", 
                     icon, 
-              		"product_detail".id,
+              		number,
+              		product_price,
                     sum("number") as TC_Number, 
-                    sum(productPrice) as TC_Price
+                    sum(product_price) as TC_Price
                     from product_detail 
                     inner join
                     "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
@@ -250,7 +252,8 @@ export class InvoiceService {
                     "size", 
                     icon,
                     "product_detail".id,
-                    productPrice
+                    product_price,
+                    number
                     
                     `,
                     [invoiceId]
