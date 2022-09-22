@@ -1,3 +1,26 @@
+.pageBox{
+    display: flex;
+    background-color: #F5F4FE;
+    height: 400px;
+    padding-top: 100px;
+    margin-bottom: 100px;
+}
+
+.Title{
+    font-size: 40px;
+}
+
+.page{
+    color: black;
+}
+
+.nowPage{
+    color: #FF2E79;
+    padding: 6px;
+}
+
+
+
 .boxDiv{
     display: flex;
     justify-content: center;
@@ -55,15 +78,11 @@ margin: 10px;
     width: 300px;
 }
 
-.sizeDiv{
-    display: flex;
-    margin: 40px;
-}
-
 .colorDiv{
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
-
 .priceStockBox{
     width: 300px;
     height: 100px;

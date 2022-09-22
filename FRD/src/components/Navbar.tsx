@@ -32,6 +32,8 @@ export function Navbar() {
 					<Link href='/Cart'>
 						<a className={navbar.pages}>Cart</a>
 					</Link>
+
+					
 				</div>
 			</div>
 

@@ -1,7 +1,4 @@
-import {
-	FormControlLabel,
-	Radio
-} from '@mui/material'
+import { FormControlLabel, Radio } from '@mui/material'
 import detail from '../styles/detailBox.module.css'
 
 interface props {
@@ -10,9 +7,8 @@ interface props {
 
 export function SelectSize(props: props) {
 	return (
-		<div >
+		<div>
 			<FormControlLabel
-		className={detail.color}
 				value={props.name}
 				control={<Radio />}
 				label={props.name}

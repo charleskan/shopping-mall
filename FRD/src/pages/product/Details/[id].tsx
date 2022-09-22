@@ -8,13 +8,14 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 // import { AddToCart } from '../../../components/AddToCart'
 // import { useAppSelector } from '../../../store'
-// import loginStyles from '../styles/Login.module.css'
+import detail from '../../../styles/detailBox.module.css'
 
 import { fetchAddToCart } from '../../../redux/cart/action'
 import { useAppDispatch } from '../../../store'
 import { SelectColor } from '../../../components/SelectColor'
 import React from 'react'
-import { FormControl, FormLabel, RadioGroup } from '@mui/material'
+import { Container, FormControl, FormLabel, RadioGroup } from '@mui/material'
+
 
 interface product {
 	id: number
@@ -166,6 +167,26 @@ const ProductDetails: NextPage = () => {
 			<HeadTitle />
 			<Heading />
 			<Navbar />
+			<div className={detail.pageBox}>
+			<Container>
+				<div>
+					
+					<h1 className={detail.Title}>Product Detail</h1>
+
+					<span className={detail.page}>Home. Pages.</span>
+					<span className={detail.nowPage}>
+					Product Detail
+					</span>
+					
+				</div>
+				
+				
+				</Container>
+			</div>
+
+			
+			<div className={detail.boxDiv}>
+			<div className={detail.box}>
 			{product.map((product) => (
 				<DetailBox2
 					id={product.id}
@@ -177,12 +198,13 @@ const ProductDetails: NextPage = () => {
 					Brand={product.Brand}
 				/>
 			))}
-
+<div className={detail.formBox}>
 			<FormControl>
 				<FormLabel id='demo-radio-buttons-group-label'>
-					👿講吖！要咩色👿
+					Color
 				</FormLabel>
-				<RadioGroup
+				<RadioGroup 
+					row
 					aria-labelledby='demo-radio-buttons-group-label'
 					name='radio-buttons-group'
 					value={productDetailColor}
@@ -197,7 +219,7 @@ const ProductDetails: NextPage = () => {
 
 			<FormControl>
 				<FormLabel id='demo-radio-buttons-group-label'>
-					😤俾埋Size我😤
+					Size
 				</FormLabel>
 				<RadioGroup
 					row
@@ -212,50 +234,27 @@ const ProductDetails: NextPage = () => {
 					))}
 				</RadioGroup>
 			</FormControl>
-
-			<div>{productDetailPrice}</div>
-			<div>{productDetailStock}</div>
+<div className={detail.priceStockBox}>
+			<div className={detail.priceStock}>${productDetailPrice}</div>
+			<div className={detail.priceStock}>Stock:{productDetailStock}</div>
+			</div>
 			<button
+			className={detail.addButton}
 					type='submit'
 					onClick={(e) => {
 						e.preventDefault()
 						dispatch(
 							fetchAddToCart(
-								Number(id)
+								Number({productDetailId})
 							)
 						)
 					}}>
 					Add to Cart
 				</button>
+				</div>
 
-
-			<form>
-				<input
-					type='text'
-					placeholder='colorId'
-					value={colorId}
-					onChange={(e) => setColorId(e.currentTarget.value)}
-				/>
-				<input
-					type='text'
-					placeholder='sizeId'
-					value={sizeId}
-					onChange={(e) => setSizeId(e.currentTarget.value)}
-				/>
-				<button
-					type='submit'
-					onClick={(e) => {
-						e.preventDefault()
-						dispatch(
-							fetchAddToCart(
-								Number(id),
-							)
-						)
-					}}>
-					Add to Cart
-				</button>
-			</form>
-
+				</div>
+				</div>
 			<Footer />
 		</>
 	)

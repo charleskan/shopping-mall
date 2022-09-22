@@ -11,6 +11,23 @@
 
 }
 
+.cartDiv{
+    position: relative;
+}
+.cartNumber{
+position:absolute;
+padding : 3px 6px;
+border-radius: 50%;
+background-color: #FF2E79;
+color: white;
+top:-10px;
+right: -10px;
+opacity: 0.8;
+cursor: pointer;
+
+  
+}
+
 .center{
     display: flex;
     justify-content: center;

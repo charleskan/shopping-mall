@@ -16,6 +16,12 @@ const Register: NextPage = () => {
 	const [error, setError] = useState('')
 	const router = useRouter()
 
+	// interface registerForm {
+	// 	username: String
+	// 	password: String
+	// 	email: String
+	// 	nickName: String
+	// }
 
 	return (
 		<div>
@@ -30,35 +36,28 @@ const Register: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className={loginStyles.pageBox}>
-			<Container>
-				<div>
-					
-					<h1 className={loginStyles.Title}>Register</h1>
+				<Container>
+					<div>
+						<h1 className={loginStyles.Title}>Register</h1>
 
-					<span className={loginStyles.page}>Home. Pages.</span>
-					<span className={loginStyles.nowPage}>
-					Register
-					</span>
-					
-				</div>
-				
-				
+						<span className={loginStyles.page}>Home. Pages.</span>
+						<span className={loginStyles.nowPage}>Register</span>
+					</div>
 				</Container>
 			</div>
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}
-					action='/send-data-here'
+					action='`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`'
 					method='post'
-					onSubmit={handleSubmit(async (data:any) => {
-						const formObject :any={}
-						formObject['username']= data.username
-						formObject['password']=data.password
-						formObject['email']=data.email
-						formObject['nickName']=data.nickName
+					onSubmit={handleSubmit(async (data: any) => {
+						const formObject: any = {}
+						formObject['username'] = data.username
+						formObject['password'] = data.password
+						formObject['email'] = data.email
+						formObject['nickName'] = data.nickName
 
 						const res = await fetch(
-							
 							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
 							{
 								method: 'POST',
