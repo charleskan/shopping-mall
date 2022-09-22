@@ -54,11 +54,12 @@ const Cart: NextPage = () => {
 
 	// const [addToCart, onAddToCart] = useState('')
 
-
+	
+	
 
 	useEffect(() => {
 		dispatch(loadCart())
-	}, [])
+	}, [cartCount])
 
 
 	return (

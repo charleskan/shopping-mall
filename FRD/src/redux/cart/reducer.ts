@@ -3,10 +3,12 @@ import { LoadingState } from "../../models";
 import { CartActions } from "./action";
 import { CartState } from "./state";
 
+
 const initialState: CartState = {
   productDetailIds: [],
   products: [],
-  loading: LoadingState.NotLoaded
+  loading: LoadingState.NotLoaded,
+
 }
 
 export function cartReducer(state: CartState = initialState, action: CartActions): CartState {

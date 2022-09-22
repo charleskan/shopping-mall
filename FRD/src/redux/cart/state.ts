@@ -19,5 +19,7 @@ export interface CartState {
     productDetailIds: productDetailId[],
     products:ProductInCart[],
     loading: LoadingState;
+    // savedCartItems: ProductInCart
+
 
 }

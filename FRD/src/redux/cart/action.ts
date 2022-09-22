@@ -101,8 +101,15 @@ export   function fetchAddToCart(
             }
 
             
-        } catch (e) {
+            loadCart()
+            console.log(data);
             
+            localStorage.setItem('cartItems', JSON.stringify(data.productRecord));
+
+            
+            
+        } catch (e) {
+
             dispatch(loadCart())
         }
     }
@@ -181,6 +188,7 @@ export function fetchRemoveFromCart(
 
             if (res.status === 401) {
                 dispatch(logIn(data))
+                // dispatch(loadCart())
             }
 
             // dispatch(checkResponse(data))
