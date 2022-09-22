@@ -22,35 +22,35 @@ const Cart: NextPage = () => {
 
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
-	
+
 	// const cartCount = useAppSelector(state => state.cart.productDetailIds)
 	const dispatch = useAppDispatch()
-	
+
 	// useEffect(() => {
 	// 	dispatch(loadCart())
 	// }, [])
-	
+
 	const totalPrice = useMemo(() => {
-		let total = carts.map((item) => 
-		Number(item.product_price) * Number(item.tc_number))
-		.reduce((a, b) => a + b, 0)
+		let total = carts.map((item) =>
+			Number(item.product_price) * Number(item.tc_number))
+			.reduce((a, b) => a + b, 0)
 		console.log('carts inside: ', carts);
 		console.log('total:', total);
 		return total;
 	}, [carts])
-	
+
 	// const [totalPrice, setTotalPrice] = useState(0)
 
 	// const [cartItems, setCartItems] = useState<Array<CartItems>>([]);
 
 	// useEffect(() => {
 	// 	dispatch(loadCart())
-		
+
 	// 	JSON.parse(localStorage.getItem('cartItems')!)
 	// 	// setCartItems(JSON.parse(localStorage.getItem('cartItems')!))
 	// }, [totalPrice])
-	
-	
+
+
 
 	// function getTotalPrice() {
 
@@ -58,12 +58,12 @@ const Cart: NextPage = () => {
 	// 	Number(item.product_price) * Number(item.tc_number))
 	// 	.reduce((a, b) => a + b, 0)
 	// 	console.log('carts inside: ', carts);
-		
+
 	// 	console.log('total:', total);
-		
+
 	// 	setTotalPrice(total)
 	// }
-	
+
 	// useEffect(() => {
 	// 	getTotalPrice();
 	// }, [carts])
@@ -116,10 +116,10 @@ const Cart: NextPage = () => {
 									size={productInCart.size}
 									tc_number={productInCart.tc_number}
 									tc_price={productInCart.tc_price}
-					
-									onMinusFromCart={() =>  {dispatch(fetchMinusFromCart(productInCart.id))}}
+
+									onMinusFromCart={() => { dispatch(fetchMinusFromCart(productInCart.id)) }}
 									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-									onAddToCart={() => {dispatch(fetchAddToCart(productInCart.id))}}
+									onAddToCart={() => { dispatch(fetchAddToCart(productInCart.id)) }}
 
 								/>
 
@@ -127,15 +127,17 @@ const Cart: NextPage = () => {
 								: <div className={cart.empty}>Cart is empty</div>
 						}
 					</div>
-					<form className={cart.totalBox} >
-						<div >
-							<div>Total</div>
-							<div className={cart.totalPrice}>{totalPrice}</div>
-						</div>
-						<button>Proceed To Checkout</button>
+					{cartLoaded !== LoadingState.Loaded ?
+						<Skeleton circle borderRadius={50} /> :
+						<form className={cart.totalBox} >
+							<div >
+								<div>Total</div>
+								<div className={cart.totalPrice}>{totalPrice}</div>
+							</div>
+							<button>Proceed To Checkout</button>
 
-					</form>
-
+						</form>
+					}
 				</div>
 
 			</Container>
