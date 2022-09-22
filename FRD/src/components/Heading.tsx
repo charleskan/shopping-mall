@@ -24,7 +24,7 @@ export function Heading() {
 	// const [users, setUsers] = useState('')
 
 
-	// useEffect(() => {
+	// useEffect(() => { 
 	// 	setUsers(username!)
 	// }, [token, username, users])
 

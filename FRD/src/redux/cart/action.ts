@@ -80,11 +80,7 @@ export   function fetchAddToCart(
             ))
 
         try {
-            // const res = await axios.post(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart`, {
-            //     productId: productId,
-            //     colorId: colorId,
-            //     sizeId: sizeId
-            // })
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/cart/${productId}`,
                 {
                     method: 'POST',
@@ -96,17 +92,17 @@ export   function fetchAddToCart(
                         productId,
                     })
                 })
-                console.log(res);
-                
+
+
             const data = await res.json()
 
             if (res.status === 401) {
                 dispatch(logIn(data))
             }
 
-            // dispatch(checkResponse(data))
+            
         } catch (e) {
-            // dispatch(MINUSFromCart(productId));
+            
             dispatch(loadCart())
         }
     }

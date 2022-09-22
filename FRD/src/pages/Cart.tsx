@@ -25,18 +25,18 @@ const Cart: NextPage = () => {
 
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
-	// const products = useAppSelector(state => state.product.products)
+	const cartCount = useAppSelector(state => state.cart.productDetailIds)
 	const dispatch = useAppDispatch()
 
-	console.log(carts);
 
 
-	const total = carts.map((price) => {
-
-
-
-	})
-
+	const getTotalPrice = () => {
+		let total = 0
+		carts.map((cart) => {
+			total += cart.tc_price * cartCount.length
+		})
+		return total
+	}
 	const router = useRouter()
 
 
@@ -90,41 +90,42 @@ const Cart: NextPage = () => {
 				</Container>
 			</div>
 			<Container>
-			<div className={cart.box}>
-				<div>
-					{
-						carts.length > 0 ? carts.map(productInCart =>
+				<div className={cart.box}>
+					<div>
+						{
+							carts.length > 0 ? carts.map(productInCart =>
 
-							<CartItem
-								product={productInCart.product}
-								icon={productInCart.icon}
-								color={productInCart.color}
-								size={productInCart.size}
-								tc_number={productInCart.tc_number}
-								tc_price={productInCart.tc_price}
+								<CartItem
+									product={productInCart.product}
+									icon={productInCart.icon}
+									color={productInCart.color}
+									size={productInCart.size}
+									tc_number={String(cartCount.length)}
+									tc_price={productInCart.tc_price}
 
-								onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id))}
-								onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-								onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
+									onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id))}
+									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
+									onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
 
-							/>
-						)
+								/>
+							)
 
-							: <div className={cart.empty}>Cart is empty</div>
-					}
-				</div>
-				<form className={cart.totalBox} >
-					<div >
-						<div>Total</div>
-
-
+								: <div className={cart.empty}>Cart is empty</div>
+						}
 					</div>
-					<button>Proceed To Checkout</button>
+					<form className={cart.totalBox} >
+						<div >
+							<div>Total</div>
+							<div>${getTotalPrice()}</div>
 
-				</form>
+
+						</div>
+						<button>Proceed To Checkout</button>
+
+					</form>
 
 
-			</div>
+				</div>
 
 			</Container>
 			<Footer />
