@@ -30,12 +30,18 @@ const Cart: NextPage = () => {
 
 
 
+	// const getTotalPrice = () => {
+	// 	let total = 0
+	// 	carts.map((cart) => {
+	// 		total += cart.tc_price * cartCount.length
+	// 	})
+	// 	return total
+	// }
 	const getTotalPrice = () => {
-		let total = 0
 		carts.map((cart) => {
-			total += cart.tc_price * cartCount.length
-		})
-		return total
+			return cart.tc_price 
+		}
+		)
 	}
 	const router = useRouter()
 
@@ -117,7 +123,12 @@ const Cart: NextPage = () => {
 					<form className={cart.totalBox} >
 						<div >
 							<div>Total</div>
-							<div>${getTotalPrice()}</div>
+							<div>{
+							carts.map(productInCart => 
+								productInCart.tc_price
+							)
+							}</div>
+								
 
 
 						</div>
