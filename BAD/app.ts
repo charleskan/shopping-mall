@@ -45,28 +45,29 @@ app.use(
     credentials: true,
     exposedHeaders: ['X-C21-TOKEN'],
   })
-);
-
-const PORT = process.env.PORT || 8000;
-
-// -------------------------------------------------------------------------------------------------------------------
-// others
-// -------------------------------------------------------------------------------------------------------------------
-
-//connect to client
-// client.connect();
-
-//urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-//json
-app.use(express.json());
-
-// app.use((req, res, next) => {
-//   setTimeout(() => {
-//     next();
-//   }, 500000)
-// })
+  );
+  
+  const PORT = process.env.PORT || 8000;
+  
+  
+  // -------------------------------------------------------------------------------------------------------------------
+  // others
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  //connect to client
+  // client.connect();
+  
+  //urlencoded
+  app.use(express.urlencoded({ extended: true }));
+  
+  //json
+  app.use(express.json());
+  
+  app.use((req, res, next) => {
+    setTimeout(() => {
+      next();
+    }, 500)
+  })
 
 //get HTML files from public, default images & uploads
 app.use(express.static("public")); //get files from private

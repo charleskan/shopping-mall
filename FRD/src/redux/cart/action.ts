@@ -64,10 +64,6 @@ export function loadCart() {
                 dispatch(loadedCart(data.productRecord))
             }
             
-            localStorage.setItem('cartItems', JSON.stringify(data.productRecord));
-
-            
-            
         } catch {
             dispatch(loadCart())
         }

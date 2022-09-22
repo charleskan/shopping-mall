@@ -18,38 +18,57 @@ import { PrintDisabled } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 
 
-interface CartItems {
-	id: number,
-	product: string,
-	color: string,
-	size: string,
-	icon: string,
-	number: number,
-	product_price: number,
-	tc_number: number | string,
-	tc_price: number
-}
-
-
-
 const Cart: NextPage = () => {
-	
-	const dispatch = useAppDispatch()
-	
+
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
-
-
 	
+	// const cartCount = useAppSelector(state => state.cart.productDetailIds)
+	const dispatch = useAppDispatch()
 	
-
+	// useEffect(() => {
+	// 	dispatch(loadCart())
+	// }, [])
+	
 	const totalPrice = useMemo(() => {
 		let total = carts.map((item) => 
 		Number(item.product_price) * Number(item.tc_number))
 		.reduce((a, b) => a + b, 0)
+		console.log('carts inside: ', carts);
+		console.log('total:', total);
 		return total;
 	}, [carts])
 	
+	// const [totalPrice, setTotalPrice] = useState(0)
+
+	// const [cartItems, setCartItems] = useState<Array<CartItems>>([]);
+
+	// useEffect(() => {
+	// 	dispatch(loadCart())
+		
+	// 	JSON.parse(localStorage.getItem('cartItems')!)
+	// 	// setCartItems(JSON.parse(localStorage.getItem('cartItems')!))
+	// }, [totalPrice])
+	
+	
+
+	// function getTotalPrice() {
+
+	// 	let total = carts.map((item) => 
+	// 	Number(item.product_price) * Number(item.tc_number))
+	// 	.reduce((a, b) => a + b, 0)
+	// 	console.log('carts inside: ', carts);
+		
+	// 	console.log('total:', total);
+		
+	// 	setTotalPrice(total)
+	// }
+	
+	// useEffect(() => {
+	// 	getTotalPrice();
+	// }, [carts])
+
+
 
 	const router = useRouter()
 
@@ -85,7 +104,7 @@ const Cart: NextPage = () => {
 				<div className={cart.box}>
 					<div>
 						{cartLoaded !== LoadingState.Loaded ?
-							<Skeleton /> :
+							<Skeleton circle borderRadius={50} /> :
 							carts.length > 0 ? carts.map(productInCart =>
 
 
