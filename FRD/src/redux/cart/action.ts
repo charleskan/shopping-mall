@@ -39,7 +39,6 @@ type AddToCartAction = ReturnType<typeof addToCart>
 type MinusToCartAction = ReturnType<typeof minusFromCart>
 type RemoveToCartAction = ReturnType<typeof removeFromCart>
 
-// export type CartActions = LoadedCartAction | AddToCartAction 
 export type CartActions = LoadedCartAction | AddToCartAction | MinusToCartAction | RemoveToCartAction
 
 export function loadCart() {
@@ -53,12 +52,10 @@ export function loadCart() {
                     }
                 })
             const data = await res.json()
-            console.log("data: ",data)
+            // console.log("data: ",data)
             
-
             if (res.status === 401) {
                 dispatch(logIn(data))
-                // dispatch(checkResponse(data))
                 
             } else {
                 dispatch(loadedCart(data.productRecord))

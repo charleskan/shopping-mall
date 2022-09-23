@@ -7,7 +7,7 @@ export function createInvoiceRoutes(invoiceController: InvoiceController) {
 
 	invoiceRoutes.get('/invoice', userMiddleware, invoiceController.getInvoiceDetailByUserId)//session['invoice'].id
 	// invoiceRoutes.post('/invoice', invoiceController.createInvoice)
-	// invoiceRoutes.put('/invoice/:id', invoiceController.updateInvoice)
+	invoiceRoutes.put('/invoice', userMiddleware, invoiceController.updateInvoice)
 	invoiceRoutes.patch('/invoice/:id', userMiddleware, invoiceController.deleteInvoice)
 
 

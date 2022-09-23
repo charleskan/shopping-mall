@@ -1,9 +1,5 @@
 import { LoadingState } from "../../models";
 
-
-export interface  productDetailId {
-    productId: number,
-}
 export interface  ProductInCart {
     id: number,
     product: string,
@@ -19,7 +15,4 @@ export interface  ProductInCart {
 export interface CartState {
     products:ProductInCart[],
     loading: LoadingState;
-    // savedCartItems: ProductInCart
-
-
 }

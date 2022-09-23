@@ -4,6 +4,7 @@ import { logger } from '../logger'
 import { InvoiceService } from '../services/invoiceService'
 // import { ProductService } from '../services/productService'
 import { ProfileService } from '../services/profileService'
+import { stripe } from '../middleware'
 
 
 export class InvoiceController {
@@ -38,7 +39,7 @@ export class InvoiceController {
 
     createInvoice = async (req: express.Request, res: express.Response) => {
         try {
-            let status_id = 1
+            const status_id = 1
 
             const userId = req.user!.userId
 
@@ -61,61 +62,71 @@ export class InvoiceController {
     // Update Invoice
     // -------------------------------------------------------------------------------------------------------------------
 
-    // updateInvoice = async (req: express.Request, res: express.Response) => {
-    //     form.parse(req, async (err, fields) => {
-
-    //         const invoiceId = req.session['invoice'].id
-
-    //         const userId = req.session['user']
-
-    //         try {
-    //             const invoiceInfos = await this.invoiceService.getInvoiceDetailByUserId(userId)
+    updateInvoice = async (req: express.Request, res: express.Response) => {
 
 
+        try {
+            //May be use transaction to hold the product quantity
+            const userId = req.user!.userId
+            const invoiceId = req.user!.invoiceId
 
-    //             let oldInvoiceNumber = invoiceInfos[0].invoiceNumber
-    //             let oldStatus_id = invoiceInfos[0].status_id
-    //             let oldUser_id = invoiceInfos[0].user_id
-    //             let oldAdress_id = invoiceInfos[0].address_id
-    //             let oldTotalPrice = invoiceInfos[0].totalPrice
+            // console.log("invoiceId: ", invoiceId);
+            // console.log("userId: ", userId);
 
+            const addressId = 1
 
-    // const newInvoiceNumber = fields.invoiceNumber != null && !Array.isArray(fields.name)
-    //     ? fields.invoiceNumber : oldInvoiceNumber
-
-    // const newStatus_id = fields.status_id != null && !Array.isArray(fields.status_id)
-    //     ? Number(fields.status_id) : oldStatus_id
-
-    // const newUser_id = fields.user_id != null && !Array.isArray(fields.user_id)
-    //     ? Number(fields.user_id) : oldUser_id
-
-    // const newAddress_id = fields.adress_id != null && !Array.isArray(fields.adress_id)
-    //     ? Number(fields.address_id) : oldAdress_id
-
-    // const newTotalPrice = fields.totalPrice != null && !Array.isArray(fields.totalPrice)
-    //     ? Number(fields.totalPrice) : oldTotalPrice
+            const statusId = 2 //change to paid status id
 
 
-    // const invoiceRecord = await this.invoiceService.updateInvoice(
-    //     invoiceId,
-    //     newInvoiceNumber,
-    //     newStatus_id,
-    //     newUser_id,
-    //     newAddress_id,
-    //     newTotalPrice)
+            //@@PUT change put later
+            const getTotalPrice = (await this.invoiceService.getTotalPrice
+                (
+                    invoiceId
+                ))
+            const totalPrice = getTotalPrice[0].total_price
+            console.log("totalPrice: ", totalPrice);
 
-    //             return res.json({
-    //                 result: true,
-    //                 msg: 'Update invoice success',
-    //                 invoiceRecord
-    //             })
-    //         }
-    //         catch (err) {
-    //             logger.error(err)
-    //             return res.json({ result: false, msg: 'Update invoice fail' })
-    //         }
-    //     })
-    // }
+
+
+            await this.invoiceService.updateInvoice(
+                invoiceId, statusId, userId, addressId, totalPrice)
+
+
+            //Add webhook later
+
+            const session = await stripe.checkout.sessions.create({
+                line_items: [
+                    {
+                        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                        price: 'price_1Ll80sEgzwMQrXMkhpAXpwHR', //Create dynamic price later, May be use DB to store price
+                        quantity: 1
+                    }
+                ],
+                metadata: {
+                    id: invoiceId
+                },
+                mode: 'payment',
+                success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/success`,
+                cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}`
+            })
+
+            console.log("session: ", session);
+            
+
+            if (session.url != null) {
+                // res.redirect(303, session.url)
+                res.status(401).json(session)
+            } else {
+                res.redirect('/')
+            }
+
+        }
+        catch (err) {
+            logger.error(err)
+            res.json({ result: false, msg: 'Update invoice fail' })
+        }
+
+    }
 
 
     // -------------------------------------------------------------------------------------------------------------------
@@ -158,7 +169,7 @@ export class InvoiceController {
 
             // const invoiceId = invoice[0].id
 
-            console.log('productId: ',productDetailId)
+            console.log('productId: ', productDetailId)
             // console.log('colorId: ',colorId)
             // console.log('sizeId: ',sizeId)
             const productQuantity = 1

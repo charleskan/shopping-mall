@@ -18,11 +18,17 @@ import * as jose from 'jose'
 import { InvoiceService } from './services/invoiceService';
 import { Status } from './models';
 import { logger } from './logger';
+import Stripe from 'stripe';
+
+dotenv.config();
+
+export const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
+	apiVersion: '2022-08-01'
+})
 
 
 const invoiceService = new InvoiceService(knex);
 
-dotenv.config();
 const permit = new Bearer({ query: 'access_token' })
 // -------------------------------------------------------------------------------------------------------------------
 

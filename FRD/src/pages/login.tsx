@@ -31,19 +31,19 @@ const login: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className={loginStyles.pageBox}>
-			<Container>
-				<div>
-					
-					<h1 className={loginStyles.Title}>Login</h1>
+				<Container>
+					<div>
 
-					<span className={loginStyles.page}>Home. Pages.</span>
-					<span className={loginStyles.nowPage}>
-					Login
-					</span>
-					
-				</div>
-				
-				
+						<h1 className={loginStyles.Title}>Login</h1>
+
+						<span className={loginStyles.page}>Home. Pages.</span>
+						<span className={loginStyles.nowPage}>
+							Login
+						</span>
+
+					</div>
+
+
 				</Container>
 			</div>
 			<div className={loginStyles.loginBox}>
@@ -87,7 +87,7 @@ const login: NextPage = () => {
 						placeholder='Email Address'
 						value={username}
 						onChange={(e) => setUsername(e.currentTarget.value)}
-				/>
+					/>
 					<input
 						className={loginStyles.textBox}
 						type='text'

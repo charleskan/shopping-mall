@@ -126,7 +126,13 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     // update invoice
     // -------------------------------------------------------------------------------------------------------------------
-    async updateInvoice(id: number, invoiceNumber: string, status_id: number, user_id: number, address_id: number, totalPrice: number) {
+    async updateInvoice(
+        invoiceId: number,
+        status_id: number, 
+        userId: number, 
+        addressId: number, 
+        totalPrice: number
+        ) {
 
         {
 
@@ -134,13 +140,12 @@ export class InvoiceService {
             let invoiceRecord = await this.knex<Invoice>('invoice')
 
                 .update({
-                    invoiceNumber: invoiceNumber,
                     status_id: status_id,
-                    user_id: user_id,
-                    address_id: address_id,
+                    user_id: userId,
+                    address_id: addressId,
                     totalPrice: totalPrice
                 })
-                .where('id', id)
+                .where('id', invoiceId)
                 .returning('*')
 
             return invoiceRecord
@@ -368,6 +373,7 @@ export class InvoiceService {
             const getTotalPrice = await this.knex
                 .raw
                 (
+                    /* SQL */
                     `
                     WITH Cart as
                     (
@@ -398,7 +404,7 @@ export class InvoiceService {
                 )
 
 
-            return getTotalPrice
+            return getTotalPrice.rows
         }
 
     }

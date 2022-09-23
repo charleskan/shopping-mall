@@ -35,7 +35,7 @@ export class UserController {
 
 			//should be database get id
 			let role_id = 2
-			let status_id = Status.Active 
+			let status_id = 1
 			const addressId = 1
 
 			 const newUser = await this.userService.register(

@@ -16,6 +16,7 @@ import CartItem from '../components/CartItem'
 import Link from 'next/link'
 import { PrintDisabled } from '@mui/icons-material'
 import { useRouter } from 'next/router'
+import Checkout from '../components/Checkout'
 
 
 const Cart: NextPage = () => {
@@ -34,8 +35,8 @@ const Cart: NextPage = () => {
 		let total = carts.map((item) =>
 			Number(item.product_price) * Number(item.tc_number))
 			.reduce((a, b) => a + b, 0)
-		console.log('carts inside: ', carts);
-		console.log('total:', total);
+		// console.log('carts inside: ', carts);
+		// console.log('total:', total);
 		return total;
 	}, [carts])
 
@@ -117,9 +118,9 @@ const Cart: NextPage = () => {
 									tc_number={productInCart.tc_number}
 									tc_price={productInCart.tc_price}
 
-									onMinusFromCart={() => { dispatch(fetchMinusFromCart(productInCart.id)) }}
+									onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id)) }
 									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-									onAddToCart={() => { dispatch(fetchAddToCart(productInCart.id)) }}
+									onAddToCart={() => dispatch(fetchAddToCart(productInCart.id)) }
 
 								/>
 
@@ -134,10 +135,11 @@ const Cart: NextPage = () => {
 								<div>Total</div>
 								<div className={cart.totalPrice}>{totalPrice}</div>
 							</div>
-							<button>Proceed To Checkout</button>
 
 						</form>
-					}
+					
+				}
+				<Checkout/>
 				</div>
 
 			</Container>
