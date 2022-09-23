@@ -69,4 +69,19 @@ export enum Status{
 	Active = 1,
 	Inactive = 2,
 	Pending = 3,
+	Unpaid = 4,
+	Paid = 5
+
 }
+export enum Address{
+	Default = 1,
+	Other = 2
+
+}
+
+export enum Role{
+	Admin = 1,
+	NormalUser = 2,
+	VIP = 3
+}
+

@@ -5,6 +5,7 @@ import { InvoiceService } from '../services/invoiceService'
 // import { ProductService } from '../services/productService'
 import { ProfileService } from '../services/profileService'
 import { stripe } from '../middleware'
+import { Address, Status } from '../models'
 
 
 export class InvoiceController {
@@ -19,7 +20,7 @@ export class InvoiceController {
     getInvoiceDetailByUserId = async (req: express.Request, res: express.Response) => {
         try {
             const userId = req.user!.userId
-            const statusId = 1
+            const statusId = Status.Active
 
             const invoiceRecord = await this.invoiceService.getInvoiceDetailByUserId(userId, statusId)
 
@@ -39,7 +40,7 @@ export class InvoiceController {
 
     createInvoice = async (req: express.Request, res: express.Response) => {
         try {
-            const status_id = 1
+            const status_id = Status.Unpaid
 
             const userId = req.user!.userId
 
@@ -73,10 +74,9 @@ export class InvoiceController {
             // console.log("invoiceId: ", invoiceId);
             // console.log("userId: ", userId);
 
-            const addressId = 1
+            const addressId = Address.Default
 
-            const statusId = 2 //change to paid status id
-
+            const statusId = Status.Paid
 
             //@@PUT change put later
             const getTotalPrice = (await this.invoiceService.getTotalPrice

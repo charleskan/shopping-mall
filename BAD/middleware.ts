@@ -16,7 +16,7 @@ const { createSecretKey } = require('crypto');
 //const { SignJWT } = require('jose-node-cjs-runtime/jwt/sign');
 import * as jose from 'jose'
 import { InvoiceService } from './services/invoiceService';
-import { Status } from './models';
+import { Address, Role, Status } from './models';
 import { logger } from './logger';
 import Stripe from 'stripe';
 
@@ -64,8 +64,8 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 
 		const userId = newUser[0].id
 
-		const addressId = Status.Active
-		const status_id = 1
+		const addressId = Address.Default
+		const status_id = Status.Unpaid
 
 		const invoice = await invoiceService.createInvoice(status_id, userId, addressId)
 
@@ -113,7 +113,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 	// check if the user is Admin
 	// -------------------------------------------------------------------------------------------------------------------
 	export const isAdmin = (roleId: number) => {
-		if (roleId == 1) {
+		if (roleId == Role.Admin) {
 			return true
 		} else {
 			return false

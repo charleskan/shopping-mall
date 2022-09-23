@@ -13,7 +13,7 @@ import {
 import { InvoiceService } from '../services/invoiceService'
 import { createSecretKey } from 'node:crypto';
 import * as jose from 'jose'
-import { Status } from '../models';
+import { Address, Role, Status } from '../models';
 
 dotenv.config();
 export class UserController {
@@ -35,9 +35,9 @@ export class UserController {
 
 
 			//should be database get id
-			let role_id = 2
-			let status_id = 1
-			const addressId = 1
+			let role_id = Role.NormalUser
+			let status_id = Status.Active
+			const addressId = Address.Default
 
 			 const newUser = await this.userService.register(
 				username,

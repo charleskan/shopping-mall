@@ -12,9 +12,9 @@ export async function seed(knex: Knex): Promise<void> {
         { name: "Active" },
         { name: "Inactive" },
         { name: "Pending" },
-        { name: "Before checkout" }
+        { name: "Unpaid" },
+        { name: "Paid" },
     ])
         .into("status")
-
 
 }
