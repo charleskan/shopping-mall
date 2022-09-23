@@ -45,8 +45,9 @@ export function DetailBox2(props: Props) {
 					height={500}
 				/>
 			</div>
-			<div>
-				<div className={detail.productName}>{props.name}</div>
+
+			<div className={detail.productNameBox}>
+				<div className={detail.productName} >{props.name}</div>
 			</div>
 		</div>
 	)

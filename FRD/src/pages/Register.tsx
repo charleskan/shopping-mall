@@ -48,22 +48,21 @@ const Register: NextPage = () => {
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}
-					action='`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`'
-					method='post'
+			
 					onSubmit={handleSubmit(async (data: any) => {
-						const formObject: any = {}
-						formObject['username'] = data.username
-						formObject['password'] = data.password
-						formObject['email'] = data.email
-						formObject['nickName'] = data.nickName
+						const formObject = new FormData()
+						formObject.append('username', data.username)
+					formObject.append('password', data.password)
+					formObject.append('email', data.email)
+					formObject.append('nickname', data.nickname)
+			
 
 						const res = await fetch(
 							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
 							{
 								method: 'POST',
-								headers: { 'Content-Type': 'application/json' },
 								credentials: 'include',
-								body: JSON.stringify(formObject)
+								body: formObject
 							}
 						)
 						if (res.status === 200) {
@@ -101,7 +100,7 @@ const Register: NextPage = () => {
 						placeholder='EmailAddress'
 					/>
 					<input
-						{...register('nickName')}
+						{...register('nickname')}
 						className={loginStyles.textBox}
 						type='text'
 						id='nickName'
