@@ -2,33 +2,34 @@ import axios from "axios";
 import router from "next/router";
 import { AppDispatch } from "../../store"
 import { checkResponse, loggedIn, logIn } from "../auth/action"
+import { ProductInCart } from "./state";
 
 
-export function loadedCart(products: any) {
+export function loadedCart(products: ProductInCart[]) {
     return {
         type: '@@cart/LOADED_CART' as const,
         products
     }
 }
 
-export function addToCart(productId: number) {
+export function addToCart(product: ProductInCart) {
     return {
         type: '@@cart/ADD_TO_CART' as const,
-        productId,
+        product,
     }
 }
 
-export function minusFromCart(productId: number) {
+export function minusFromCart(product: ProductInCart) {
     return {
         type: '@@cart/MINUS_FROM_CART' as const,
-        productId
+        product
     }
 }
 
-export function removeFromCart(products: []) {
+export function removeFromCart(product: ProductInCart) {
     return {
         type: '@@cart/REMOVE_FROM_CART' as const,
-        products
+        product
     }
 }
 
@@ -69,7 +70,7 @@ export function loadCart() {
 }
 
 export   function fetchAddToCart(
-    productId: number,
+    productId: any,
 ) {
     return async (dispatch: AppDispatch) => {
         dispatch(addToCart
@@ -104,7 +105,7 @@ export   function fetchAddToCart(
 }
 
 export function fetchMinusFromCart(
-    productId: number,
+    productId: any,
 ) {
     return async (dispatch: AppDispatch) => {
         dispatch(minusFromCart

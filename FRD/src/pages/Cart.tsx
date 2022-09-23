@@ -8,7 +8,7 @@ import { fetchAddToCart, fetchMinusFromCart, fetchRemoveFromCart, loadCart } fro
 import { useAppSelector, useAppDispatch } from '../store';
 import { LoadingState } from '../models'
 import { loadOneProduct } from '../redux/product/action'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { Container } from '@mui/material'
 import home from '../styles/Index.module.css'
 import cart from '../styles/Cart.module.css'
@@ -24,51 +24,15 @@ const Cart: NextPage = () => {
 	const cartLoaded = useAppSelector(state => state.cart.loading)
 	const carts = useAppSelector(state => state.cart.products)
 
-	// const cartCount = useAppSelector(state => state.cart.productDetailIds)
 	const dispatch = useAppDispatch()
-
-	// useEffect(() => {
-	// 	dispatch(loadCart())
-	// }, [])
 
 	const totalPrice = useMemo(() => {
 		let total = carts.map((item) =>
 			Number(item.product_price) * Number(item.tc_number))
 			.reduce((a, b) => a + b, 0)
-		// console.log('carts inside: ', carts);
-		// console.log('total:', total);
+
 		return total;
 	}, [carts])
-
-	// const [totalPrice, setTotalPrice] = useState(0)
-
-	// const [cartItems, setCartItems] = useState<Array<CartItems>>([]);
-
-	// useEffect(() => {
-	// 	dispatch(loadCart())
-
-	// 	JSON.parse(localStorage.getItem('cartItems')!)
-	// 	// setCartItems(JSON.parse(localStorage.getItem('cartItems')!))
-	// }, [totalPrice])
-
-
-
-	// function getTotalPrice() {
-
-	// 	let total = carts.map((item) => 
-	// 	Number(item.product_price) * Number(item.tc_number))
-	// 	.reduce((a, b) => a + b, 0)
-	// 	console.log('carts inside: ', carts);
-
-	// 	console.log('total:', total);
-
-	// 	setTotalPrice(total)
-	// }
-
-	// useEffect(() => {
-	// 	getTotalPrice();
-	// }, [carts])
-
 
 
 	const router = useRouter()
@@ -103,9 +67,9 @@ const Cart: NextPage = () => {
 			</div>
 			<Container>
 				<div className={cart.box}>
-					<div>
+						
 						{cartLoaded !== LoadingState.Loaded ?
-							<Skeleton circle borderRadius={50} /> :
+							<Skeleton baseColor='#E02310' height={30} /> :
 							carts.length > 0 ? carts.map(productInCart =>
 
 
@@ -125,9 +89,11 @@ const Cart: NextPage = () => {
 								/>
 
 							)
-								: <div className={cart.empty}>Cart is empty</div>
+							: <div className={cart.empty}>Cart is empty</div>
+							
 						}
-					</div>
+						
+
 					
 					{cartLoaded !== LoadingState.Loaded ?
 						<Skeleton circle borderRadius={50} /> :
@@ -139,9 +105,7 @@ const Cart: NextPage = () => {
 
 							<Checkout/>
 						</div>
-							
-					
-					
+
 				}
 				</div>
 
