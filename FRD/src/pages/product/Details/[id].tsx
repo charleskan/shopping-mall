@@ -16,7 +16,6 @@ import { SelectColor } from '../../../components/SelectColor'
 import React from 'react'
 import { Container, FormControl, FormLabel, RadioGroup } from '@mui/material'
 
-
 interface product {
 	id: number
 	name: string
@@ -26,7 +25,6 @@ interface product {
 	image3: string
 	Brand: string
 }
-
 
 interface productColor {
 	name: string
@@ -38,11 +36,10 @@ interface productSize {
 
 const ProductDetails: NextPage = () => {
 	const router = useRouter()
-	const  {id}  = router.query
+	const { id } = router.query
 
-	
 	const query = String(router.query.id)
-		const ID = Number(query)
+	const ID = Number(query)
 	// const carts = useAppSelector(state => state.cart.productIds)
 
 	const [product, setProduct] = useState<product[]>([])
@@ -61,9 +58,6 @@ const ProductDetails: NextPage = () => {
 	const dispatch = useAppDispatch()
 
 	async function fetchProduct() {
-
-
-
 		let res = await fetch(
 			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${ID}`
 		)
@@ -73,7 +67,7 @@ const ProductDetails: NextPage = () => {
 
 	async function fetchProductColorAndSize() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${id}`//Here
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${id}` //Here
 		)
 		let ColorAndSize = (await res.json()).productDetail
 		let productColor = ColorAndSize.thisProductAllColors
@@ -90,36 +84,31 @@ const ProductDetails: NextPage = () => {
 		productDetailColor: String,
 		productDetailSize: String
 	) {
-
 		const Product_id = id
 		const color = productDetailColor
 		const size = productDetailSize
-		
 
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByColorAndSize/?id=${Product_id}&color=${color}&size=${size}`)
-		let ProductPriceAndStock = (await res.json())
-
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByColorAndSize/?id=${Product_id}&color=${color}&size=${size}`
+		)
+		let ProductPriceAndStock = await res.json()
 
 		const productDetailId = ProductPriceAndStock.productDetailId
 		const productDetailPrice = ProductPriceAndStock.productPrice
 		const productDetailStock = ProductPriceAndStock.productStock
 
-
 		// console.log(productDetailId);
-		
+
 		setProductDetailId(productDetailId)
 		setProductDetailPrice(productDetailPrice)
 		setProductDetailStock(productDetailStock)
-		}
+	}
 
 	useEffect(() => {
 		if (router.isReady) {
-
 			fetchProduct()
 		}
 	}, [setProduct, router.isReady])
-
 
 	useEffect(() => {
 		if (router.isReady) {
@@ -130,7 +119,7 @@ const ProductDetails: NextPage = () => {
 	// useEffect(() => {
 	// 	const query = String(router.query.id)
 	// 	const id = Number(query)
-		
+
 	// 	GetProdutPriceAndStock(id,productDetailColor, productDetailSize)
 
 	// }, [productDetailColor])
@@ -138,9 +127,9 @@ const ProductDetails: NextPage = () => {
 	useEffect(() => {
 		const query = String(router.query.id)
 		const id = Number(query)
-		
-		GetProdutPriceAndStock(id,productDetailColor, productDetailSize)
-	}, [productDetailSize,productDetailColor])
+
+		GetProdutPriceAndStock(id, productDetailColor, productDetailSize)
+	}, [productDetailSize, productDetailColor])
 
 	return (
 		<>
@@ -148,93 +137,91 @@ const ProductDetails: NextPage = () => {
 			<Heading />
 			<Navbar />
 			<div className={detail.pageBox}>
-			<Container>
-				<div>
-					
-					<h1 className={detail.Title}>Product Detail</h1>
+				<Container>
+					<div>
+						<h1 className={detail.Title}>Product Detail</h1>
 
-					<span className={detail.page}>Home. Pages.</span>
-					<span className={detail.nowPage}>
-					Product Detail
-					</span>
-					
-				</div>
-				
-				
+						<span className={detail.page}>Home. Pages.</span>
+						<span className={detail.nowPage}>Product Detail</span>
+					</div>
 				</Container>
 			</div>
 
-			
 			<div className={detail.boxDiv}>
-			<div className={detail.box}>
-			{product.map((product) => (
-				<DetailBox2
-					id={product.id}
-					name={product.name}
-					icon={product.icon}
-					image1={product.image1}
-					image2={product.image2}
-					image3={product.image3}
-					Brand={product.Brand}
-				/>
-			))}
-<div className={detail.formBox}>
-			<FormControl>
-				<FormLabel id='demo-radio-buttons-group-label'>
-					Color
-				</FormLabel>
-				<RadioGroup 
-					row
-					aria-labelledby='demo-radio-buttons-group-label'
-					name='radio-buttons-group'
-					value={productDetailColor}
-					onChange={(e) => {
-						setProductDetailColor(e.target.value)
-					}}>
-					{productColor.map((productColor) => (
-						<SelectColor name={productColor.name} />
+				<div className={detail.box}>
+					{product.map((product) => (
+						<DetailBox2
+							id={product.id}
+							name=''
+							icon={product.icon}
+							image1={product.image1}
+							image2={product.image2}
+							image3={product.image3}
+							Brand={product.Brand}
+						/>
 					))}
-				</RadioGroup>
-			</FormControl>
 
-			<FormControl>
-				<FormLabel id='demo-radio-buttons-group-label'>
-					Size
-				</FormLabel>
-				<RadioGroup
-					row
-					aria-labelledby='demo-radio-buttons-group-label'
-					name='radio-buttons-group'
-					value={productDetailSize}
-					onChange={(e) => {
-						setProductDetailSize(e.target.value)
-					}}>
-					{productSize.map((productSize) => (
-						<SelectColor name={productSize.name} />
-					))}
-				</RadioGroup>
-			</FormControl>
-<div className={detail.priceStockBox}>
-			<div className={detail.priceStock}>${productDetailPrice}</div>
-			<div className={detail.priceStock}>Stock:{productDetailStock}</div>
+					<div className={detail.formBox}>
+						{product.map((product) => (
+							<div>{product.name}</div>
+						))}
+						<FormControl>
+							<FormLabel id='demo-radio-buttons-group-label'>
+								Color
+							</FormLabel>
+							<RadioGroup
+								row
+								aria-labelledby='demo-radio-buttons-group-label'
+								name='radio-buttons-group'
+								value={productDetailColor}
+								onChange={(e) => {
+									setProductDetailColor(e.target.value)
+								}}>
+								{productColor.map((productColor) => (
+									<SelectColor name={productColor.name} />
+								))}
+							</RadioGroup>
+						</FormControl>
+
+						<FormControl>
+							<FormLabel id='demo-radio-buttons-group-label'>
+								Size
+							</FormLabel>
+							<RadioGroup
+								row
+								aria-labelledby='demo-radio-buttons-group-label'
+								name='radio-buttons-group'
+								value={productDetailSize}
+								onChange={(e) => {
+									setProductDetailSize(e.target.value)
+								}}>
+								{productSize.map((productSize) => (
+									<SelectColor name={productSize.name} />
+								))}
+							</RadioGroup>
+						</FormControl>
+						<div className={detail.priceStockBox}>
+							<div className={detail.priceStock}>
+								${productDetailPrice}
+							</div>
+							<div className={detail.priceStock}>
+								Stock:{productDetailStock}
+							</div>
+						</div>
+						<button
+							className={detail.addButton}
+							type='submit'
+							onClick={(e) => {
+								e.preventDefault()
+								dispatch(
+									fetchAddToCart(Number(productDetailId))
+								)
+							}}>
+							Add to Cart
+						</button>
+					</div>
+				</div>
 			</div>
-			<button
-			className={detail.addButton}
-					type='submit'
-					onClick={(e) => {
-						e.preventDefault()
-						dispatch(
-							fetchAddToCart(
-								Number(productDetailId)
-							)
-						)
-					}}>
-					Add to Cart
-				</button>
-				</div>
-
-				</div>
-				</div>
 			<Footer />
 		</>
 	)

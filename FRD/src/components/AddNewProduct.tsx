@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import create from '../styles/CreateProduct.module.css'
 // import { useSelector } from 'react-redux';
 
 // import { RootState } from './store';
@@ -10,6 +11,7 @@ export function AddProduct() {
 	return (
 		<div>
 			<form
+				className={create.addProductDiv}
 				onSubmit={handleSubmit(async (data) => {
 					// console.log(data)
 					console.log(data.image1[0])
@@ -34,17 +36,41 @@ export function AddProduct() {
 					if (res.status === 200) {
 					}
 				})}>
-				<input {...register('name', { required: true })}></input>
-				<input {...register('description', { required: true })}></input>
+				<div className={create.title}>Create New Product</div>
 				<input
-					type='file'
-					{...register('icon', { required: true })}></input>
-				<input type='file' {...register('image1', { required: true })}></input>
-				<input type='file'{...register('image2', { required: true })}></input>
-				<input type='file'{...register('image3', { required: true })}></input>
+					className={create.input}
+					type='text'
+                    placeholder='Product Name'
+					{...register('name', { required: true })}></input>
+				<input
+					className={create.input}
+					type='text'
+                    placeholder='Description'
+					{...register('description', { required: true })}></input>
+				<div className={create.selectFile}>
+					<input
+						className={create.custom}
+						type='file'
+						id='input'
+						{...register('icon', { required: true })}></input>
+					<input
+						className={create.custom1}
+						type='file'
+						{...register('image1', { required: true })}></input>
+					<input
+						className={create.custom2}
+						type='file'
+						{...register('image2', { required: true })}></input>
+					<input
+						className={create.custom3}
+						type='file'
+						{...register('image3', { required: true })}></input>
+				</div>
 
-				<br></br>
-				<input type='submit'></input>
+				<input
+					className={create.input}
+					type='submit'
+					value='Submit'></input>
 			</form>
 		</div>
 	)

@@ -132,9 +132,10 @@ const Cart: NextPage = () => {
 					{cartLoaded !== LoadingState.Loaded ?
 						<Skeleton circle borderRadius={50} /> :
 						<div className={cart.totalBox} >
-							<div >
-								<div>Total</div>
+							<div className={cart.totalPriceDiv} >
+								<div>Total:</div>
 								<div className={cart.totalPrice}>{totalPrice}</div>
+								
 							</div>
 
 							<Checkout/>

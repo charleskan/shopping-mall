@@ -14,6 +14,7 @@ import { LineAxisOutlined } from '@mui/icons-material'
 import axios from 'axios'
 import { dataSlider } from '../components/DataSlider'
 import { AddProduct } from '../components/AddNewProduct'
+import { AddColumn } from '../components/AddColumn'
 
 
 type Inputs = {
@@ -22,58 +23,7 @@ type Inputs = {
 }
 
 const CreateProduct: NextPage = () => {
-	// const { handleSubmit, register } = useForm()
-	// const [error, setError] = useState('')
-	// const router = useRouter()
-	// const router = useRouter()
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	formState: { errors },
-	// 	reset
-	// } = useForm<Inputs>()
 
-
-
-// 	 const onSubmit=(data :Inputs) => {
-//  fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/product`,
-// 			{
-// 			method:'POST',
-// 			headers: { 'Content-Type': 'multipart/form-data' },
-// 			credentials: 'include',
-// 			body: JSON.stringify(data)}
-// 		)
-// 	// router.push("/productPage")
-// 		console.log(data);
-		
-		
-// 	}
-
-
-
-
-
-	// console.log(errors);
-
-	// async	function onSubmit (data:Inputs){
-	// 		let config ={
-	// 			method:'post',
-	// 			url: `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/product`,
-	// 			headers:{
-	// 				'Content-Type':'application/json',
-	// 			},
-	// 			credentials: 'include',
-
-	// 		}
-	// 		try{
-	// 			const res = await axios(config);
-	// 			console.log(res)
-	// 			console.log();
-	// 		} catch(err){
-
-	// 		}
-
-	// 	}
 
 	return (
 		<div>
@@ -88,114 +38,16 @@ const CreateProduct: NextPage = () => {
 			<Heading />
 			<Navbar />
 
-			<div>
-				<Container>
-					<div>
-						<h1>Create Product</h1>
-
-						<span>Home. Pages.</span>
-						<span>Create Product</span>
-					</div>
-				</Container>
+<div className={create.box}>
+<div className={create.div}>
+			<AddProduct/>
 			</div>
 
-			<AddProduct/>
+			<div className={create.div}>
+			<AddColumn/>
+			</div>
+			</div>
 
-			{/* <form onSubmit={handleSubmit(onSubmit)}  >
-				<input
-					type='text'
-					placeholder='Product Name'
-					{...register('name', {
-						required: true,
-						maxLength: 80
-					})}
-				/> */}
-				{/* <input
-					type='text'
-					placeholder='description'
-					{...register('description', {
-						required: true,
-						maxLength: 200
-					})}
-				/> */}
-				{/* <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /> */}
-				{/* <input type="file" placeholder="Mobile number" {...register("Mobile number", {required: true})} /> */}
-{/* 
-				<input type='submit' /> */}
-			{/* </form> */}
-
-			{/* <div>
-			<form
-					
-					action='`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`'
-					method='post'
-					onSubmit={handleSubmit(async (productData: any) => {
-						const formObject: any = {}
-						formObject['username'] = productData.username
-						formObject['password'] = productData.password
-						formObject['email'] = productData.email
-						formObject['nickName'] = productData.nickName
-
-						const res = await fetch(
-							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
-							{
-								method: 'POST',
-								headers: { 'Content-Type': 'application/json' },
-								credentials: 'include',
-								body: JSON.stringify(formObject)
-							}
-						)
-						if (res.status === 200) {
-							router.push('/CreateProduct')
-						} else if (res.status === 400) {
-							setError('Error')
-						} else if (res.status === 500) {
-							setError('Error')
-						}
-					})}>
-					{error}
-					<div >Register</div>
-					<div>
-						Create your Account
-					</div>
-					<input
-						{...register('username')}
-						
-						type='text'
-						id='name'
-						placeholder='Username'
-					/>
-					<input
-						{...register('password')}
-					
-						type='text'
-						id='Password'
-						placeholder='Password'
-					/>
-					<input
-						{...register('email')}
-						
-						type='text'
-						id='email'
-						placeholder='EmailAddress'
-					/>
-					<input
-						{...register('nickName')}
-			
-						type='text'
-						id='nickName'
-						placeholder='Nickname'
-					/>
-					<button  type='submit'>
-						Register
-					</button>
-					<Link href='/login'>
-						<p>
-							Have Account ? Sign in account
-						</p>
-					</Link>
-				</form>
-			</div> */}
 
 			<Footer />
 		</div>

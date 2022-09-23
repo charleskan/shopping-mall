@@ -70,7 +70,7 @@ const Register: NextPage = () => {
 						} else if (res.status === 400) {
 							setError('Password Error')
 						} else if (res.status === 500) {
-							setError('打錯呀')
+							router.push('/Error')
 						}
 					})}>
 					{error}
