@@ -7,50 +7,73 @@ import Link from 'next/link'
 import { Footer } from '../components/Footer'
 import { Container } from '@mui/system'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import create from '../styles/CreateProduct.module.css'
 import { LineAxisOutlined } from '@mui/icons-material'
-import axios from 'axios';
+import axios from 'axios'
+import { dataSlider } from '../components/DataSlider'
+import { AddProduct } from '../components/AddNewProduct'
+
 
 type Inputs = {
-	ProductName:String
-
-	description:String
-
-
-
+	name: String
+	description: String
 }
-
-
 
 const CreateProduct: NextPage = () => {
 	// const { handleSubmit, register } = useForm()
 	// const [error, setError] = useState('')
 	// const router = useRouter()
+	// const router = useRouter()
+	// const {
+	// 	register,
+	// 	handleSubmit,
+	// 	formState: { errors },
+	// 	reset
+	// } = useForm<Inputs>()
 
-	const { register, handleSubmit, formState: { errors },reset } = useForm();
-	// const onSubmit =  => console.log(onSubmit);
+
+
+// 	 const onSubmit=(data :Inputs) => {
+//  fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/product`,
+// 			{
+// 			method:'POST',
+// 			headers: { 'Content-Type': 'multipart/form-data' },
+// 			credentials: 'include',
+// 			body: JSON.stringify(data)}
+// 		)
+// 	// router.push("/productPage")
+// 		console.log(data);
+		
+		
+// 	}
+
+
+
+
+
 	// console.log(errors);
 
-async	function onSubmitForm(values:Inputs){
-		let config ={
-			method:'post',
-			url: `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/product`,
-			headers:{
-				'Content-Type':'application/json',
-			},
-			data: values,
-		}
-		try{
-			const res = await axios(config);
-			console.log(res)
-			console.log(onSubmitForm);
-		} catch(err){
+	// async	function onSubmit (data:Inputs){
+	// 		let config ={
+	// 			method:'post',
+	// 			url: `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/product`,
+	// 			headers:{
+	// 				'Content-Type':'application/json',
+	// 			},
+	// 			credentials: 'include',
 
-		}
-	
-	}
+	// 		}
+	// 		try{
+	// 			const res = await axios(config);
+	// 			console.log(res)
+	// 			console.log();
+	// 		} catch(err){
+
+	// 		}
+
+	// 	}
 
 	return (
 		<div>
@@ -65,34 +88,41 @@ async	function onSubmitForm(values:Inputs){
 			<Heading />
 			<Navbar />
 
-			<div >
-			 <Container>
 			<div>
-				<h1 >Create Product</h1>
+				<Container>
+					<div>
+						<h1>Create Product</h1>
 
-				
-					<span >Home. Pages.</span>
-					<span >Create Product</span>
-				</div>
+						<span>Home. Pages.</span>
+						<span>Create Product</span>
+					</div>
 				</Container>
 			</div>
-		
 
+			<AddProduct/>
 
-
-    <form onSubmit={handleSubmit(onSubmitForm)}>
-      <input type="text" placeholder="Product Name" {...register("ProductName", {required: true, maxLength: 80, })} />
-      <input type="text" placeholder="description" {...register("description", {required: true, maxLength: 200,})} />
-      {/* <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /> */}
-      {/* <input type="file" placeholder="Mobile number" {...register("Mobile number", {required: true})} /> */}
-
-      <input type="submit" />
-    </form>
-
-
-
-
-
+			{/* <form onSubmit={handleSubmit(onSubmit)}  >
+				<input
+					type='text'
+					placeholder='Product Name'
+					{...register('name', {
+						required: true,
+						maxLength: 80
+					})}
+				/> */}
+				{/* <input
+					type='text'
+					placeholder='description'
+					{...register('description', {
+						required: true,
+						maxLength: 200
+					})}
+				/> */}
+				{/* <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /> */}
+				{/* <input type="file" placeholder="Mobile number" {...register("Mobile number", {required: true})} /> */}
+{/* 
+				<input type='submit' /> */}
+			{/* </form> */}
 
 			{/* <div>
 			<form
@@ -166,7 +196,6 @@ async	function onSubmitForm(values:Inputs){
 					</Link>
 				</form>
 			</div> */}
-
 
 			<Footer />
 		</div>

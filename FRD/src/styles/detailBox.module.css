@@ -64,11 +64,16 @@ margin: 10px;
     margin-left: 20px;
 }
 
-.productName{
+.productNameBox{
     position: absolute;
-    right: 80px;
+    right: 5%;
     font-size: 40px;
     font-weight: bold;
+    text-align: center;
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+   
 }
 
 .formBox{
