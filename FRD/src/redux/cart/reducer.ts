@@ -5,7 +5,6 @@ import { CartState } from "./state";
 
 
 const initialState: CartState = {
-  productDetailIds: [],
   products: [],
   loading: LoadingState.NotLoaded,
 
@@ -22,18 +21,37 @@ export function cartReducer(state: CartState = initialState, action: CartActions
     case '@@cart/ADD_TO_CART':
       return {
         ...state,
-        productDetailIds: [...state.productDetailIds, 
-          { productId: action.productId}]
+        products: [...state.products, 
+          {
+            id: action.productId,
+            product: '',
+            icon: '',
+            color: '',
+            size: '',
+            number: 1,
+            product_price: 0,
+            tc_price: 0,
+            tc_number: 0,
+          }
+        ],
       };
     case '@@cart/MINUS_FROM_CART':
-      return produce(state, state => {
-        const index = state.productDetailIds.
-          findIndex(p => p.productId === action.productId)
-        state.productDetailIds.splice(index, 1)
-      });
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.id === action.productId) {
+            return {
+              ...product,
+              number: product.number - 1,
+            };
+          }
+          return product;
+        }),
+      };
+      
     case '@@cart/REMOVE_FROM_CART':
       return produce(state, state => {
-        state.productDetailIds = []
+        state.products = []
       }
       );
   }

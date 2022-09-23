@@ -27,16 +27,6 @@ interface product {
 	Brand: string
 }
 
-interface productOption {
-	id: number
-	color: string
-	size: string
-}
-interface addCart {
-	productId: number
-	colorId: number
-	sizeId: number
-}
 
 interface productColor {
 	name: string
@@ -48,29 +38,34 @@ interface productSize {
 
 const ProductDetails: NextPage = () => {
 	const router = useRouter()
-	const { id } = router.query
+	const  {id}  = router.query
+
+	
+	const query = String(router.query.id)
+		const ID = Number(query)
 	// const carts = useAppSelector(state => state.cart.productIds)
 
-	const [colorId, setColorId] = useState('')
-	const [sizeId, setSizeId] = useState('')
 	const [product, setProduct] = useState<product[]>([])
 
-	const [addCart, setAddCart] = useState<addCart[]>([])
+	// const [addCart, setAddCart] = useState<addCart[]>([])
 	const [productColor, setProductColor] = useState<productColor[]>([])
 	const [productSize, setProductSize] = useState<productSize[]>([])
 
 	const [productDetailColor, setProductDetailColor] = useState<String>('')
 	const [productDetailSize, setProductDetailSize] = useState<String>('')
 
-	const [productDetailPrice, setProductDetailPrice] = useState<String>()
-	const [productDetailStock, setProductDetailStock] = useState<String>()
+	const [productDetailPrice, setProductDetailPrice] = useState<String>('')
+	const [productDetailStock, setProductDetailStock] = useState<String>('')
 	const [productDetailId, setProductDetailId] = useState<Number>()
 
 	const dispatch = useAppDispatch()
 
 	async function fetchProduct() {
+
+
+
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${id}`
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${ID}`
 		)
 		let product = (await res.json()).productInfo.productInfo
 		setProduct(product)
@@ -78,7 +73,7 @@ const ProductDetails: NextPage = () => {
 
 	async function fetchProductColorAndSize() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${id}`
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByproductId/${id}`//Here
 		)
 		let ColorAndSize = (await res.json()).productDetail
 		let productColor = ColorAndSize.thisProductAllColors
@@ -111,56 +106,41 @@ const ProductDetails: NextPage = () => {
 		const productDetailStock = ProductPriceAndStock.productStock
 
 
-		console.log(productDetailId);
+		// console.log(productDetailId);
 		
 		setProductDetailId(productDetailId)
 		setProductDetailPrice(productDetailPrice)
 		setProductDetailStock(productDetailStock)
-
-
 		}
 
 	useEffect(() => {
 		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
 
 			fetchProduct()
 		}
 	}, [setProduct, router.isReady])
 
-	useEffect(() => {
-		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
-
-			fetchAddToCart(id)
-		}
-	}, [setAddCart, router.isReady])
 
 	useEffect(() => {
 		if (router.isReady) {
-			const query = router.query.id
-			const id = Number(query)
-
 			fetchProductColorAndSize()
 		}
 	}, [setProductColor, setProductSize, router.isReady])
 
+	// useEffect(() => {
+	// 	const query = String(router.query.id)
+	// 	const id = Number(query)
+		
+	// 	GetProdutPriceAndStock(id,productDetailColor, productDetailSize)
+
+	// }, [productDetailColor])
+
 	useEffect(() => {
-		const query = router.query.id
+		const query = String(router.query.id)
 		const id = Number(query)
 		
 		GetProdutPriceAndStock(id,productDetailColor, productDetailSize)
-
-	}, [productDetailColor])
-
-	useEffect(() => {
-		const query = router.query.id
-		const id = Number(query)
-		
-		GetProdutPriceAndStock(id,productDetailColor, productDetailSize)
-	}, [productDetailSize])
+	}, [productDetailSize,productDetailColor])
 
 	return (
 		<>
@@ -245,7 +225,7 @@ const ProductDetails: NextPage = () => {
 						e.preventDefault()
 						dispatch(
 							fetchAddToCart(
-								Number({productDetailId})
+								Number(productDetailId)
 							)
 						)
 					}}>

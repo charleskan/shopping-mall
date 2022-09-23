@@ -4,13 +4,15 @@ import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import heading from '../styles/Heading.module.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../store'
 import { logOut } from '../redux/auth/action'
+import { loadCart } from '../redux/cart/action'
 
 export function Heading() {
-	const token = useAppSelector((state) => state.auth.token)
-	const cartCount = useAppSelector((state) => state.cart.productDetailIds)
+	const dispatch = useAppDispatch()
+
+	const carts = useAppSelector(state => state.cart.products)
 
 	const [username, setUsername] = useState<string | null>(null)
 	useEffect(() => {
@@ -20,17 +22,20 @@ export function Heading() {
 				: null
 		)
 	}, [setUsername])
-	// const username: any = useAppSelector((state) => state.auth.username)
+	
+	const countCart = useMemo(() => {
+		let count = carts.map((item) => Number(item.tc_number))
+		.reduce((a, b) => a + b, 0)
+		return count
+	}, [carts])
+	
+	useEffect(() => {
+		dispatch(loadCart())
+	}, [])
 
-	// const isLoggedIn = useAppSelector((state) => state.auth.loggedIn);
-	const dispatch = useAppDispatch()
-
-	// const [users, setUsers] = useState('')
-
-	// useEffect(() => {
-	// 	setUsers(username!)
-	// }, [token, username, users])
-
+	
+	
+		
 	return (
 		<div className={heading.color}>
 			<div className={heading.center}>
@@ -63,7 +68,7 @@ export function Heading() {
 						<ShoppingCartIcon className={heading.imageICon} />
 					</Link>
 					<Link href='/Cart'>
-					<div className={heading.cartNumber}>{cartCount.length}</div>
+					<div className={heading.cartNumber}>{countCart}</div>
 					</Link>
 				</div>
 			</div>
