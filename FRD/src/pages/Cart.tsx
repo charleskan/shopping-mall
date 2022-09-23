@@ -128,18 +128,21 @@ const Cart: NextPage = () => {
 								: <div className={cart.empty}>Cart is empty</div>
 						}
 					</div>
+					
 					{cartLoaded !== LoadingState.Loaded ?
 						<Skeleton circle borderRadius={50} /> :
-						<form className={cart.totalBox} >
+						<div className={cart.totalBox} >
 							<div >
 								<div>Total</div>
 								<div className={cart.totalPrice}>{totalPrice}</div>
 							</div>
 
-						</form>
+							<Checkout/>
+						</div>
+							
+					
 					
 				}
-				<Checkout/>
 				</div>
 
 			</Container>
