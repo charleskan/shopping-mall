@@ -26,12 +26,13 @@ export class UserController {
 
 		// const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
 		try {
-			console.log("body:", req.body);
+			// console.log("body:", req.body);
 
 			let username = req.body.username?.trim()
 			let password = req.body.password?.trim()
 			let email = req.body.email?.trim()
 			let nickname = req.body.nickname?.trim()
+
 
 			//should be database get id
 			let role_id = 2
@@ -46,8 +47,13 @@ export class UserController {
 				role_id,
 				status_id
 			)
+			// console.log("newUser:", newUser);
+			
 
 			const invoice = await this.invoiceService.createInvoice(status_id, newUser[0].id, addressId)
+
+			// console.log("invoice:", invoice);
+			
 
 			req.user = {
 				userId: newUser[0].id,

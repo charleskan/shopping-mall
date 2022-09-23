@@ -84,7 +84,8 @@ export class UserService {
 		}
 
 		// insert user
-		await this.knex<User>('user').insert({
+		const newUser = await this.knex<User>('user')
+		.insert({
 			username: username,
 			password: await hashPassword(password),
 			email: email,
@@ -92,8 +93,13 @@ export class UserService {
 			role_id,
 			status_id
 		})
+		.returning('*')
 
-		return true // return true if success
+		
+		// console.log(newUser);
+		
+
+		return newUser // return true if success
 
 		// 'INSERT INTO users(username, password, created_at, updated_at) VALUES($1, $2, NOW(), NOW())',
 		// [username, await hashPassword(password)]
