@@ -22,11 +22,17 @@ type LoadedOneProductAction = ReturnType<typeof loadedOneProduct>;
 
 export type ProductActions = LoadedProductsAction | LoadedOneProductAction
 
-export function loadProducts() {
+export function fetchLoadProducts(
+  page: number,
+) {
   return async (dispatch: AppDispatch) => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`)
+    let res = await fetch(
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo/${page}`
+		)
+    const data = await res.json()
 
-    dispatch(loadedProducts(res.data))
+
+    dispatch(loadedProducts(data))
   }
 }
 
