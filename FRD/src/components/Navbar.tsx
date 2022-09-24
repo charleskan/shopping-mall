@@ -3,6 +3,9 @@ import Image from 'next/image'
 import SearchIcon from '@mui/icons-material/Search'
 import navbar from '../styles/Navbar.module.css'
 import img from '../components/Hektologo.png'
+
+
+
 export function Navbar() {
 	return (
 		<div className={navbar.bar}>
