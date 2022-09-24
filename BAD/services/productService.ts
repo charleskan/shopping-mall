@@ -38,6 +38,32 @@ export class ProductService {
       return ProductList;
     }
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  // Get All Color Info
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async colorInfo() {
+    {
+      const colorList = await this.knex("color").select("*");
+      // `SELECT * FROM product INNER JOIN product_color pc ON
+      // product.id = pc.product_id`
+
+      return colorList;
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------
+  // Get All Color Info
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async sizeInfo() {
+    {
+      const sizeList = await this.knex("size").select("*");
+      // `SELECT * FROM product INNER JOIN product_color pc ON
+      // product.id = pc.product_id`
+
+      return sizeList;
+    }
+  }
 
   // -------------------------------------------------------------------------------------------------------------------
   // Get individual Product Info
@@ -480,4 +506,16 @@ export class ProductService {
   //       return productId;
   //     }
   //   }
+
+
+
+
+
+
+
+
+
+
 }
+
+
