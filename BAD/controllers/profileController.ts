@@ -4,6 +4,7 @@ import { logger } from '../logger'
 import { form, isAdmin } from '../middleware'
 import { ProfileService } from '../services/profileService'
 
+
 export class ProfileController {
 	constructor(private profileService: ProfileService) {}
 
@@ -13,7 +14,11 @@ export class ProfileController {
 	userInfo = async (req: express.Request, res: express.Response) => {
 		
 		try {
+			// const userId = req.user!.userId
+			// console.log('userId:', userId);
+
 			const userId = req.user!.userId
+			
 			const userInfo = await this.profileService.userInfo(userId)
 			return res.json({
 				result: true,

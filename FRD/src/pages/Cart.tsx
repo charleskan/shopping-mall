@@ -22,7 +22,7 @@ import Checkout from '../components/Checkout'
 const Cart: NextPage = () => {
 
 	const cartLoaded = useAppSelector(state => state.cart.loading)
-	const carts = useAppSelector(state => state.cart.products)
+	const carts = useAppSelector(state => state.cart.productIds)
 
 	const dispatch = useAppDispatch()
 

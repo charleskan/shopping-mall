@@ -63,11 +63,11 @@ app.use(
   //json
   app.use(express.json());
   
-  app.use((req, res, next) => {
-    setTimeout(() => {
-      next();
-    }, 100)
-  })
+  // app.use((req, res, next) => {
+  //   setTimeout(() => {
+  //     next();
+  //   }, 100)
+  // })
 
 //get HTML files from public, default images & uploads
 app.use(express.static("public")); //get files from private
