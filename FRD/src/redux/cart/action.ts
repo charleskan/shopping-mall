@@ -5,7 +5,7 @@ import { checkResponse, loggedIn, logIn } from "../auth/action"
 import { ProductInCart } from "./state";
 
 
-export function loadedCart(products: ProductInCart[]) {
+export function loadedCart(products: []) {
     return {
         type: '@@cart/LOADED_CART' as const,
         products

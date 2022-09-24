@@ -5,17 +5,7 @@ import { CartState } from "./state";
 
 
 const initialState: CartState = {
-  products: [{
-    id: 0,
-    product: '',
-    icon: '',
-    color: '',
-    size: '',
-    number: 0,
-    product_price: 0,
-    tc_price: 0,
-    tc_number: '',
-  }],
+  products: [],
   loading: LoadingState.NotLoaded,
 
 }

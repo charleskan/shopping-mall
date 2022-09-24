@@ -98,7 +98,7 @@ export class InvoiceController {
                 line_items: [
                     {
                         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                        price: 'price_1Ll80sEgzwMQrXMkhpAXpwHR', //Create dynamic price later, May be use DB to store price
+                        price: 'price_1LlWXMEgzwMQrXMkIqdORghZ', //Create dynamic price later, May be use DB to store price
                         quantity: 1
                     }
                 ],
@@ -106,7 +106,7 @@ export class InvoiceController {
                     id: invoiceId
                 },
                 mode: 'payment',
-                success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/success`,
+                success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/orderCompleted`,
                 cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}`
             })
 
