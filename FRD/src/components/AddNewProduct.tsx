@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import create from '../styles/CreateProduct.module.css'
@@ -8,12 +7,11 @@ import create from '../styles/CreateProduct.module.css'
 
 export function AddProduct() {
 	const { handleSubmit, register } = useForm()
-	const router = useRouter()
-	
+	const [show, setShow] = useState(true); //react hook
 
 	return (
 		<div>
-			<form
+			{ show && <form 
 				className={create.addProductDiv}
 				onSubmit={handleSubmit(async (data) => {
 					// console.log(data)
@@ -37,7 +35,6 @@ export function AddProduct() {
 						}
 					)
 					if (res.status === 200) {
-						router.push('/')
 					}
 				})}>
 				<div className={create.title}>Create New Product</div>
@@ -49,7 +46,7 @@ export function AddProduct() {
 				<input
 					className={create.input}
 					type='text'
-                    placeholder='Description'
+					placeholder='Description'
 					{...register('description', { required: true })}></input>
 				<div className={create.selectFile}>
 					<input
@@ -71,11 +68,12 @@ export function AddProduct() {
 						{...register('image3', { required: true })}></input>
 				</div>
 
-				<input
+				<input 
+				onClick={()=>{setShow(false)}}
 					className={create.input}
 					type='submit'
-					value='Submit'></input>
-			</form>
+					value='Submit'></input >
+			</form>}
 		</div>
 	)
 }

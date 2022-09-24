@@ -37,6 +37,8 @@ const CreateProduct: NextPage = () => {
 
 	const [keyword, setkeyword] = useState<keyword['keyword']>('NOTAKEYWORD')
 	const [product, setProduct] = useState<searchProduct[]>([])
+	const [show, setShow] = useState(false); //react hook
+	
 
 	async function fetchSearchProduct(keyword: String) {
 		const name = keyword
@@ -67,14 +69,14 @@ const CreateProduct: NextPage = () => {
 
 			<div className={create.box}>
 
-				<div className={create.div}>
-					<AddProduct />
+				<div className={create.div}  >
+					<AddProduct  />
 				</div>
 
-				<div className={create.div}>
+				{ show &&<div className={create.div}>
 					<AddColumn />
-				</div>
-				<div className={create.serachBox}>
+				</div>}
+				{ show &&<div className={create.serachBox}>
 			<div className={create.title}>Serach Product</div>
 			
 				<input
@@ -91,7 +93,7 @@ const CreateProduct: NextPage = () => {
 						description={product.description}
 					/>
 				))}
-			</div>
+			</div>}
 			</div>
 			
 			<Footer />
