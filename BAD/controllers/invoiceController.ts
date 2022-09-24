@@ -48,6 +48,9 @@ export class InvoiceController {
 
             const invoiceRecord = await this.invoiceService.createInvoice(status_id, userId, addressId)
 
+            console.log('invoice: ', invoiceRecord)
+            
+
             return res.json({
                 result: true,
                 msg: 'Create invoice success',
@@ -74,9 +77,6 @@ export class InvoiceController {
             // console.log("invoiceId: ", invoiceId);
             // console.log("userId: ", userId);
 
-            const addressId = Address.Default
-
-            const statusId = Status.Paid
 
             //@@PUT change put later
             const getTotalPrice = (await this.invoiceService.getTotalPrice
@@ -88,10 +88,17 @@ export class InvoiceController {
 
 
 
-            await this.invoiceService.updateInvoice(
-                invoiceId, statusId, userId, addressId, totalPrice)
+            const invoice = await this.invoiceService.updateInvoice(
+                invoiceId, Status.Paid, userId, Address.Default, totalPrice)
 
+                console.log("invoice: ", invoice);
 
+            const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, userId, Address.Default)
+
+            req.user = {
+                userId: userId,
+                invoiceId: newInvoice[0].id,
+            }
             //Add webhook later
 
             const session = await stripe.checkout.sessions.create({
@@ -161,6 +168,8 @@ export class InvoiceController {
             const productDetailId = parseInt(req.params.id)
             //create invoice if not exist
             const invoiceId = req.user!.invoiceId
+            console.log("invoiceId: ", invoiceId);
+            
 
             // //create invoice if user has no invoice
             // if (invoice == null) {
@@ -179,7 +188,7 @@ export class InvoiceController {
                     productDetailId
 
                 ))
-            console.log('productDetail: ', productDetail)
+            // console.log('productDetail: ', productDetail)
 
             const productRecord = await this.invoiceService.addProductToCart(
                 invoiceId,
@@ -207,7 +216,7 @@ export class InvoiceController {
     getAllProductInCart = async (req: express.Request, res: express.Response) => {
         try {
             const invoiceId = req.user!.invoiceId
-            const productRecord = await this.invoiceService.getAllProductInCart(invoiceId)
+            const productRecord = await this.invoiceService.getAllProductInCart(invoiceId, Status.Unpaid)
 
             return res.json({
                 result: true,

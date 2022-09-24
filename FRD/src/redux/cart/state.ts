@@ -13,7 +13,7 @@ export interface  ProductInCart {
 
 }
 export interface CartState {
-    products: [],
-    // products:ProductInCart[],
+    // products: [],
+    products:ProductInCart[],
     loading: LoadingState;
 }

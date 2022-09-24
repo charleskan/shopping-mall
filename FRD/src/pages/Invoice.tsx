@@ -45,7 +45,7 @@ const ProductDetails: NextPage = () => {
 			{invoiceDetails.map((invoiceDetail) => (
 			<DetailBox2
 				key={invoiceDetail.id}
-				invoiceNumber={invoiceDetail.name}
+				invoiceNumber={invoiceDetail.invoiceNumber}
 				username={invoiceDetail.user_id}
 				image1={product.image1}
 				image2={product.image2}

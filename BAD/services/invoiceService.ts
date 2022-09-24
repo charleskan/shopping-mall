@@ -208,7 +208,8 @@ export class InvoiceService {
     // get all product in cart 
     // -------------------------------------------------------------------------------------------------------------------
 
-    async getAllProductInCart(invoiceId: number) {
+    async getAllProductInCart(invoiceId: number,
+        status_id: number) {
 
         {
 
@@ -217,51 +218,65 @@ export class InvoiceService {
                 (
                     /* SQL */
                     `
-                    with
-                    product_detail as
+					with
+					TT_Cart as
+					(
+                    select *
+                    from "invoice_productDetail"
+                    
+                    inner join invoice i 
+                    on i.id = "invoice_productDetail".invoice_id
+                    
+                    where "invoice_id" = ?
+                    and status_id = ?
+                    
+                    ),
+                    t_cart_sum as
                     (
-                    select 
-                    pd.id,
+                    select
+                    "invoice_id",
+                    "productDetail_id" as product_detail_id,
+                    sum("price") as TC_Price,
+                    sum("number") as TC_Number
+                    from TT_Cart
+                    
+                    group by product_detail_id, "invoice_id"
+                    
+                    ),
+                    t_final as
+                    (
+                    select *
+                    from 
+                    t_cart_sum
+                    inner join "productDetail" 
+                    on "productDetail".id = t_cart_sum.product_detail_id
+                    )
+                    
+                    select
+                    invoice_id,
+                    product_detail_id,
+                    TC_Price,
+                    TC_Number,
                     p.name as product,
                     c."name" as color,
                     s.name as size,
                     price as product_price,
                     stock,
-                    s2.name as status,
                     icon
                     from 
-                    ((("productDetail" pd 
-                    inner join product p on p.id = pd.product_id)
-                    inner join color c on c.id=pd.color_id)
-                    inner join "size" s on s.id = pd.size_id )
-                    inner join status s2 on s2.id = pd.status_id 
-                    )
+                    t_final t2
                     
-                    select
-                    "product_detail".id,
-                    product, 
-                    color, 
-                    "size", 
-                    icon, 
-              		number,
-              		product_price,
-                    sum("number") as TC_Number, 
-                    sum(product_price) as TC_Price
-                    from product_detail 
-                    inner join
-                    "invoice_productDetail" ipd on ipd."productDetail_id" = product_detail.id
-                    where "invoice_id" = ?
-                    group by 
-                    product, 
-                    color, 
-                    "size", 
-                    icon,
-                    "product_detail".id,
-                    product_price,
-                    number
+                    inner join color c 
+                    on c.id = t2.color_id
+                    
+                    inner join product p 
+                    on p.id = t2.product_id
+
+                    inner join size s 
+                    on s.id = t2.size_id
                     
                     `,
-                    [invoiceId]
+                    [invoiceId, status_id]
                 )
 
 

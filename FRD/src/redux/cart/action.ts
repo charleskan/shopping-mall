@@ -5,7 +5,7 @@ import { checkResponse, loggedIn, logIn } from "../auth/action"
 import { ProductInCart } from "./state";
 
 
-export function loadedCart(products: []) {
+export function loadedCart(products: ProductInCart[]) {
     return {
         type: '@@cart/LOADED_CART' as const,
         products
@@ -26,10 +26,10 @@ export function minusFromCart(product: ProductInCart) {
     }
 }
 
-export function removeFromCart(product: ProductInCart) {
+export function removeFromCart(products: ProductInCart[]) {
     return {
         type: '@@cart/REMOVE_FROM_CART' as const,
-        product
+        products
     }
 }
 

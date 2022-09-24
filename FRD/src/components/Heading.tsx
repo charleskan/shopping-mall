@@ -23,15 +23,15 @@ export function Heading() {
 		)
 	}, [setUsername])
 	
+	useEffect(() => {
+		dispatch(loadCart())
+	}, [])
 	const countCart = useMemo(() => {
 		let count = carts.map((item) => Number(item.tc_number))
 		.reduce((a, b) => a + b, 0)
 		return count
 	}, [carts])
 	
-	useEffect(() => {
-		dispatch(loadCart())
-	}, [])
 
 	
 	
