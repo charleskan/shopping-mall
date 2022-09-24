@@ -10,19 +10,26 @@ export async function seed(knex: Knex): Promise<void> {
     
     .insert([
         { 
-            
-
             name: "S",
-
+        },
+        { 
+            name: "MS",
         },
         {
-
             name: "M",
         },
         {
-
+            name: "ML",
+        },
+        {
             name: "L",
-        }
+        },
+        {
+            name: "LL",
+        },
+        {
+            name: "XL",
+        },
 
 
 

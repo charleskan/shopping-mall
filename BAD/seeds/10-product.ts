@@ -1,109 +1,23 @@
 import { Knex } from "knex";
+import { faker } from '@faker-js/faker';
 
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("product").del();
 
-        await knex
-        .insert([
+        faker.seed(123);
 
-        {
-
-
-            name: "Apple Watch",
-            icon: "13.jpg",
-            description: "Test",
-            image1: "13.jpg",
-            image2: "13.jpg",
-            image3: "13.jpg",
-            brand_id: 1,
-
-
-        },
-        {
-
-
-            name: "hihi Watch",
-
-            icon: "14.jpg",
-            description: "Test",
-            image1: "14.jpg",
-            image2: "14.jpg",
-            image3: "14.jpg",
-            brand_id: 2,
-
-        },
-        {
-
-
-            name: "ABC Watch",
-            icon: "16.jpg",
-            description: "Test",
-            image1: "16.jpg",
-            image2: "16.jpg",
-            image3: "16.jpg",
-            brand_id: 1,
-
-
-        },
-
-        {
-
-
-            name: "Apple Watch",
-            icon: "13.jpg",
-            description: "Test",
-            image1: "13.jpg",
-            image2: "13.jpg",
-            image3: "13.jpg",
-            brand_id: 1,
-
-
-        },
-
-        {
-
-
-            name: "Apple Watch",
-            icon: "13.jpg",
-            description: "Test",
-            image1: "13.jpg",
-            image2: "13.jpg",
-            image3: "13.jpg",
-            brand_id: 1,
-
-
-        },
-
-        {
-
-
-            name: "Apple Watch",
-            icon: "13.jpg",
-            description: "Test",
-            image1: "13.jpg",
-            image2: "13.jpg",
-            image3: "13.jpg",
-            brand_id: 1,
-
-
-        },
-        {
-
-
-            name: "Apple Watch",
-            icon: "13.jpg",
-            description: "Test",
-            image1: "13.jpg",
-            image2: "13.jpg",
-            image3: "13.jpg",
-            brand_id: 1,
-
-
-        },
-
-    ])
-    .into("product");
+        await knex('product').del();
+    
+        for (let i = 0; i < 100; i++) {
+            await knex.insert({
+                name: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(),
+                icon: faker.image.imageUrl(),
+                description: faker.commerce.productDescription(),
+                image1: faker.image.imageUrl(),
+                image2: faker.image.imageUrl(),
+                image3: faker.image.imageUrl(),
+            }).into('product');
+        }
 
 }
