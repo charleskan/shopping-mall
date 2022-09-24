@@ -20,7 +20,7 @@ export function ProductCard(props: Props) {
 		<div className={card.cardBigBox} onClick={handleSubmit}>
 			
 			<Image
-				src={`${props.icon}`}
+				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
 				width={200}
 				height={200}
 			/>

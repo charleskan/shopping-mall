@@ -23,7 +23,7 @@ export default function CartItem(props: Props) {
 	return (
 		<div className={cart.cartBox}>
 			<Image
-				src={`${props.icon}`}
+				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
 				width={100}
 				height={100}
 			/>
