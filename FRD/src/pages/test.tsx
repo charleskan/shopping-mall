@@ -42,7 +42,7 @@ const test: NextPage = () => {
 		<>
 				<Heading />
 			<Navbar />
-			<div className={create.test}>
+			<div >
 			<div>
 				<label htmlFor='keyword'>Serach Product:</label>
 				<input

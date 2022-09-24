@@ -66,6 +66,7 @@ const CreateProduct: NextPage = () => {
 			<Navbar />
 
 			<div className={create.box}>
+
 				<div className={create.div}>
 					<AddProduct />
 				</div>
@@ -73,10 +74,11 @@ const CreateProduct: NextPage = () => {
 				<div className={create.div}>
 					<AddColumn />
 				</div>
-			</div>
-			<div>
-				<label htmlFor='keyword'>Serach Product:</label>
+				<div className={create.serachBox}>
+			<div className={create.title}>Serach Product</div>
+			
 				<input
+				className={create.input}
 					placeholder='Search Product'
 					type='text'
 					onChange={(e) => setkeyword(e.target.value)}
@@ -90,6 +92,8 @@ const CreateProduct: NextPage = () => {
 					/>
 				))}
 			</div>
+			</div>
+			
 			<Footer />
 		</div>
 	)

@@ -1,6 +1,20 @@
 .box{
 	display: flex;
-	justify-content: center;
+justify-content: center;
+
+}
+
+.serachBox{
+	width: 400px;
+	height: 600px;
+	background-color: #f8f8fd;
+
+	grid-auto-flow: column;
+	grid-template-columns: 21%;
+	padding:0 var(--_spacer) var(--_spacer);
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	margin: 50px;
 }
 
 .div {
