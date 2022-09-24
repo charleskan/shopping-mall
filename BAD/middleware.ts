@@ -22,14 +22,15 @@ import Stripe from 'stripe';
 
 dotenv.config();
 
-export const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
-	apiVersion: '2022-08-01'
-})
 
 
 const invoiceService = new InvoiceService(knex);
 
 const permit = new Bearer({ query: 'access_token' })
+
+export const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
+	apiVersion: '2022-08-01'
+})
 // -------------------------------------------------------------------------------------------------------------------
 
 
