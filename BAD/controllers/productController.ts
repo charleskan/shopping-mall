@@ -79,6 +79,48 @@ export class ProductController {
       return;
     }
   };
+  // -------------------------------------------------------------------------------------------------------------------
+  // get color info
+  // -------------------------------------------------------------------------------------------------------------------
+
+  colorInfo = async (req: express.Request, res: express.Response) => {
+    try {
+      const colorInfo = await this.productService.colorInfo();
+      return res.json({
+        result: true,
+        msg: "Get Color Information success",
+        colorInfo: colorInfo,
+      });
+    } catch (err) {
+      logger.error(err);
+
+      res
+        .status(500)
+        .json({ result: false, msg: "Get color Information fail" });
+      return;
+    }
+  };
+  // -------------------------------------------------------------------------------------------------------------------
+  // get size info
+  // -------------------------------------------------------------------------------------------------------------------
+
+  sizeInfo = async (req: express.Request, res: express.Response) => {
+    try {
+      const sizeInfo = await this.productService.sizeInfo();
+      return res.json({
+        result: true,
+        msg: "Get Size Information success",
+        sizeInfo: sizeInfo,
+      });
+    } catch (err) {
+      logger.error(err);
+
+      res
+        .status(500)
+        .json({ result: false, msg: "Get size Information fail" });
+      return;
+    }
+  };
 
   // -------------------------------------------------------------------------------------------------------------------
   // create Product

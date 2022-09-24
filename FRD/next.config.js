@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	reactStrictMode: true,
-	swcMinify: true,
+	reactStrictMode: false,
+	swcMinify: false,
 	images: {
-		domains: ['loremflickr.com']
+		domains: ['loaclhost','loremflickr.com'],
 
 	}
 }

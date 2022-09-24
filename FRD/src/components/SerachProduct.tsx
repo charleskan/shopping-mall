@@ -13,7 +13,7 @@ export function SearchProductInfo(props: Props) {
 			<div>{props.id}</div>
 			<div>
 				<Image
-					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
+					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} 
 					width={150}
 					height={150}
 				/>
