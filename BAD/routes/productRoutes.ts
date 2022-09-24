@@ -19,5 +19,9 @@ export function createProductRoutes(productController: ProductController) {
 
 	productRoutes.delete('/PromotionDetail/:id', productController.deletePromotionDetail)//Tested by Ken on Sep14
 
+
+	productRoutes.get('/colorInfo', productController.colorInfo)
+	productRoutes.get('/sizeInfo', productController.sizeInfo)
+
 	return productRoutes;
 }

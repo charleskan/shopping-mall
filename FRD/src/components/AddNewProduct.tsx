@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import create from '../styles/CreateProduct.module.css'
@@ -7,6 +8,8 @@ import create from '../styles/CreateProduct.module.css'
 
 export function AddProduct() {
 	const { handleSubmit, register } = useForm()
+	const router = useRouter()
+	
 
 	return (
 		<div>
@@ -34,6 +37,7 @@ export function AddProduct() {
 						}
 					)
 					if (res.status === 200) {
+						router.push('/')
 					}
 				})}>
 				<div className={create.title}>Create New Product</div>

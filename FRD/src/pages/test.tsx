@@ -1,6 +1,12 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
+import { AddColumn } from '../components/AddColumn'
+import { Footer } from '../components/Footer'
+import { Heading } from '../components/Heading'
+import { Navbar } from '../components/Navbar'
 import { SearchProductInfo } from './../components/SerachProduct'
+import create from '../styles/CreateProduct.module.css'
+
 
 interface keyword {
 	keyword: string
@@ -34,6 +40,9 @@ const test: NextPage = () => {
 
 	return (
 		<>
+				<Heading />
+			<Navbar />
+			<div >
 			<div>
 				<label htmlFor='keyword'>Serach Product:</label>
 				<input
@@ -50,8 +59,11 @@ const test: NextPage = () => {
 					/>
 				))}
 			</div>
+			<AddColumn />
+			</div>
+			<Footer />
 		</>
 	)
 }
 
-export default test
+export default test 
