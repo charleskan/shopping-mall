@@ -66,7 +66,7 @@ app.use(
   app.use((req, res, next) => {
     setTimeout(() => {
       next();
-    }, 500)
+    }, 100)
   })
 
 //get HTML files from public, default images & uploads
@@ -78,6 +78,10 @@ const productService = new ProductService(knex);
 const profileService = new ProfileService(knex);
 const userController = new UserController(userService, invoiceService);
 app.use(express.static('private'))	
+
+//using fake data not need to use this
+// app.use("/serverDefaultedImages", express.static("images"));
+// app.use("/userUploadedFiles", express.static("uploads"));
 
 app.use("/serverDefaultedImages", express.static("images"));
 app.use("/userUploadedFiles", express.static("uploads"));
