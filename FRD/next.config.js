@@ -3,7 +3,7 @@ const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: false,
 	images: {
-		domains: ['loaclhost','loremflickr.com'],
+		domains: ['localhost']
 
 	}
 }

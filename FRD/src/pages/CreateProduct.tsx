@@ -6,25 +6,52 @@ import { Navbar } from '../components/Navbar'
 import Link from 'next/link'
 import { Footer } from '../components/Footer'
 import { Container } from '@mui/system'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import create from '../styles/CreateProduct.module.css'
-import { LineAxisOutlined } from '@mui/icons-material'
-import axios from 'axios'
-import { dataSlider } from '../components/DataSlider'
 import { AddProduct } from '../components/AddNewProduct'
 import { AddColumn } from '../components/AddColumn'
 
+import { SearchProductInfo } from '../components/SerachProduct'
 
 type Inputs = {
 	name: String
 	description: String
 }
 
+interface keyword {
+	keyword: string
+}
+
+interface searchProduct {
+	id: number
+	name: string
+	icon: string
+	description: string
+}
+
+
+
 const CreateProduct: NextPage = () => {
 
+	const [keyword, setkeyword] = useState<keyword['keyword']>('NOTAKEYWORD')
+	const [product, setProduct] = useState<searchProduct[]>([])
 
+	async function fetchSearchProduct(keyword: String) {
+		const name = keyword
+
+		let res = await fetch(
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/searchProductIdByName/?keyword=${name}`
+		)
+		let product = (await res.json()).ProductList.rows
+		console.log(product)
+		setProduct(product)
+	}
+
+	useEffect(() => {
+		fetchSearchProduct(keyword)
+	}, [keyword])
 	return (
 		<div>
 			<Head>
@@ -38,17 +65,31 @@ const CreateProduct: NextPage = () => {
 			<Heading />
 			<Navbar />
 
-<div className={create.box}>
-<div className={create.div}>
-			<AddProduct/>
-			</div>
+			<div className={create.box}>
+				<div className={create.div}>
+					<AddProduct />
+				</div>
 
-			<div className={create.div}>
-			<AddColumn/>
+				<div className={create.div}>
+					<AddColumn />
+				</div>
 			</div>
+			<div>
+				<label htmlFor='keyword'>Serach Product:</label>
+				<input
+					placeholder='Search Product'
+					type='text'
+					onChange={(e) => setkeyword(e.target.value)}
+				/>
+				{product.map((product:searchProduct) => (
+					<SearchProductInfo
+						id={product.id}
+						icon={product.icon}
+						name={product.name}
+						description={product.description}
+					/>
+				))}
 			</div>
-
-
 			<Footer />
 		</div>
 	)

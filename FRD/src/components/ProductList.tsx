@@ -36,7 +36,7 @@ export default function ProductList(props: props) {
 			<div className={product.productBox}>
 			<article >
 				<Link href='/products'>
-					<Image src={`${props.icon}`}
+					<Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
 					width={200}
 					height={200} />
 				</Link>

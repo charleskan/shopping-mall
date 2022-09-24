@@ -12,11 +12,11 @@ export async function seed(knex: Knex): Promise<void> {
         for (let i = 0; i < 100; i++) {
             await knex.insert({
                 name: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(),
-                icon: faker.image.fashion(1234, 2345, true),
+                icon: faker.image.fashion(1234, 2345, false),
                 description: faker.commerce.productDescription(),
-                image1: faker.image.fashion(1234, 2345, true),
-                image2: faker.image.fashion(1234, 2345, true),
-                image3: faker.image.fashion(1234, 2345, true),
+                image1: faker.image.fashion(1234, 2345, false),
+                image2: faker.image.fashion(1234, 2345, false),
+                image3: faker.image.fashion(1234, 2345, false),
             }).into('product');
         }
 

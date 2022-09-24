@@ -36,7 +36,7 @@ export function DetailBox(props:Props) {
 					<Image src={props.image2} width={200} height={200} />
 				</div>
 				<div>
-					<Image src={props.icon} width={300} height={600} />
+					<Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} width={300} height={600} />
 				</div>
 				<div>
 					<div>{props.name}1</div>
