@@ -12,7 +12,7 @@ export function createProductRoutes(productController: ProductController) {
 	productRoutes.patch('/ProductDetail/:id', productController.updateProductDetail)//Tested by Ken on Sep14
 	productRoutes.post('/promotion', productController.createPromotion)//Tested by Ken on Sep15
 	productRoutes.post('/promotionDetail', productController.createPromotionDetail)//Tested by Ken on Sep14
-	productRoutes.post('/searchProductIdByName', productController.searchProductIdByName)//Tested by Ken on Sep14
+	productRoutes.get('/searchProductIdByName', productController.searchProductIdByName)//Tested by Ken on Sep14
 	productRoutes.get('/productDetailByproductId/:id', productController.productDetailByProductId)//Tested by Ken on Sep14
 
 	productRoutes.get('/productDetailByColorAndSize/?', productController.productDetailByColorAndSize)
