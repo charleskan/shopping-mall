@@ -18,21 +18,21 @@ export function DetailBox2(props: Props) {
 			<div className={detail.imageBox}>
 				<div className={detail.photo}>
 					<Image
-						src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.image3}`}
+						src={`${props.image3}`}
 						width={150}
 						height={150}
 					/>
 				</div>
 				<div className={detail.photo}>
 					<Image
-						src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.image1}`}
+						src={`${props.image1}`}
 						width={150}
 						height={150}
 					/>
 				</div>
 				<div className={detail.photo}>
 					<Image
-						src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.image2}`}
+						src={`${props.image2}`}
 						width={150}
 						height={150}
 					/>
@@ -40,7 +40,7 @@ export function DetailBox2(props: Props) {
 			</div>
 			<div className={detail.bigPhoto}>
 				<Image
-					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
+					src={`${props.icon}`}
 					width={600}
 					height={500}
 				/>
