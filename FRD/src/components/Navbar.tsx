@@ -2,14 +2,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SearchIcon from '@mui/icons-material/Search'
 import navbar from '../styles/Navbar.module.css'
-import img from '../components/Hektologo.png'
+import img from '../components/buySomeMall.png'
 
 export function Navbar() {
 	return (
 		<div className={navbar.bar}>
 			<div className={navbar.clickPage}>
 				<div>
-					<Image src={img} className={navbar.logo} />
+					<Image src={img} className={navbar.logo} 
+					width={200}
+					height={200}/>
 				</div>
 
 				<div className={navbar.page}>

@@ -66,7 +66,7 @@ const userInformation: NextPage = () => {
 					// formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
 
 					const res = await fetch(
-						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
+						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userinfo`,
 						{
 							method: 'PATCH',
 							// headers: header.headers,

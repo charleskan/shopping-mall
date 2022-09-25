@@ -7,7 +7,7 @@ import { Navbar } from '../components/Navbar'
 import { SearchProductInfo } from './../components/SerachProduct'
 import create from '../styles/CreateProduct.module.css'
 
-
+FRD/src/pages/CreateProduct.tsx
 interface keyword {
 	keyword: string
 }

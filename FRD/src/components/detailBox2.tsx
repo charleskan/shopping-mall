@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import img from '../pages/photo/AboutUs.png'
 import detail from '../styles/detailBox.module.css'
 
 interface Props {

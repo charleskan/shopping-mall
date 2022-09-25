@@ -7,11 +7,11 @@ import create from '../styles/CreateProduct.module.css'
 
 export function AddProduct() {
 	const { handleSubmit, register } = useForm()
-	const [show, setShow] = useState(true); //react hook
+
 
 	return (
 		<div>
-			{ show && <form 
+			<form 
 				className={create.addProductDiv}
 				onSubmit={handleSubmit(async (data) => {
 					// console.log(data)
@@ -69,11 +69,11 @@ export function AddProduct() {
 				</div>
 
 				<input 
-				onClick={()=>{setShow(false)}}
+			
 					className={create.input}
 					type='submit'
 					value='Submit'></input >
-			</form>}
+			</form>
 		</div>
 	)
 }

@@ -8,9 +8,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../store'
 import { logOut } from '../redux/auth/action'
 import { loadCart } from '../redux/cart/action'
+import { Sidebar } from './SiderBar'
 
 export function Heading() {
 	const dispatch = useAppDispatch()
+	const [show, setShow] = useState(false); //react hook
+
 
 	const carts = useAppSelector(state => state.cart.products)
 
@@ -37,8 +40,9 @@ export function Heading() {
 	
 		
 	return (
-		<div className={heading.color}>
-			<div className={heading.center}>
+		<>
+		<div className={heading.color} >
+			<div className={heading.center} >
 				<PersonIcon className={heading.imageICon} />
 					<div className={heading.a}>{username}</div>
 			</div>
@@ -70,6 +74,11 @@ export function Heading() {
 					</Link>
 				</div>
 			</div>
+			<div className={heading.sidebarButton}>
+		 <Sidebar/>
 		</div>
+		</div>
+
+		</>
 	)
 }
