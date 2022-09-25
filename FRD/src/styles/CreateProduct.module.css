@@ -1,7 +1,16 @@
 .box{
 	display: flex;
 justify-content: center;
+align-items: center;
 
+}
+
+
+.titleDiv{
+	display: flex;
+	font-size: 20px;
+	margin-left: 20px;
+	
 }
 
 .serachBox{
@@ -42,6 +51,16 @@ justify-content: center;
 	margin: 20px;
     margin-top: 20px;
 }
+
+
+.inputs{
+	width: 200px;
+	height: 30px;
+	border: solid 1px #cdcedb;
+	border-radius: 5px;
+	margin: 20px;
+}
+
 
 .input[type='text'] {
 	width: 200px;

@@ -15,10 +15,6 @@ import { AddColumn } from '../components/AddColumn'
 
 import { SearchProductInfo } from '../components/SerachProduct'
 
-type Inputs = {
-	name: String
-	description: String
-}
 
 interface keyword {
 	keyword: string

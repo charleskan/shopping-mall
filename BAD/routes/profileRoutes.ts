@@ -7,7 +7,7 @@ export function createProfileRoutes(profileController: ProfileController) {
 
 	profileRoutes.get('/userInfo',userMiddleware ,profileController.userInfo)
 	profileRoutes.patch('/deleteUser/:id', userMiddleware, profileController.deleteUser)
-	profileRoutes.patch('/editUser', profileController.editUser)
+	profileRoutes.patch('/editUser',profileController.editUser)
 	
 
 	return profileRoutes;
