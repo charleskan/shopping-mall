@@ -15,7 +15,7 @@ export function AddProduct() {
 				className={create.addProductDiv}
 				onSubmit={handleSubmit(async (data) => {
 					// console.log(data)
-					console.log(data.image1[0])
+					// console.log(data.image1[0])
 
 					const formData = new FormData()
 

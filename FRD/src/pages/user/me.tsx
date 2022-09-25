@@ -6,16 +6,13 @@ import { Footer } from '../../components/Footer'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import EditUserProfileForm from '../../components/EditUserProfileForm'
+import { userInfo } from 'os'
+import { UserBox } from '../../components/userBox'
 
 interface User {
-	username: string
-	password: string
-	email: string
 	icon: string
 	nickname: string
 }
-
-
 
 const userInformation: NextPage = () => {
 	const [userInfos, setUserInfos] = useState<User[]>([])
@@ -32,17 +29,15 @@ const userInformation: NextPage = () => {
 			}
 		)
 
-        const user = await res.json()
+		const user = await res.json()
 
 		const userinfo = user.userInfo
 
-        // const userAddressInfo = user.addressInfo.rows
+		// const userAddressInfo = user.addressInfo.rows
 
 		setUserInfos(userinfo)
-		console.log(userinfo[0])
-        // console.log(userAddressInfo);
-        
-        
+		console.log(userinfo)
+		// console.log(userAddressInfo);
 	}
 
 	useEffect(() => {
@@ -51,55 +46,47 @@ const userInformation: NextPage = () => {
 
 	const { handleSubmit, register } = useForm()
 
-    // const header = {
-    //     headers: new HttpHeaders()
-    //       .set('Authorization',  'Bearer ' + localStorage.getItem('token'))
-    //   }
-
 	return (
 		<>
-        
 			<HeadTitle />
 			<Heading />
 			<Navbar />
 
-			{/* <button onClick={() => {fetchUser()}}>click</button> */}
-
+			{userInfos.map((userInfos) => (
+            <UserBox name={userInfos.nickname} 
+			icon={userInfos.icon} />
+			))}
 
 			<form
 				onSubmit={handleSubmit(async (data) => {
-
 					const formData = new FormData()
-					formData.append('username', data.username)
-					formData.append('password', data.password)
-					formData.append('email', data.email)
-					formData.append('icon', data.icon[0])
+
 					formData.append('nickname', data.nickname)
+					formData.append('icon', data.icon[0])
+					// formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
 
 					const res = await fetch(
 						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userinfo`,
 						{
-							method: 'PUT',
-							headers: {
-								Authorization: `Bearer ${localStorage.getItem(
-									'token'
-								)}`
-							},
+							method: 'PATCH',
+							// headers: header.headers,
+							// credentials: 'include',
 							body: formData
 						}
 					)
-					const result = await res.json()
-					console.log(result)
+					if (res.status === 200) {
+						alert('success')
+					}
 				})}>
+				<input type='file' {...register('icon')} />
+				<input
+					type='text'
+					placeholder='nickname'
+					{...register('nickname')}
+				/>
 
-                <EditUserProfileForm/>
-
-
-                
-                <input 
-					type='submit'
-					value='Submit'></input >
-                </form>
+				<input type='submit' value='Submit'></input>
+			</form>
 			<Footer />
 		</>
 	)

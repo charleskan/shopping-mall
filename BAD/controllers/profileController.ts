@@ -39,7 +39,8 @@ export class ProfileController {
 	editUser = async (req: express.Request, res: express.Response) => {
 		form.parse(req, async (err, fields, files) => {
 			try {
-				const userId = req.user!.userId
+				const userId = 1
+				
 				const userInfos = await this.profileService.userInfo(userId)
 				let oldNickname = userInfos.user[0].nickname
 				let oldIcon = userInfos.user[0].icon
