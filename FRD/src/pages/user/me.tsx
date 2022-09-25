@@ -15,6 +15,8 @@ interface User {
 	nickname: string
 }
 
+
+
 const userInformation: NextPage = () => {
 	const [userInfos, setUserInfos] = useState<User[]>([])
 
@@ -65,19 +67,29 @@ const userInformation: NextPage = () => {
 					const formData = new FormData()
 					formData.append('nickname', data.nickname)
 					formData.append('icon', data.icons)
+					let headers = new Headers()
+					headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`)
+					let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userinfo`, {
+						method: 'PUT',
+						headers: headers,
+						body: formData
+					})
+					let result = await res.json()
+					console.log(result)
+				
 
-					const res = await fetch(
-						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
-						{
-							method: 'PATCH',
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                Authorization: `Bearer ${localStorage.getItem('token')}`
-                            },
-							credentials: 'include',
-							body: formData
-						}
-					)
+					// const res = await fetch(
+					// 	`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
+					// 	{
+					// 		method: 'PATCH',
+                    //         headers: {
+                    //             'Content-Type': 'multipart/form-data',
+                    //             Authorization: `Bearer ${localStorage.getItem('token')}`
+                    //         },
+					// 		credentials: 'include',
+					// 		body: formData
+					// 	}
+					// )
 					if (res.status === 200) {
                         alert('success')
 					}
