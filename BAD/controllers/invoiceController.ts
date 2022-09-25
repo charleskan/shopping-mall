@@ -95,6 +95,8 @@ export class InvoiceController {
 
             const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, userId, Address.Default)
 
+            console.log("newInvoice: ", newInvoice);
+
             req.user = {
                 userId: userId,
                 invoiceId: newInvoice[0].id,
