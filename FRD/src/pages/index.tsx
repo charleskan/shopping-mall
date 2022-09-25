@@ -99,8 +99,7 @@ const Home: NextPage = () => {
 							name={product.name}
 							id={product.id}
 							icon={product.icon} />
-					))}
-				<Pagination count={10} variant="outlined" shape="rounded" />
+					)).filter((product,k)=>k <10)}
 				</div>
 				{/* <div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>

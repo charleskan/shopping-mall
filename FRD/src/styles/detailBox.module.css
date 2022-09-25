@@ -108,3 +108,29 @@ color: white;
  border: none;
  height: 50px;
 }
+
+.serachDiv{
+    display:flex;
+    flex-direction: column;
+    background-color: white;
+    width: 360px;
+    margin: 20px;
+    box-shadow: 0 0 20px 0 #F2F0F7, 0 10px 10px 0 #F2F0F7;
+}
+
+.productId{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.productName{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.productDescription{
+font-size: 15px;
+margin-bottom: 10px;
+
+}

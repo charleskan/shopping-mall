@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import serach from '../styles/detailBox.module.css'
 
 interface Props {
 	id: number
@@ -9,8 +10,8 @@ interface Props {
 
 export function SearchProductInfo(props: Props) {
 	return (
-		<div>
-			<div>{props.id}</div>
+		<div className={serach.serachDiv}>
+			<div className={serach.productId}>Product ID:{props.id}</div>
 			<div>
 				<Image
 					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} 
@@ -18,8 +19,8 @@ export function SearchProductInfo(props: Props) {
 					height={150}
 				/>
 			</div>
-			<div>{props.name}</div>
-			<div>{props.description}</div>
+			<div className={serach.productName}>{props.name}</div>
+			<div className={serach.productDescription}>{props.description}</div>
 		</div>
 	)
 }

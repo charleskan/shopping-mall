@@ -67,6 +67,7 @@ const Cart: NextPage = () => {
 			</div>
 			<Container>
 				<div className={cart.box}>
+					<div>
 						
 						{cartLoaded !== LoadingState.Loaded ?
 							<Skeleton baseColor='#E02310' height={30} /> :
@@ -93,7 +94,7 @@ const Cart: NextPage = () => {
 							
 						}
 						
-
+						</div>
 					
 					{cartLoaded !== LoadingState.Loaded ?
 						<Skeleton circle borderRadius={50} /> :

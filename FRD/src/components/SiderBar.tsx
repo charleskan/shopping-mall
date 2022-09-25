@@ -40,17 +40,17 @@ const [show, setShow] = useState(false); //react hook
 						</a>
 					</Link>
 
-					<Link href='/AboutUs'>
+					<Link href='/Invoice'>
 						<a className={sidebar.pages}>
 							<ReceiptIcon />
 							Invoice
 						</a>
 					</Link>
 
-					<Link href='/ContactUs'>
+					<Link href='/product/CreatePromotion'>
 						<a className={sidebar.pages}>
 							<CardGiftcardIcon />
-							Freebee
+							CreatePromotion
 						</a>
 					</Link>
 				</div>

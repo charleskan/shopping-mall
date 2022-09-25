@@ -28,18 +28,18 @@ interface Props{
 
 const InvoicePage: NextPage = () => {
 
-    const [invoice, setInvoice] = useState< Props[]>([])
+    const [invoice, setInvoice] = useState<Props[]>([])
 
-	async function fetchInvocie() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/Invoice`,
+	async function fetchInvoice() {
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
    )
 		
-		let invocie = (await res.json()).productDetailByproductId
-		setInvoice(invocie)
+		let invoice = (await res.json()).invoiceInfo
+		setInvoice(invoice)
 	}{}
 
 	useEffect(()=>{
-		fetchInvocie()
+		fetchInvoice()
 	},[setInvoice])
 
 	return (
@@ -54,14 +54,14 @@ const InvoicePage: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
-            {invoice.map((invocies) => (
+            {invoice.map((invoices) => (
 			<Invoice
-				id={invocies.id}
-				invoiceNumber={invocies.invoiceNumber}
-				status_id={invocies.status_id}
-				user_id={invocies.user_id}
-				address_id={invocies.address_id}
-				totalPrice={invocies.totalPrice}
+				id={invoices.id}
+				invoiceNumber={invoices.invoiceNumber}
+				status_id={invoices.status_id}
+				user_id={invoices.user_id}
+				address_id={invoices.address_id}
+				totalPrice={invoices.totalPrice}
 		
 			/>
 			))}

@@ -81,7 +81,7 @@ export function AddColumn() {
 					placeholder='Product ID'
 					{...register('product_id', { required: true })}></input>
 				<select
-				    className={create.input}
+				    className={create.inputs}
 					{...register('color_id', { required: true })}>
 				{colors.map((colors:Color) => (		
 					<AddColor 
@@ -91,7 +91,7 @@ export function AddColumn() {
 				))}
 				</select>
 				<select
-				    className={create.input}
+				    className={create.inputs}
 					{...register('size_id', { required: true })}>
 				{sizes.map((sizes:Size) => (		
 					<AddSize
