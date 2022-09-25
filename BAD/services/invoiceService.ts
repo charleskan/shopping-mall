@@ -90,18 +90,20 @@ export class InvoiceService {
                 .limit(1)
                 .returning('invoiceNumber')
 
-            const invoiceLargestNumberString = invoiceLargestNumber[0].invoiceNumber//expect 'ABC003'
-            const invoiceLargestNumberNumber = Number(
-                invoiceLargestNumberString
-                    .substring(3, invoiceLargestNumberString.length))
-            //3
-            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 1 //4
-            const invoiceLargestNumberNextString = 'ABC00' + invoiceLargestNumberNextNumber.toString() //'ABC004'
+                console.log(invoiceLargestNumber);
 
+            const invoiceLargestNumberString = invoiceLargestNumber[0].invoiceNumber//expect 'ABC003'
+            const invoiceLargestNumberNumber = Number(invoiceLargestNumberString)//3
+            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 1 //4
+
+                
+            console.log(invoiceLargestNumberNextNumber);
+
+            
             //insert
             const invoiceRecord = await trx
                 .insert({
-                    invoiceNumber: invoiceLargestNumberNextString,
+                    invoiceNumber: invoiceLargestNumberNextNumber,
                     status_id: status_id,
                     user_id: user_id,
                     address_id: address_id,

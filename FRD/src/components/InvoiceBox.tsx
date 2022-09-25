@@ -12,7 +12,7 @@ interface Props {
 	Brand: string
 }
 
-export function DetailBox2(props: Props) {
+export function InvoiceBox(props: Props) {
 	return (
 		<div className={detail.detailBoxDiv}>
 			<div className={detail.imageBox}>
