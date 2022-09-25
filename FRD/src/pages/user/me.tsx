@@ -34,11 +34,11 @@ const userInformation: NextPage = () => {
 
 		const userinfo = user.userInfo
 
-        const userAddressInfo = user.addressInfo.rows
+        // const userAddressInfo = user.addressInfo.rows
 
 		setUserInfos(userinfo)
 		console.log(userinfo[0])
-        console.log(userAddressInfo);
+        // console.log(userAddressInfo);
         
         
 	}
@@ -48,6 +48,11 @@ const userInformation: NextPage = () => {
 	}, [setUserInfos])
 
 	const { handleSubmit, register } = useForm()
+
+    // const header = {
+    //     headers: new HttpHeaders()
+    //       .set('Authorization',  'Bearer ' + localStorage.getItem('token'))
+    //   }
 
 	return (
 		<>
@@ -65,16 +70,14 @@ const userInformation: NextPage = () => {
 					const formData = new FormData()
 					formData.append('nickname', data.nickname)
 					formData.append('icon', data.icons)
+                    formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
 
 					const res = await fetch(
 						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
 						{
 							method: 'PATCH',
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                Authorization: `Bearer ${localStorage.getItem('token')}`
-                            },
-							credentials: 'include',
+                            // headers: header.headers,
+							// credentials: 'include',
 							body: formData
 						}
 					)
