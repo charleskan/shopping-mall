@@ -44,13 +44,11 @@ export function Heading() {
 		<div className={heading.color} >
 			<div className={heading.center} >
 				<PersonIcon className={heading.imageICon} />
-
-				{username === undefined || (
 					<div className={heading.a}>{username}</div>
-				)}
 			</div>
 			<div className={heading.center}>
-				{!username ? (
+				
+				{username != 'visitor' ? (
 					<Link href='/login'>
 						<button className={heading.a}>
 							<LoginIcon className={heading.imageICon} />

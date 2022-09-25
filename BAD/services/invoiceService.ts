@@ -15,7 +15,9 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     // get Invoice Info by userId
     // -------------------------------------------------------------------------------------------------------------------
-    async getInvoiceDetailByUserId(userId: number, status_id: number) {
+    async getInvoiceDetailByUserId(
+        userId: number,
+         status_id: number) {
 
         let invoiceRecord = await this.knex
             .raw
@@ -27,8 +29,12 @@ export class InvoiceService {
             and "status_id" = ?
             order by "invoiceNumber" desc
             `
-                , [userId, status_id]
+                , [userId,
+                     status_id]
             )
+
+            // console.log('invoiceRecord: ',invoiceRecord.rows);
+            
 
         return invoiceRecord.rows
 
@@ -90,18 +96,20 @@ export class InvoiceService {
                 .limit(1)
                 .returning('invoiceNumber')
 
-            const invoiceLargestNumberString = invoiceLargestNumber[0].invoiceNumber//expect 'ABC003'
-            const invoiceLargestNumberNumber = Number(
-                invoiceLargestNumberString
-                    .substring(3, invoiceLargestNumberString.length))
-            //3
-            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 1 //4
-            const invoiceLargestNumberNextString = 'ABC00' + invoiceLargestNumberNextNumber.toString() //'ABC004'
+                console.log(invoiceLargestNumber);
 
+            const invoiceLargestNumberString = invoiceLargestNumber[0].invoiceNumber//expect 'ABC003'
+            const invoiceLargestNumberNumber = Number(invoiceLargestNumberString)//3
+            const invoiceLargestNumberNextNumber = invoiceLargestNumberNumber + 1 //4
+
+                
+            console.log(invoiceLargestNumberNextNumber);
+
+            
             //insert
             const invoiceRecord = await trx
                 .insert({
-                    invoiceNumber: invoiceLargestNumberNextString,
+                    invoiceNumber: invoiceLargestNumberNextNumber,
                     status_id: status_id,
                     user_id: user_id,
                     address_id: address_id,
@@ -253,8 +261,9 @@ export class InvoiceService {
                     )
                     
                     select
+                    
                     invoice_id,
-                    product_detail_id,
+                    product_detail_id as id,
                     TC_Price,
                     TC_Number,
                     p.name as product,

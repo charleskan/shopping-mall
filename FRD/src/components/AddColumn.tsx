@@ -1,4 +1,5 @@
 
+import { InputLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import create from '../styles/CreateProduct.module.css'
