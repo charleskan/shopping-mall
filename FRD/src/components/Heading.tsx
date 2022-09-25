@@ -12,7 +12,7 @@ import { Sidebar } from './SiderBar'
 
 export function Heading() {
 	const dispatch = useAppDispatch()
-	const [show, setShow] = useState(false); //react hook
+	// const [show, setShow] = useState(false); //react hook
 
 
 	const carts = useAppSelector(state => state.cart.products)
@@ -48,7 +48,7 @@ export function Heading() {
 			</div>
 			<div className={heading.center}>
 				
-				{username != 'visitor' ? (
+				{username !== 'admin' ? (
 					<Link href='/login'>
 						<button className={heading.a}>
 							<LoginIcon className={heading.imageICon} />
