@@ -69,6 +69,36 @@ export function loadCart() {
     }
 }
 
+export function loadFreebie() {
+    return async (dispatch: AppDispatch) => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/freebie`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+            const data = await res.json()
+            // console.log("data: ",data)
+            
+            if (res.status === 401) {
+                dispatch(logIn(data))
+                
+            } else {
+                dispatch(loadedCart(data.productRecord))
+            }
+            
+        } catch {
+            dispatch(loadFreebie())
+        }
+
+    }
+}
+
+
+
+
 export   function fetchAddToCart(
     productId: any,
 ) {

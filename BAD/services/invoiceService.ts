@@ -118,6 +118,17 @@ export class InvoiceService {
 
     }
 
+    async getInvoiceByUserId(userId: number) {
+        {
+            const invoiceRecord = await this.knex<Invoice>('invoice')
+                .select('*')
+                .where('user_id', userId)
+
+                
+            return invoiceRecord
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------
     // get the next invoice number
     // -------------------------------------------------------------------------------------------------------------------
@@ -415,47 +426,86 @@ export class InvoiceService {
         {
             const FreebieInCart = await this.knex
                 .raw(
+                    /* SQL */
                     `
-                    WITH suckSQL as
+					with
+					TT_Cart as
+					(
+                    select *
+                    from "invoice_productDetail"
+                    
+                    inner join invoice i 
+                    on i.id = "invoice_productDetail".invoice_id
+                    
+                    where "invoice_id" = ?
+                    
+                    ),
+                    t_cart_sum as
+                    (
+                    select
+                    "invoice_id",
+                    "productDetail_id" as product_detail_id,
+                    sum("price") as TC_Price,
+                    sum("number") as TC_Number
+                    from TT_Cart
+                    
+                    group by product_detail_id, "invoice_id"
+                    
+                    ),
+                    t_final as
                     (
                     select *
-                    FROM invoice_product
-                    where invoice_id = ?
+                    from 
+                    t_cart_sum
+                    inner join "productDetail" 
+                    on "productDetail".id = t_cart_sum.product_detail_id
                     ),
-                    
-                    
-                    productInCartDetail as 
+                    t_fuck as
                     (
-                    select sum(price) as sum_of_Price, 
-                    product_id,
+                    select
+                    
                     invoice_id,
-                    sum(number) as sum_of_Number
-                    from suckSQL
-                    group by product_id, invoice_id
-                    ),
+                    product_detail_id as id,
+                    TC_Price,
+                    TC_Number,
+                    p.name as product,
+                    c."name" as color,
+                    s.name as size,
+                    price as product_price,
+                    stock,
+                    icon
+                    from 
+                    t_final t2
                     
+                    inner join color c 
+                    on c.id = t2.color_id
                     
-                    fkSQL as 
-                    (
-                    select *
-                    from productInCartDetail
-                    ),
-                    
-                    
-                    freebie_final as 
-                    (
-                    select * from fkSQL 
-                    inner join promotion_product pp 
-                    on fkSQL.product_id = pp.product_id
-                    )
-                    
-                    select invoice_id,
-                    (DIV(sum_of_number, product_number) * freebie_number) as 
-                    number_of_freebie, name, freebie_id, image 
-                    from freebie_final 
                     inner join product p 
-                    on p.id = freebie_final.freebie_id
-                    where (DIV(sum_of_number, product_number) * freebie_number) != 0
+                    on p.id = t2.product_id
+
+                    inner join size s 
+                    on s.id = t2.size_id
+                    ),
+                
+                    freebie_final as
+                    (
+                    select 
+                    *
+                    from 
+                    t_final
+                    inner join "promotion_productDetail" ppd
+                    on ppd."productDetail_id" = product_detail_id
+                    )
+
+                    select
+                    invoice_id,
+                    (DIV(TC_Number, product_number) * freebie_number) as 
+                    number_of_freebie, freebie_id
+                    from
+                    freebie_final
+                    inner join "productDetail" pd
+                    on pd.id = freebie_final.freebie_id
+                    where (DIV(TC_Number, product_number) * freebie_number) != 0
                 `,
                     [invoiceId]
                 )
@@ -572,5 +622,31 @@ export class InvoiceService {
         }
 
 
+    }
+
+    async getFreebieProductDetail(
+        productDetailId: number
+    ) {
+        const isolationLevel = 'serializable';
+        const trx = await this.knex.transaction({ isolationLevel });
+        try {
+            const getProductPrice = await trx
+                .raw
+                (/* SQL */
+                    `
+                    select *
+                    from "productDetail" 
+                    where "id" = ?
+                    `
+                    , [productDetailId]
+                )
+            // console.log('getProductPrice: ', getProductPrice.rows[0]);
+            await trx.commit()
+
+            return getProductPrice.rows[0]
+        } catch (error) {
+            await trx.rollback();
+            throw new InsertRejectError()
+        }
     }
 }
