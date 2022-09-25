@@ -20,7 +20,7 @@ export class InvoiceController {
     getInvoiceDetailByUserId = async (req: express.Request, res: express.Response) => {
         try {
             const userId = req.user!.userId
-            const statusId = Status.Paid
+            const statusId = Status.Unpaid
 
             const invoiceRecord = await this.invoiceService.getInvoiceDetailByUserId(userId, statusId)
 
@@ -222,8 +222,16 @@ export class InvoiceController {
 
     getAllProductInCart = async (req: express.Request, res: express.Response) => {
         try {
+            const status_id = Status.Unpaid
             const invoiceId = req.user!.invoiceId
-            const productRecord = await this.invoiceService.getAllProductInCart(invoiceId, Status.Unpaid)
+            console.log('status_id:', status_id);
+            console.log('invoiceId:', invoiceId);
+            const productRecord = await this.invoiceService.getAllProductInCart(invoiceId, status_id)
+
+            
+
+            console.log('productRecord: ', productRecord)
+            
 
             return res.json({
                 result: true,

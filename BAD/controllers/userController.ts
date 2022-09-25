@@ -108,6 +108,7 @@ export class UserController {
 		try {
 
 
+			const status_id = 4
 
 
 			const username = req.body.username.trim()
@@ -124,14 +125,14 @@ export class UserController {
 			console.log("user[0].id:", user[0].id);
 
 
-			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, Status.Unpaid) //test after create invoice is done
+			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, status_id) //test after create invoice is done
 
-			console.log("invoice:", invoice);
+			console.log("invoice:", invoice[0].id);
 
-			if (invoice[0].status_id == Status.Paid) {
-				const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, user[0].id, Address.Default)
-				console.log("newInvoice:", newInvoice);
-			}
+			// if (invoice[0].status_id == Status.Paid) {
+			// 	const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, user[0].id, Address.Default)
+			// 	console.log("newInvoice:", newInvoice);
+			// }
 
 
 

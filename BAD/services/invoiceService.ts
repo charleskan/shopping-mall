@@ -29,6 +29,7 @@ export class InvoiceService {
                 (
                 select 
                 "user_id",
+                i.id,
                 "invoiceNumber",
                 i.status_id,
                 s.name as status,
@@ -87,6 +88,7 @@ export class InvoiceService {
                 
                 
                 group by 
+                id,
                 "user_id",
                 "invoiceNumber",
                 status_id,
@@ -109,7 +111,7 @@ export class InvoiceService {
                      status_id]
             )
 
-            // console.log('invoiceRecord: ',invoiceRecord.rows);
+            console.log('invoiceRecord: ',invoiceRecord.rows);
             
 
         return invoiceRecord.rows
