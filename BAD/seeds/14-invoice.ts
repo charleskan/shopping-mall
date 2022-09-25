@@ -14,7 +14,7 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             invoiceNumber: "100001",
-            status_id: Status.Paid,
+            status_id: Status.Unpaid,
             user_id: Role.Admin,
             address_id: Address.Default,
             totalPrice: "200",
