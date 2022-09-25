@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import create from '../../styles/CreateProduct.module.css'
-import { SearchProductInfo } from '../../components/SerachProduct'
+import { SearchProductDetail } from '../../components/SerachProduct'
 import { Heading } from '../../components/Heading'
 import { Navbar } from '../../components/Navbar'
 import { Footer } from '../../components/Footer'
@@ -12,10 +12,13 @@ interface keyword {
 }
 
 interface searchProduct {
-	id: number
-	name: string
+	product_id: number
+	product_name: string
 	icon: string
-	description: string
+	color_name: string
+    size_name: string
+    price: number
+    stock: number
 }
 
 const CreatePromotion: NextPage = () => {
@@ -23,13 +26,14 @@ const CreatePromotion: NextPage = () => {
 	const [product, setProduct] = useState<searchProduct[]>([])
     const { handleSubmit, register } = useForm()
 
-	async function fetchSearchProduct(keyword: String) {
-		const name = keyword
+	async function fetchSearchProduct(name: String) {
+		const keyword = name
 
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/searchProductIdByName/?keyword=${name}`
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/AllProductDetail/?name=${keyword}`
 		)
-		let product = (await res.json()).ProductList.rows
+        
+		let product = (await res.json()).AllProductDetail.AllProductDetail.rows
 		console.log(product)
 		setProduct(product)
 	}
@@ -52,11 +56,14 @@ const CreatePromotion: NextPage = () => {
 					onChange={(e) => setkeyword(e.target.value)}
 				/>
 				{product.map((product: searchProduct) => (
-					<SearchProductInfo
-						id={product.id}
+					<SearchProductDetail
+						id={product.product_id}
 						icon={product.icon}
-						name={product.name}
-						description={product.description}
+						name={product.product_name}
+						color={product.color_name}
+                        size={product.size_name}
+                        price={product.price}
+                        stock={product.stock}
 					/>
 				))}
 			</div>

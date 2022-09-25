@@ -80,6 +80,28 @@ export class ProductController {
     }
   };
   // -------------------------------------------------------------------------------------------------------------------
+  // AllProductDetailByProductName
+  // -------------------------------------------------------------------------------------------------------------------
+
+  AllProductDetail = async (req: express.Request, res: express.Response) => {
+    const name = String(req.query.name)
+    try {
+      const AllProductDetail = await this.productService.AllProductDetailByProductName(name);
+      return res.json({
+        result: true,
+        msg: "Get Product Information success",
+        AllProductDetail,
+      });
+    } catch (err) {
+      logger.error(err);
+
+      res
+        .status(500)
+        .json({ result: false, msg: "Get Product Information fail" });
+      return;
+    }
+  };
+  // -------------------------------------------------------------------------------------------------------------------
   // get color info
   // -------------------------------------------------------------------------------------------------------------------
 
