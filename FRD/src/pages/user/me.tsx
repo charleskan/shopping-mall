@@ -70,22 +70,26 @@ const userInformation: NextPage = () => {
 				onSubmit={handleSubmit(async (data) => {
 
 					const formData = new FormData()
+					formData.append('username', data.username)
+					formData.append('password', data.password)
+					formData.append('email', data.email)
+					formData.append('icon', data.icon[0])
 					formData.append('nickname', data.nickname)
-					formData.append('icon', data.icons)
-                    formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
 
 					const res = await fetch(
-						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
+						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userinfo`,
 						{
-							method: 'PATCH',
-                            // headers: header.headers,
-							// credentials: 'include',
+							method: 'PUT',
+							headers: {
+								Authorization: `Bearer ${localStorage.getItem(
+									'token'
+								)}`
+							},
 							body: formData
 						}
 					)
-					if (res.status === 200) {
-                        alert('success')
-					}
+					const result = await res.json()
+					console.log(result)
 				})}>
 
                 <EditUserProfileForm/>

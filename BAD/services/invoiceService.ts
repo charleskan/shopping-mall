@@ -23,11 +23,87 @@ export class InvoiceService {
             .raw
             (/* SQL */
                 `
-            select *
-            from "invoice"
-            where "user_id" = ?
-            and "status_id" = ?
-            order by "invoiceNumber" desc
+            
+                with
+                invoice_info as
+                (
+                select 
+                "user_id",
+                "invoiceNumber",
+                i.status_id,
+                s.name as status,
+                a.name as address,
+                "totalPrice",
+                i.updated_at,
+                p.name as product,
+                ipd.price as single_price,
+                p.icon,
+                c.name as color,
+                sz.name as size,
+                ipd."number"
+                
+                         
+                from 
+                (((((((("invoice" i
+    
+                
+                inner join "user" u 
+                on u.id = i.user_id)
+                
+                inner join status s
+                on s.id = i.status_id)
+                
+                inner join address a
+                on a.id = i.address_id)
+                
+                inner join "invoice_productDetail" ipd 
+                on ipd.invoice_id  = i.id)
+                
+                inner join "productDetail" pd 
+                on pd.id = ipd."productDetail_id")
+                
+                inner join product p 
+                on p.id = pd.product_id)
+                
+    
+                inner join color c 
+                on c.id = pd.color_id)
+                
+                inner join size sz
+                on sz.id = pd.size_id)
+                
+    
+                
+    
+                
+                
+                where "user_id" = ?
+                and i.status_id = ?
+                )
+                
+                select *
+                from invoice_info
+                
+                
+                
+                group by 
+                "user_id",
+                "invoiceNumber",
+                status_id,
+                status,
+                address,
+                "totalPrice",
+                updated_at,
+                product,
+                single_price,
+                icon,
+                color,
+                size,
+                "number"
+                
+                
+                
+    
             `
                 , [userId,
                      status_id]
