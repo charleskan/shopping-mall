@@ -40,8 +40,8 @@ export function SearchProductInfo(props: Props) {
 
 export  function SearchProductDetail(props: keyword) {
 	return (
-		<div>
-			<div>{props.id}</div>
+		<div  className={serach.serachDiv}>
+			<div className={serach.productId}>Product ID:{props.id}</div>
 			<div>
 				<Image
 					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} 
@@ -49,11 +49,11 @@ export  function SearchProductDetail(props: keyword) {
 					height={150}
 				/>
 			</div>
-			<div>{props.name}</div>
-			<div>{props.color}</div>
-			<div>{props.size}</div>
-			<div>{props.price}</div>
-			<div>{props.stock}</div>
+			<div className={serach.productName}>Name:{props.name}</div>
+			<div className={serach.productName}>Color:{props.color}</div>
+			<div className={serach.productName}>Size:{props.size}</div>
+			<div className={serach.productName}>Price:{props.price}</div>
+			<div className={serach.productName}>Stock:{props.stock}</div>
 		</div>
 	)
 }

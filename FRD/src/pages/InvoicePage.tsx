@@ -3,56 +3,66 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
-import error from '../styles/Invoice.module.css'
+import invoice from '../styles/Invoice.module.css'
 import Link from 'next/link'
 import errorPhoto from '../pages/photo/error.png'
 import { Footer } from '../components/Footer'
 import errorImage from './error.png'
 import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
-import {Invoice} from '../components/Receipt'
+import { Invoice } from '../components/Receipt'
 
-
-interface Props{
-    id:number
-    invoiceNumber:string
-    status_id:string
-    user_id:string
-    address_id:string
-    totalPrice:number
-    product:string
-    icon: string
-    color:string
-    size:string
-    number:number
-
+interface Props {
+	id: number
+	invoiceNumber: string
+	status_id: string
+	user_id: string
+	address_id: string
+	totalPrice: number
+	product: string
+	icon: string
+	color: string
+	size: string
+	number: number
 }
 
-
-
-
-
 const InvoicePage: NextPage = () => {
-
-    const [invoices, setInvoice] = useState<Props[]>([])
+	const [invoices, setInvoice] = useState<Props[]>([])
+	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
+    const [invoiceTotalPrice, setInvoiceTotalPrice] = useState<String>('')
 
 	async function fetchInvoice() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,{
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-                
-            }
-        }
-   )
-		
-		let invoice = (await res.json()).invoiceRecord
-		setInvoice(invoice)
-	}{}
+		let res = await fetch(
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
+			}
+		)
 
-	useEffect(()=>{
+        let invoiceInfo = await res.json()
+
+		let invoice = invoiceInfo.invoiceRecord
+
+        let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+        
+        let invociePrice = invoiceInfo.invoiceRecord[0].totalPrice
+        
+		setInvoice(invoice)
+		setInvoicesNumber(invoiceNumber)
+        setInvoiceTotalPrice(invociePrice)
+	}
+	{
+	}
+
+	useEffect(() => {
 		fetchInvoice()
-	},[setInvoice])
+	}, [setInvoice,setInvoicesNumber,setInvoiceTotalPrice])
+
+
+
 
 	return (
 		<div>
@@ -66,19 +76,34 @@ const InvoicePage: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
-            {invoices.map((invoices) => (
-			<Invoice
-                    id={invoices.id}
-                    invoiceNumber={invoices.invoiceNumber}
-                    status_id={invoices.status_id}
-                    user_id={invoices.user_id}
-                    address_id={invoices.address_id}
-                    totalPrice={invoices.totalPrice} product={''} icon={''} color={''} size={''} number={0}		
-			/>
-			))}
+            <div className={invoice.box}>
+			<div className={invoice.invoiceDiv}>
+			
+					<div className={invoice.order}>My Order</div>
+                 
+							<div>{invoiceNumber}</div>
+						
+                    
+					{invoices.map((invoices) => (
 
+						<Invoice
+							id={invoices.id}
+							invoiceNumber={invoices.invoiceNumber}
+							status_id={invoices.status_id}
+							user_id={invoices.user_id}
+							address_id={invoices.address_id}
+							totalPrice={invoices.totalPrice}
+							product={invoices.product}
+							icon={invoices.icon}
+							color={invoices.color}
+							size={invoices.size}
+							number={0}
+						/>
+					))}
 
-
+                    <div>{invoiceTotalPrice}</div>
+			</div>
+            </div>
 			<Footer />
 		</div>
 	)
