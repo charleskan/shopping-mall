@@ -20,7 +20,7 @@ export class InvoiceController {
     getInvoiceDetailByUserId = async (req: express.Request, res: express.Response) => {
         try {
             const userId = req.user!.userId
-            const statusId = Status.Active
+            const statusId = Status.Paid
 
             const invoiceRecord = await this.invoiceService.getInvoiceDetailByUserId(userId, statusId)
 
@@ -49,7 +49,7 @@ export class InvoiceController {
             const invoiceRecord = await this.invoiceService.createInvoice(status_id, userId, addressId)
 
             console.log('invoice: ', invoiceRecord)
-            
+
 
             return res.json({
                 result: true,
@@ -88,10 +88,16 @@ export class InvoiceController {
 
 
 
-            const invoice = await this.invoiceService.updateInvoice(
-                invoiceId, Status.Paid, userId, Address.Default, totalPrice)
+            const invoice = await this.invoiceService.updateInvoice
+                (
+                    invoiceId,
+                    Status.Paid,
+                    userId,
+                    Address.Default,
+                    totalPrice
+                )
 
-                console.log("invoice: ", invoice);
+            console.log("invoice: ", invoice);
 
             const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, userId, Address.Default)
 
@@ -120,7 +126,7 @@ export class InvoiceController {
             })
 
             console.log("session: ", session);
-            
+
 
             if (session.url != null) {
                 // res.redirect(303, session.url)
@@ -171,7 +177,7 @@ export class InvoiceController {
             //create invoice if not exist
             const invoiceId = req.user!.invoiceId
             console.log("invoiceId: ", invoiceId);
-            
+
 
             // //create invoice if user has no invoice
             // if (invoice == null) {
