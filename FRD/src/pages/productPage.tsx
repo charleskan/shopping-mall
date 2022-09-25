@@ -28,8 +28,7 @@ const productPage: NextPage = () => {
 		setProduct(product)
 		console.log(product)
 	}
-	{
-	}
+
 
 	useEffect(() => {
 		fetchProduct()
@@ -66,9 +65,6 @@ const productPage: NextPage = () => {
 						icon={product.icon}
 					/>
 				))}
-				{/* </Grid>
-			</Grid>
-			</Container> */}
 			</Container>
 		</>
 	)

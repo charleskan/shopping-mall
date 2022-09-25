@@ -140,7 +140,7 @@ export class UserController {
 
 			// console.log(token)
 			//jwt header
-			res.header('X-C21-TOKEN', token);
+			// res.header('X-C21-TOKEN', token);
 			// console.log("login:",token);
 			// let invoice = await this.invoiceService.getInvoiceDetailByUserId(
 			// 	user[0].id

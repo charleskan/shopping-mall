@@ -42,9 +42,6 @@ export function Heading() {
 				<PersonIcon className={heading.imageICon} />
 					<div className={heading.a}>{username}</div>
 			</div>
-				<>
-				{console.log('username:', username)}
-				</>
 			<div className={heading.center}>
 				
 				{username == 'visitor' ? (
