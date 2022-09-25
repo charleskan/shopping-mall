@@ -8,12 +8,15 @@ import { ProductCard } from '../components/ProductCard'
 import { ProductBigCard } from '../components/ProductBigCard'
 import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
-import { Container } from '@mui/material'
+import { Container, Pagination, } from '@mui/material'
 import home from '../styles/Index.module.css'
 import ImageSlider from '../components/ImageSlider'
 import { dataSlider } from '../components/DataSlider'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+
+
+
 
 interface Product {
 	id: number,
@@ -28,18 +31,21 @@ const Home: NextPage = () => {
 
 	const [products, setProduct] = useState<Product[]>([])
 
+
 	async function fetchProduct() {
 		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`,
 			{
 				method: 'GET',
 				headers: {
 					'Authorization': `Bearer ${localStorage.getItem('token')}`
+					
 				}
 			})
 
 		
 		let product = (await res.json()).allProductInfo
 		console.log(products);
+		
 		
 		setProduct(product)
 	} { }
@@ -94,6 +100,7 @@ const Home: NextPage = () => {
 							id={product.id}
 							icon={product.icon} />
 					))}
+				<Pagination count={10} variant="outlined" shape="rounded" />
 				</div>
 				{/* <div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>

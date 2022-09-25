@@ -4,13 +4,15 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import footer from '../styles/Footer.module.css'
-import img from '../components/Hektologo.png'
+import img from '../components/buySomeMall.png'
 export function Footer() {
 	return (
 		<div>
 			<div className={footer.background}>
 				<div className={footer.logoLine}>
-					<Image className={footer.footerLogo} src={img} />
+					<Image className={footer.footerLogo} src={img}
+					width={250}
+					height={100}/>
 
 					<form className={footer.from}>
 						<input

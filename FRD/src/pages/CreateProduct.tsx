@@ -14,6 +14,7 @@ import { AddProduct } from '../components/AddNewProduct'
 import { AddColumn } from '../components/AddColumn'
 
 import { SearchProductInfo } from '../components/SerachProduct'
+import { Sidebar } from '../components/SiderBar'
 
 type Inputs = {
 	name: String
@@ -37,7 +38,7 @@ const CreateProduct: NextPage = () => {
 
 	const [keyword, setkeyword] = useState<keyword['keyword']>('NOTAKEYWORD')
 	const [product, setProduct] = useState<searchProduct[]>([])
-	const [show, setShow] = useState(false); //react hook
+
 	
 
 	async function fetchSearchProduct(keyword: String) {
@@ -67,16 +68,16 @@ const CreateProduct: NextPage = () => {
 			<Heading />
 			<Navbar />
 
-			<div className={create.box}>
+			<div className={create.box } >
 
 				<div className={create.div}  >
-					<AddProduct  />
+					<AddProduct />
 				</div>
 
-				{ show &&<div className={create.div}>
+				<div className={create.div}>
 					<AddColumn />
-				</div>}
-				{ show &&<div className={create.serachBox}>
+				</div>
+				<div className={create.serachBox}>
 			<div className={create.title}>Serach Product</div>
 			
 				<input
@@ -93,7 +94,7 @@ const CreateProduct: NextPage = () => {
 						description={product.description}
 					/>
 				))}
-			</div>}
+			</div>
 			</div>
 			
 			<Footer />
