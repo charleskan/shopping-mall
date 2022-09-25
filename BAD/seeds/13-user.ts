@@ -1,6 +1,5 @@
 import { Knex } from "knex";
 import { hashPassword } from "../hash";
-import { Status } from "../models";
 
 
 export async function seed(knex: Knex): Promise<void> {
@@ -22,7 +21,7 @@ export async function seed(knex: Knex): Promise<void> {
             icon: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
             nickname: "adminTest",
             role_id: 1,
-            status_id: Status.Unpaid,
+            status_id: 1,
             email:"1234@123.com"
             
 
