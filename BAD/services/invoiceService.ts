@@ -15,7 +15,9 @@ export class InvoiceService {
     // -------------------------------------------------------------------------------------------------------------------
     // get Invoice Info by userId
     // -------------------------------------------------------------------------------------------------------------------
-    async getInvoiceDetailByUserId(userId: number, status_id: number) {
+    async getInvoiceDetailByUserId(
+        userId: number,
+         status_id: number) {
 
         let invoiceRecord = await this.knex
             .raw
@@ -27,8 +29,12 @@ export class InvoiceService {
             and "status_id" = ?
             order by "invoiceNumber" desc
             `
-                , [userId, status_id]
+                , [userId,
+                     status_id]
             )
+
+            // console.log('invoiceRecord: ',invoiceRecord.rows);
+            
 
         return invoiceRecord.rows
 
