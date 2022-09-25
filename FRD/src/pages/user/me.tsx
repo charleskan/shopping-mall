@@ -15,6 +15,8 @@ interface User {
 	nickname: string
 }
 
+
+
 const userInformation: NextPage = () => {
 	const [userInfos, setUserInfos] = useState<User[]>([])
 
