@@ -16,6 +16,7 @@ export function createProductRoutes(productController: ProductController) {
 	productRoutes.get('/productDetailByproductId/:id', productController.productDetailByProductId)//Tested by Ken on Sep14
 
 	productRoutes.get('/productDetailByColorAndSize/?', productController.productDetailByColorAndSize)
+	productRoutes.get('/AllProductDetail', productController.AllProductDetail)
 
 	productRoutes.delete('/PromotionDetail/:id', productController.deletePromotionDetail)//Tested by Ken on Sep14
 
