@@ -1,0 +1,21 @@
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+}
+
+.invoiceDiv{
+    display: flex;
+    box-shadow: 0 0 20px 0 #F2F0F7, 0 10px 10px 0 #F2F0F7;
+    width: 800px;
+    height: 400px;
+    flex-direction: column;
+}
+
+.order{
+    font-size: 40px;
+    font-weight: bold;
+    margin: 20px;
+}

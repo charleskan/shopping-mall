@@ -12,13 +12,19 @@ import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
 import {Invoice} from '../components/Receipt'
 
+
 interface Props{
     id:number
     invoiceNumber:string
-    status_id:number
-    user_id:number
-    address_id:number
+    status_id:string
+    user_id:string
+    address_id:string
     totalPrice:number
+    product:string
+    icon: string
+    color:string
+    size:string
+    number:number
 
 }
 
@@ -28,13 +34,19 @@ interface Props{
 
 const InvoicePage: NextPage = () => {
 
-    const [invoice, setInvoice] = useState<Props[]>([])
+    const [invoices, setInvoice] = useState<Props[]>([])
 
 	async function fetchInvoice() {
-		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                
+            }
+        }
    )
 		
-		let invoice = (await res.json()).invoiceInfo
+		let invoice = (await res.json()).invoiceRecord
 		setInvoice(invoice)
 	}{}
 
@@ -54,15 +66,14 @@ const InvoicePage: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
-            {invoice.map((invoices) => (
+            {invoices.map((invoices) => (
 			<Invoice
-				id={invoices.id}
-				invoiceNumber={invoices.invoiceNumber}
-				status_id={invoices.status_id}
-				user_id={invoices.user_id}
-				address_id={invoices.address_id}
-				totalPrice={invoices.totalPrice}
-		
+                    id={invoices.id}
+                    invoiceNumber={invoices.invoiceNumber}
+                    status_id={invoices.status_id}
+                    user_id={invoices.user_id}
+                    address_id={invoices.address_id}
+                    totalPrice={invoices.totalPrice} product={''} icon={''} color={''} size={''} number={0}		
 			/>
 			))}
 
