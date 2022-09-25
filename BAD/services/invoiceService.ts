@@ -253,8 +253,9 @@ export class InvoiceService {
                     )
                     
                     select
+                    
                     invoice_id,
-                    product_detail_id,
+                    product_detail_id as id,
                     TC_Price,
                     TC_Number,
                     p.name as product,
