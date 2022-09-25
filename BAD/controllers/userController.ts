@@ -124,7 +124,7 @@ export class UserController {
 			console.log("user[0].id:", user[0].id);
 
 
-			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, Status.Paid) //test after create invoice is done
+			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, Status.Unpaid) //test after create invoice is done
 
 			console.log("invoice:", invoice);
 

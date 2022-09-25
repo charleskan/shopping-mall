@@ -1,6 +1,6 @@
 
 import { Knex } from "knex";
-import { Role, Status, Address } from "../models";
+// import { Role, Status, Address } from "../models";
 
 
 export async function seed(knex: Knex): Promise<void> {
@@ -14,9 +14,9 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             invoiceNumber: "100001",
-            status_id: Status.Paid,
-            user_id: Role.Admin,
-            address_id: Address.Default,
+            status_id: 4,
+            user_id: 1,
+            address_id: 1,
             totalPrice: "200",
   
 
@@ -25,9 +25,9 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             invoiceNumber: "100002",
-            status_id: Status.Paid,
-            user_id: Role.NormalUser,
-            address_id: Address.Other,
+            status_id: 5,
+            user_id: 2,
+            address_id: 2,
             totalPrice: "100",
   
 
@@ -36,9 +36,9 @@ export async function seed(knex: Knex): Promise<void> {
 
 
             invoiceNumber: "100003",
-            status_id: Status.Paid,
-            user_id: Role.VIP,
-            address_id: Address.Other,
+            status_id: 5,
+            user_id: 3,
+            address_id: 2,
             totalPrice: "1000",
   
 
