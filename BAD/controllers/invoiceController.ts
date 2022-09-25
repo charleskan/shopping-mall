@@ -40,13 +40,12 @@ export class InvoiceController {
 
     createInvoice = async (req: express.Request, res: express.Response) => {
         try {
-            const status_id = Status.Unpaid
 
             const userId = req.user!.userId
 
             const addressId = (await this.profileService.userInfo(userId)).address[0].newAddress_id
 
-            const invoiceRecord = await this.invoiceService.createInvoice(status_id, userId, addressId)
+            const invoiceRecord = await this.invoiceService.createInvoice(Status.Unpaid, userId, addressId)
 
             console.log('invoice: ', invoiceRecord)
 

@@ -13,7 +13,7 @@ export async function seed(knex: Knex): Promise<void> {
         {
 
 
-            invoiceNumber: "ABC0000001",
+            invoiceNumber: "100001",
             status_id: Status.Paid,
             user_id: Role.Admin,
             address_id: Address.Default,
@@ -24,7 +24,7 @@ export async function seed(knex: Knex): Promise<void> {
         {
 
 
-            invoiceNumber: "ABC0000002",
+            invoiceNumber: "100002",
             status_id: Status.Paid,
             user_id: Role.NormalUser,
             address_id: Address.Other,
@@ -35,7 +35,7 @@ export async function seed(knex: Knex): Promise<void> {
         {
 
 
-            invoiceNumber: "ABC0000003",
+            invoiceNumber: "100003",
             status_id: Status.Paid,
             user_id: Role.VIP,
             address_id: Address.Other,

@@ -39,7 +39,7 @@ export class UserController {
 			let status_id = Status.Active
 			const addressId = Address.Default
 
-			 const newUser = await this.userService.register(
+			const newUser = await this.userService.register(
 				username,
 				password,
 				email,
@@ -48,12 +48,12 @@ export class UserController {
 				status_id
 			)
 			// console.log("newUser:", newUser);
-			
+
 
 			const invoice = await this.invoiceService.createInvoice(status_id, newUser[0].id, addressId)
 
 			// console.log("invoice:", invoice);
-			
+
 
 			req.user = {
 				userId: newUser[0].id,
@@ -76,7 +76,7 @@ export class UserController {
 			//jwt header
 			// res.header('X-C21-TOKEN', token);
 
-			return res.status(401).json({ result: true, msg: 'register success'})
+			return res.status(401).json({ result: true, msg: 'register success' })
 
 		} catch (err) {
 			if (err instanceof UserDuplicateUsernameError) {
@@ -109,27 +109,45 @@ export class UserController {
 
 
 
-			const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
-			
+
 			const username = req.body.username.trim()
 			const password = req.body.password.trim()
+			console.log("username:", username);
+			console.log("password:", password);
 
-			const statusId = Status.Active
+
+
+
 
 			const user = await this.userService.login(username, password)
+			console.log("user:", user);
+			console.log("user[0].id:", user[0].id);
 
-			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, statusId) //test after create invoice is done
-			
-			// req.user = {
-			// 	userId: user[0].id,
-			// 	invoiceId: invoice[0].id,
-			// }
+
+			const invoice = await this.invoiceService.getInvoiceDetailByUserId(user[0].id, Status.Paid) //test after create invoice is done
+
+			console.log("invoice:", invoice);
+
+			if (invoice[0].status_id == Status.Paid) {
+				const newInvoice = await this.invoiceService.createInvoice(Status.Unpaid, user[0].id, Address.Default)
+				console.log("newInvoice:", newInvoice);
+			}
+
+
+
+
+			req.user = {
+				userId: user[0].id,
+				invoiceId: invoice[0].id,
+			}
+
+			const secretKey = createSecretKey(process.env.JWT_SECRET!, 'utf-8');
 
 			const payload = {
 				userId: user[0].id,
 				invoiceId: invoice[0].id,
 			}
-		
+
 			const token = await new jose.SignJWT(payload) // details to  encode in the token
 				.setProtectedHeader({ alg: 'HS256' }) // algorithm
 				.setIssuedAt()
@@ -156,7 +174,7 @@ export class UserController {
 				msg: 'login success',
 				user: user[0],
 				invoice: invoice[0] != null ? invoice[0] : null,
-				token:token
+				token: token
 				// //jwt session
 
 				// token: jwtSimple.encode({
