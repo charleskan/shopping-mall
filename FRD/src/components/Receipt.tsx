@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import img from '../pages/photo/AboutUs.png'
 import invoice from '../styles/Invoice.module.css'
 
 interface Props {

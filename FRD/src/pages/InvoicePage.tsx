@@ -29,11 +29,10 @@ interface Props {
 const InvoicePage: NextPage = () => {
 	const [invoices, setInvoice] = useState<Props[]>([])
 	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
-    const [invoiceTotalPrice, setInvoiceTotalPrice] = useState<String>('')
-
+	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
 	async function fetchInvoice() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/Invoice`,
 			{
 				method: 'GET',
 				headers: {
@@ -47,20 +46,20 @@ const InvoicePage: NextPage = () => {
 		let invoice = invoiceInfo.invoiceRecord
 
         let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
-        
-        let invociePrice = invoiceInfo.invoiceRecord[0].totalPrice
+
+		let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
+    
         
 		setInvoice(invoice)
 		setInvoicesNumber(invoiceNumber)
-        setInvoiceTotalPrice(invociePrice)
+		setInvoicesTotalPrice(invoicePrice)
 	}
 	{
 	}
 
 	useEffect(() => {
 		fetchInvoice()
-	}, [setInvoice,setInvoicesNumber,setInvoiceTotalPrice])
-
+	}, [setInvoice ,setInvoicesTotalPrice,setInvoicesNumber])
 
 
 
@@ -76,6 +75,18 @@ const InvoicePage: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
+
+			<div className={invoice.pageBox}>
+				<Container>
+					<div>
+						<h1 className={invoice.Title}>Invoice</h1>
+
+						<span className={invoice.page}>Home. Pages.</span>
+						<span className={invoice.nowPage}>Invoice</span>
+					</div>
+				</Container>
+			</div>
+
             <div className={invoice.box}>
 			<div className={invoice.invoiceDiv}>
 			
@@ -101,7 +112,7 @@ const InvoicePage: NextPage = () => {
 						/>
 					))}
 
-                    <div>{invoiceTotalPrice}</div>
+                    	<div>{invoiceTotalPrice}</div>
 			</div>
             </div>
 			<Footer />

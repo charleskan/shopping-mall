@@ -1,9 +1,9 @@
 .pageBox{
     display: flex;
     background-color: #F5F4FE;
-    height: 400px;
-    padding-top: 100px;
+    height: 300px;
     margin-bottom: 100px;
+    align-items: center;
 }
 
 .Title{
@@ -133,4 +133,9 @@ color: white;
 font-size: 15px;
 margin-bottom: 10px;
 
+}
+
+.productName{
+    font-size: 30px;
+    margin-bottom: 30px;
 }

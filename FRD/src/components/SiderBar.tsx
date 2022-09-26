@@ -26,21 +26,21 @@ const [show, setShow] = useState(false); //react hook
 				<CancelIcon className={sidebar.cross} onClick={()=>{setShow(false)}} />
 
 				<div className={sidebar.page}>
-					<Link href='CreateProduct'>
+					<Link href='/CreateProduct'>
 						<a className={sidebar.pages}>
 							<AddBoxIcon />
 							Create Product
 						</a>
 					</Link>
 
-					<Link href='/productPage'>
+					<Link href='/user/me'>
 						<a className={sidebar.pages}>
 							<SettingsAccessibilityIcon />
 							Profile
 						</a>
 					</Link>
 
-					<Link href='/Invoice'>
+					<Link href='/InvoicePage'>
 						<a className={sidebar.pages}>
 							<ReceiptIcon />
 							Invoice

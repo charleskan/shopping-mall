@@ -1,3 +1,24 @@
+.pageBox{
+    display: flex;
+    background-color: #F5F4FE;
+    height: 300px;
+	align-items: center;
+}
+
+.Title{
+    font-size: 40px;
+}
+
+.page{
+    color: black;
+}
+
+.nowPage{
+    color: #FF2E79;
+    padding: 6px;
+}
+
+
 .box{
 	display: flex;
 justify-content: center;
@@ -13,7 +34,7 @@ align-items: center;
 	
 }
 
-.serachBox{
+.searchBox{
 	width: 400px;
 	height: 600px;
 	background-color: #f8f8fd;
@@ -105,11 +126,11 @@ align-items: center;
 
 	font-weight: 700;
 	font-size: 10pt;
-	border: solid 1px #cdcedb;
+
 	border-radius: 5px;
     margin-bottom: 20px;
     color: white;
-    background-color:#303030
+    background-color: #eb457a;
     
 }
 
@@ -131,11 +152,10 @@ align-items: center;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 10pt;
-	border: solid 1px #cdcedb;
 	border-radius: 5px;
     margin-bottom: 20px;
     color: white;
-    background-color: #303030
+	background-color: #eb457a;
 }
 
 
@@ -156,11 +176,10 @@ align-items: center;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 10pt;
-	border: solid 1px #cdcedb;
 	border-radius: 5px;
     margin-bottom: 20px;
     color: white;
-    background-color: #303030
+	background-color: #eb457a;
 }
 
 
@@ -180,10 +199,9 @@ align-items: center;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 10pt;
-	border: solid 1px #cdcedb;
 	border-radius: 5px;
     color: white;
-    background-color: #303030
+	background-color: #eb457a;
 }
 
 

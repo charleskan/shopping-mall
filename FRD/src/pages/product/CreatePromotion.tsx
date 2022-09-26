@@ -6,6 +6,7 @@ import { Heading } from '../../components/Heading'
 import { Navbar } from '../../components/Navbar'
 import { Footer } from '../../components/Footer'
 import { useForm } from 'react-hook-form'
+import { Container } from '@mui/material'
 
 interface keyword {
 	keyword: string
@@ -46,8 +47,18 @@ const CreatePromotion: NextPage = () => {
 		<>
 			<Heading />
 			<Navbar />
+			<div className={create.pageBox}>
+				<Container>
+					<div>
+						<h1 className={create.Title}>Profile</h1>
+
+						<span className={create.page}>Home. Pages.</span>
+						<span className={create.nowPage}>Profile</span>
+					</div>
+				</Container>
+			</div>
             <div className={create.box}>
-			<div className={create.serachBox}>
+			<div className={create.searchBox}>
 				<div className={create.title}>Serach Product</div>
 				<input
 					className={create.input}
