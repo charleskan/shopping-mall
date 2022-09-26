@@ -29,9 +29,6 @@ interface product {
 	tc_price: number;
 }
 
-interface freebieArray {
-
-}
 
 
 const Cart: NextPage = () => {
@@ -145,7 +142,7 @@ const Cart: NextPage = () => {
 
 								)
 
-									: <div className={cart.empty}>Cart is empty</div>
+									: <div className={cart.empty}></div>
 
 						}
 
@@ -163,11 +160,11 @@ const Cart: NextPage = () => {
 											color={item.color_name}
 											size={item.size_name}
 											tc_number={item.number}
-											tc_price={item.tc_price}
+											tc_price={0}
 
 										/>
 									))
-									: <div>test</div>
+									: <div></div>
 
 
 						}

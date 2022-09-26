@@ -6,7 +6,7 @@ interface Props {
 	invoiceNumber: string
 	status_id: string
 	user_id: string
-	address_id: string
+	address: string
 	totalPrice: any
 	product: string
 	icon: string

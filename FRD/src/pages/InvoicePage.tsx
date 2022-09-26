@@ -11,13 +11,16 @@ import errorImage from './error.png'
 import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
 import { Invoice } from '../components/Receipt'
+import { LoadingState } from '../models'
+import Skeleton from 'react-loading-skeleton'
+import { useAppDispatch, useAppSelector } from '../store'
 
 interface Props {
 	id: number
 	invoiceNumber: string
 	status_id: string
 	user_id: string
-	address_id: string
+	address: string
 	totalPrice: number
 	product: string
 	icon: string
@@ -30,9 +33,13 @@ const InvoicePage: NextPage = () => {
 	const [invoices, setInvoice] = useState<Props[]>([])
 	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
 	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
+
+	const dispatch = useAppDispatch()
+	const cartLoaded = useAppSelector(state => state.cart.loading)
+
 	async function fetchInvoice() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/Invoice`,
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
 			{
 				method: 'GET',
 				headers: {
@@ -41,25 +48,29 @@ const InvoicePage: NextPage = () => {
 			}
 		)
 
-        let invoiceInfo = await res.json()
+		let invoiceInfo = await res.json()
+		
+		console.log('invoiceInfo: ',invoiceInfo);
+		
+		
 
 		let invoice = invoiceInfo.invoiceRecord
+		
 
-        let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+	
+			// let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+			// let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
 
-		let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
-    
-        
-		setInvoice(invoice)
-		setInvoicesNumber(invoiceNumber)
-		setInvoicesTotalPrice(invoicePrice)
-	}
-	{
-	}
-
-	useEffect(() => {
-		fetchInvoice()
-	}, [setInvoice ,setInvoicesTotalPrice,setInvoicesNumber])
+			if (invoice.length > 0) {
+			setInvoice(invoice)
+			setInvoicesNumber(invoiceInfo.invoiceRecord[0].invoiceNumber)
+			setInvoicesTotalPrice(invoiceInfo.invoiceRecord[0].totalPrice)
+			}
+		}
+		
+		useEffect(() => {
+			fetchInvoice()
+	}, [invoices, invoiceTotalPrice, invoiceNumber])
 
 
 
@@ -87,34 +98,47 @@ const InvoicePage: NextPage = () => {
 				</Container>
 			</div>
 
-            <div className={invoice.box}>
-			<div className={invoice.invoiceDiv}>
-			
+			<div className={invoice.box}>
+				<div className={invoice.invoiceDiv}>
+
 					<div className={invoice.order}>My Order</div>
-                 
-							<div>{invoiceNumber}</div>
-						
-                    
-					{invoices.map((invoices) => (
+					{
+						cartLoaded !== LoadingState.Loaded ?
+							<Skeleton baseColor='#E02310' height={30} /> :
+							invoices.length > 0 ? <div>{invoiceNumber}</div>
+								: <div></div>
+					}
 
-						<Invoice
-							id={invoices.id}
-							invoiceNumber={invoices.invoiceNumber}
-							status_id={invoices.status_id}
-							user_id={invoices.user_id}
-							address_id={invoices.address_id}
-							totalPrice={invoices.totalPrice}
-							product={invoices.product}
-							icon={invoices.icon}
-							color={invoices.color}
-							size={invoices.size}
-							number={0}
-						/>
-					))}
 
-                    	<div>{invoiceTotalPrice}</div>
+					{
+
+						cartLoaded !== LoadingState.Loaded ?
+							<Skeleton baseColor='#E02310' height={30} /> :
+							invoices.length > 0 ?
+
+								invoices.map((invoices) => (
+
+									<Invoice
+										id={invoices.id}
+										invoiceNumber={invoices.invoiceNumber}
+										status_id={invoices.status_id}
+										user_id={invoices.user_id}
+										address={invoices.address}
+										totalPrice={invoices.totalPrice}
+										product={invoices.product}
+										icon={invoices.icon}
+										color={invoices.color}
+										size={invoices.size}
+										number={0}
+									/>
+								))
+								: <div></div>
+
+					}
+
+					<div>{invoiceTotalPrice}</div>
+				</div>
 			</div>
-            </div>
 			<Footer />
 		</div>
 	)
