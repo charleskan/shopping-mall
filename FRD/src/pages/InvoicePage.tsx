@@ -24,6 +24,8 @@ interface Props {
 	color: string
 	size: string
 	number: number
+	single_price: number
+	status : string
 }
 
 const InvoicePage: NextPage = () => {
@@ -41,15 +43,14 @@ const InvoicePage: NextPage = () => {
 			}
 		)
 
-        let invoiceInfo = await res.json()
+		let invoiceInfo = await res.json()
 
 		let invoice = invoiceInfo.invoiceRecord
 
-        let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+		let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
 
 		let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
-    
-        
+
 		setInvoice(invoice)
 		setInvoicesNumber(invoiceNumber)
 		setInvoicesTotalPrice(invoicePrice)
@@ -59,9 +60,7 @@ const InvoicePage: NextPage = () => {
 
 	useEffect(() => {
 		fetchInvoice()
-	}, [setInvoice ,setInvoicesTotalPrice,setInvoicesNumber])
-
-
+	}, [setInvoice, setInvoicesTotalPrice, setInvoicesNumber])
 
 	return (
 		<div>
@@ -87,16 +86,24 @@ const InvoicePage: NextPage = () => {
 				</Container>
 			</div>
 
-            <div className={invoice.box}>
-			<div className={invoice.invoiceDiv}>
-			
+			<div className={invoice.box}>
+				<div className={invoice.invoiceDiv}>
 					<div className={invoice.order}>My Order</div>
-                 
-							<div>{invoiceNumber}</div>
-						
-                    
-					{invoices.map((invoices) => (
+					<div className={invoice.texts}>Order Information</div>
 
+					<div className={invoice.text}>
+						Order Number:{invoiceNumber}
+					</div>
+					<div className={invoice.text}>
+						Amount:{invoiceTotalPrice}
+					</div>
+					<div className={invoice.centerLine}>
+						<div className={invoice.line}></div>
+					</div>
+
+					<div className={invoice.texts}>Delivery Status</div>
+
+					{invoices.map((invoices) => (
 						<Invoice
 							id={invoices.id}
 							invoiceNumber={invoices.invoiceNumber}
@@ -108,13 +115,10 @@ const InvoicePage: NextPage = () => {
 							icon={invoices.icon}
 							color={invoices.color}
 							size={invoices.size}
-							number={0}
-						/>
+							number={0} single_price={invoices.single_price} status={invoices.status}						/>
 					))}
-
-                    	<div>{invoiceTotalPrice}</div>
+				</div>
 			</div>
-            </div>
 			<Footer />
 		</div>
 	)
