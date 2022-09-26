@@ -37,18 +37,51 @@
 .order{
     font-size: 40px;
     font-weight: bold;
-    margin: 20px;
+    margin: 30px;
+}
+
+.texts{
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .text{
-    margin: 20px;
-    font-size: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .line{
-    background-color: gray;
+    background-color:black;
     height: 1px;
-    width: 800px;
+    width: 750px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.lineGrey{
+    background-color:gray;
+    height: 1px;
+    width: 750px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.centerLine{
     display: flex;
     justify-content: center;
 }
+
+.invoiceColum{
+display: flex;
+
+
+}
+
+

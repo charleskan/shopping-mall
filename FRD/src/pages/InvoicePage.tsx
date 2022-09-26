@@ -27,6 +27,8 @@ interface Props {
 	color: string
 	size: string
 	number: number
+	single_price: number
+	status : string
 }
 
 const InvoicePage: NextPage = () => {
@@ -70,7 +72,7 @@ const InvoicePage: NextPage = () => {
 		
 		useEffect(() => {
 			fetchInvoice()
-	}, [invoices, invoiceTotalPrice, invoiceNumber])
+	}, [cartLoaded])
 
 
 
@@ -100,43 +102,35 @@ const InvoicePage: NextPage = () => {
 
 			<div className={invoice.box}>
 				<div className={invoice.invoiceDiv}>
-
 					<div className={invoice.order}>My Order</div>
-					{
-						cartLoaded !== LoadingState.Loaded ?
-							<Skeleton baseColor='#E02310' height={30} /> :
-							invoices.length > 0 ? <div>{invoiceNumber}</div>
-								: <div></div>
-					}
+					<div className={invoice.texts}>Order Information</div>
 
+					<div className={invoice.text}>
+						Order Number:{invoiceNumber}
+					</div>
+					<div className={invoice.text}>
+						Amount:{invoiceTotalPrice}
+					</div>
+					<div className={invoice.centerLine}>
+						<div className={invoice.line}></div>
+					</div>
 
-					{
+					<div className={invoice.texts}>Delivery Status</div>
 
-						cartLoaded !== LoadingState.Loaded ?
-							<Skeleton baseColor='#E02310' height={30} /> :
-							invoices.length > 0 ?
-
-								invoices.map((invoices) => (
-
-									<Invoice
-										id={invoices.id}
-										invoiceNumber={invoices.invoiceNumber}
-										status_id={invoices.status_id}
-										user_id={invoices.user_id}
-										address={invoices.address}
-										totalPrice={invoices.totalPrice}
-										product={invoices.product}
-										icon={invoices.icon}
-										color={invoices.color}
-										size={invoices.size}
-										number={0}
-									/>
-								))
-								: <div></div>
-
-					}
-
-					<div>{invoiceTotalPrice}</div>
+					{invoices.map((invoices) => (
+						<Invoice
+							id={invoices.id}
+							invoiceNumber={invoices.invoiceNumber}
+							status_id={invoices.status_id}
+							user_id={invoices.user_id}
+							address={invoices.address}
+							totalPrice={invoices.totalPrice}
+							product={invoices.product}
+							icon={invoices.icon}
+							color={invoices.color}
+							size={invoices.size}
+							number={0} single_price={invoices.single_price} status={invoices.status}						/>
+					))}
 				</div>
 			</div>
 			<Footer />
