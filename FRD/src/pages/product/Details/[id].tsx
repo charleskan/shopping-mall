@@ -163,7 +163,7 @@ const ProductDetails: NextPage = () => {
 
 					<div className={detail.formBox}>
 						{product.map((product) => (
-							<div>{product.name}</div>
+							<div className={detail.productName}>{product.name}</div>
 						))}
 						<FormControl>
 							<FormLabel id='demo-radio-buttons-group-label'>

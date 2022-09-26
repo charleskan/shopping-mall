@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form'
 import EditUserProfileForm from '../../components/EditUserProfileForm'
 import { userInfo } from 'os'
 import { UserBox } from '../../components/userBox'
+import user from '../../styles/User.module.css'
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { Container } from '@mui/material'
 
 interface User {
 	icon: string
@@ -51,42 +54,60 @@ const userInformation: NextPage = () => {
 			<HeadTitle />
 			<Heading />
 			<Navbar />
+			<div className={user.pageBox}>
+				<Container>
+					<div>
+						<h1 className={user.Title}>Profile</h1>
 
-			{userInfos.map((userInfos) => (
-            <UserBox name={userInfos.nickname} 
-			icon={userInfos.icon} />
-			))}
+						<span className={user.page}>Home. Pages.</span>
+						<span className={user.nowPage}>Profile</span>
+					</div>
+				</Container>
+			</div>
+			
+			<div className={user.box}>
+				<div className={user.div}>
+					{userInfos.map((userInfos) => (
+						<UserBox
+							name={userInfos.nickname}
+							icon={userInfos.icon}
+						/>
+					))}
 
-			<form
-				onSubmit={handleSubmit(async (data) => {
-					const formData = new FormData()
+					<form
+						className={user.form}
+						onSubmit={handleSubmit(async (data) => {
+							const formData = new FormData()
 
-					formData.append('nickname', data.nickname)
-					formData.append('icon', data.icon[0])
-					// formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
+							formData.append('nickname', data.nickname)
+							formData.append('icon', data.icon[0])
+							// formData.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
 
-					const res = await fetch(
-						`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userinfo`,
-						{
-							method: 'PATCH',
-							// headers: header.headers,
-							// credentials: 'include',
-							body: formData
-						}
-					)
-					if (res.status === 200) {
-						alert('success')
-					}
-				})}>
-				<input type='file' {...register('icon')} />
-				<input
-					type='text'
-					placeholder='nickname'
-					{...register('nickname')}
-				/>
+							const res = await fetch(
+								`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/editUser`,
+								{
+									method: 'PATCH',
+									// headers: header.headers,
+									// credentials: 'include',
+									body: formData
+								}
+							)
+							if (res.status === 200) {
+								alert('success')
+							}
+						})}>
+						<input className={user.custom} type='file' {...register('icon')} />
+						<input className={user.text}
+							type='text'
+							placeholder='nickname'
+							{...register('nickname')}
+						/>
 
-				<input type='submit' value='Submit'></input>
-			</form>
+						<input className={user.submit} type='submit' value='Submit'></input>
+					</form>
+				</div>
+			</div>
+
 			<Footer />
 		</>
 	)

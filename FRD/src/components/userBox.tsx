@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import user from '../styles/User.module.css'
 
 interface props {
     name: string
@@ -10,9 +11,9 @@ export function UserBox(props: props) {
         <div className="userBox">
             
             
-            <div className="userBoxName">{props.name}</div>
-            <div className="userBoxIcon">
-                <Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} width={50} height={50} />
+            <div  className={user.username}  >{props.name}</div>
+            <div   className={user.iconDiv} >
+                <Image  className={user.userIcon}  src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`} width={150} height={150} />
             </div>
             
         </div>

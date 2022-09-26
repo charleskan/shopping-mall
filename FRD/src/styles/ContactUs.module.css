@@ -2,9 +2,9 @@
 .pageBox{
     display: flex;
     background-color: #F5F4FE;
-    height: 400px;
-    padding-top: 100px;
-    justify-content: space-around;
+    height: 300px;
+    align-items: center;
+  
 }
 
 .Title{
