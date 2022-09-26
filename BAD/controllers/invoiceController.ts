@@ -255,16 +255,36 @@ export class InvoiceController {
             const invoiceId = req.user!.invoiceId
             const freebieDetails = await this.invoiceService.checkFreebieInCart(invoiceId)
 
-            console.log('freebieDetails: ', freebieDetails)
+            const freebieIds = freebieDetails.rows
+            
+            let freebieArray=[]
+            for(let freebieId of freebieIds){
+            const freebie=await this.invoiceService.getFreebieProductDetail(freebieId.freebie_id)
+            freebieArray.push(freebie)
+          }
 
+// freebieId.forEach(async (freebieId: any) => {
+//                 const freebie = await this.invoiceService.getFreebieProductDetail(freebieIds.freebie_id)
+                
+//                 return freebie// console.log('freebie: ', freebie)
+//                 // freebieArray.push(freebie)
+//                 // console.log('freebies inside: ', freebieArray)
+//             });
 
+            console.log('freebies: ', freebieArray)
+            // console.log('freebieDetails: ', freebieId)
 
+            // const freebieList = await this.invoiceService.getFreebieProductDetail(freebieId)
 
-            return res.json({
-                result: true,
-                freebieDetails,
-                msg: 'Get freebie success'
-            })
+            // console.log('freebieList: ', freebieList);
+        
+
+            return res.json(
+                // result: true,
+                // freebieDetails,
+               freebieArray
+                // msg: 'Get freebie success'
+            )
         } catch (err) {
             logger.error(err)
             return res.json({ result: false, msg: 'Get freebie fail' })
