@@ -9,14 +9,35 @@ import { Navbar } from '../../components/Navbar'
 
 import {PaginatedItems} from '../../components/user/pagination'
 
-
+interface currentItems {
+	id: number
+	name: string
+	icon: string
+	description: string
+}
 
 
 const Pagination: NextPage = () => {
 
 
+    // const [products, setProduct] = useState<product[]>([])
 
-    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+	// async function fetchProduct() {
+	// 	let res = await fetch(
+	// 		`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+	// 	)
+	// 	let product = (await res.json()).allProductInfo
+	// 	setProduct(product)
+	// 	console.log(product)
+	// }
+
+
+    // useEffect(() => {
+	// 	fetchProduct()
+	// }, [setProduct])
+
+
+
 
 
 
@@ -27,7 +48,7 @@ const Pagination: NextPage = () => {
             <Heading />
 
 
-            <PaginatedItems itemsPerPage={3} currentItems={null}/>
+            <PaginatedItems itemsPerPage={20} currentItems={null}/>
 
 
             <Navbar />

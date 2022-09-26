@@ -10,8 +10,35 @@ interface Props {
 }
 
 
+interface currentItems {
+	id: number
+	name: string
+	icon: string
+	description: string
+}
+
+
 
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+// const [products, setProduct] = useState<product[]>([])
+
+// async function fetchProduct() {
+//   let res = await fetch(
+//     `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+//   )
+//   let product = (await res.json()).allProductInfo
+//   setProduct(product)
+//   console.log(product)
+// }
+
+
+//   useEffect(() => {
+//   fetchProduct()
+// }, [setProduct])
+
+
+
 
 
 
@@ -33,7 +60,24 @@ function Items({ currentItems }: Props) {
 
   export function PaginatedItems({ itemsPerPage }: Props) {
 
-    const items:Array<String> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
+
+    const [items, setItems] = useState<currentItems[]>([])
+
+    async function fetchProduct() {
+      let res = await fetch(
+        `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+      )
+      let product = (await res.json()).allProductInfo
+      setItems(product)
+      console.log(product)
+    }
+  
+  
+      useEffect(() => {
+      fetchProduct()
+    }, [setItems])
+
+    // const items:Array<String> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
 
 
     const [currentItems, setCurrentItems] = useState<any[]>();
