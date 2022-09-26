@@ -18,6 +18,8 @@ export function createProductRoutes(productController: ProductController) {
 	productRoutes.get('/productDetailByColorAndSize/?', productController.productDetailByColorAndSize)
 	productRoutes.get('/AllProductDetail', productController.AllProductDetail)
 
+	productRoutes.get('/FreeBieIcon', productController.productDetailIcon)
+
 	productRoutes.delete('/PromotionDetail/:id', productController.deletePromotionDetail)//Tested by Ken on Sep14
 
 

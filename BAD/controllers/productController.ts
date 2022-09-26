@@ -80,6 +80,25 @@ export class ProductController {
     }
   };
   // -------------------------------------------------------------------------------------------------------------------
+  productDetailIcon = async (req: express.Request, res: express.Response) => {
+    const productId= Number(req.query.id);
+    try {
+      const productDetailIcon = await this.productService.productDetailIcon(productId);
+      return res.json({
+        result: true,
+        msg: "Get ProductDetail Icon success",
+        productDetailIcon,
+      });
+    } catch (err) {
+      logger.error(err);
+
+      res
+        .status(500)
+        .json({ result: false, msg: "Get ProductDetail Icon fail" });
+      return;
+    }
+  };
+  // -------------------------------------------------------------------------------------------------------------------
   // AllProductDetailByProductName
   // -------------------------------------------------------------------------------------------------------------------
 

@@ -111,6 +111,56 @@ export class ProductService {
       return { productInfo, productDetailInfo };
     }
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  // Get individual ProductDetail Icon
+  // -------------------------------------------------------------------------------------------------------------------
+
+  async productDetailIcon(productId: number) {
+    //console.log(this.tableName)
+    {
+      const productDetailicon =  await this.knex.raw(
+        /*sql */
+      `with
+      t_aaa as
+      (
+                select 
+                pd.id as product_id,
+                p.name as product_name,
+                c.id as color_id,
+                c."name" as color_name,
+      s.id as size_id,
+                s.name as size_name,
+                price as product_price,
+                stock,
+                s2.id as status_id,
+                s2.name as status_name,
+                icon,
+                description
+                
+                from 
+                ((("productDetail" pd 
+                inner join product p on p.id = pd.product_id)
+                inner join color c on c.id = pd.color_id)
+                inner join "size" s on s.id = pd.size_id )
+                inner join status s2 on s2.id = pd.status_id 
+                
+                order by product_id desc
+                )
+                
+                select
+      product_id,
+      product_name,
+      color_name,
+      size_name,
+      product_price,
+      stock,
+      icon
+      from
+      t_aaa  where "product_id" = ? `,[productId])
+
+      return { productDetailicon };
+    }
+  }
 
   // -------------------------------------------------------------------------------------------------------------------
   // Create New Product
