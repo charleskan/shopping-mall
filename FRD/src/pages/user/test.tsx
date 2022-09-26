@@ -6,57 +6,130 @@ import { Footer } from '../../components/Footer'
 import { Heading } from '../../components/Heading'
 import { HeadTitle } from '../../components/HeadTitle'
 import { Navbar } from '../../components/Navbar'
+import ProductList from '../../components/ProductList'
 
-import {PaginatedItems} from '../../components/user/pagination'
+// import {PaginatedItems} from '../../components/user/pagination'
 
+
+interface items {
+
+    id: number
+	name: string
+	description: string
+	icon: string
+	image1: string
+	image2: string
+	image3: string
+	status_id: number
+	brand_id: number
+	created_at: string
+	updated_at: string
+
+}
 interface currentItems {
 	id: number
 	name: string
-	icon: string
 	description: string
+	icon: string
+	image1: string
+	image2: string
+	image3: string
+	status_id: number
+	brand_id: number
+	created_at: string
+	updated_at: string
 }
 
-
 const Pagination: NextPage = () => {
-
-
-    // const [products, setProduct] = useState<product[]>([])
-
-	// async function fetchProduct() {
-	// 	let res = await fetch(
-	// 		`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
-	// 	)
-	// 	let product = (await res.json()).allProductInfo
-	// 	setProduct(product)
-	// 	console.log(product)
+	
+// const [items, setItems] = useState<currentItems[]>([])
+	// function Items({ currentItems }: Props) {
+	//     return (
+	//         <>
+	//             {currentItems &&
+	//                 currentItems.map((item: any) => (
+	//                     <div>
+	//                         <h3>Item #{item}</h3>
+	//                     </div>
+	//                 ))}
+	//         </>
+	//     )
 	// }
 
+     const [items, setItems] = useState<items[]>([])
 
-    // useEffect(() => {
-	// 	fetchProduct()
-	// }, [setProduct])
+	async function fetchProduct() {
+		let res = await fetch(
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+		)
+		let items = (await res.json()).allProductInfo
 
+        setItems(items)
+        
+        console.log(items);
+        
+	}
 
+    useEffect(() => {
+		fetchProduct()
+	}, [setItems])
 
+	const [currentItems, setCurrentItems] = useState<currentItems[]>([])
 
+	const [pageCount, setPageCount] = useState(0)
 
+	const [itemOffset, setItemOffset] = useState(0)
 
+	useEffect(() => {
+		// Fetch items from another resources.
+		const endOffset = itemOffset + 5
+		console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+		let currentItems = items.slice(itemOffset, endOffset)
 
-    return (
-        <>
-            <HeadTitle />
-            <Heading />
+        console.log(currentItems);
+    
+        
 
+		setCurrentItems(currentItems)
+		setPageCount(Math.ceil(items.length / 5))
+	}, [itemOffset,items])
 
-            <PaginatedItems itemsPerPage={20} currentItems={null}/>
+	const handlePageClick = (event: any) => {
+		const newOffset = (event.selected * 5) % items.length
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`
+		)
+		setItemOffset(newOffset)
+	}
 
+	return (
+		<>
+			<HeadTitle />
+			<Heading />
 
-            <Navbar />
-            <Footer />
-        </>
-    )
+			{/* <Items currentItems={currentItems} itemsPerPage={3} /> */}
+            {currentItems.map((product) => (
+					<ProductList
+						id={product.id}
+						name={product.name}
+						description={product.description}
+						icon={product.icon}
+					/>
+				))}
+			<ReactPaginate
+				breakLabel='...'
+				nextLabel='next >'
+				onPageChange={handlePageClick}
+				pageRangeDisplayed={5}
+				pageCount={pageCount}
+				previousLabel='< previous'
+				//   renderOnZeroPageCount={null}
+			/>
+
+			<Navbar />
+			<Footer />
+		</>
+	)
 }
 
 export default Pagination
-
-  
