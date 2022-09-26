@@ -16,7 +16,6 @@ import { AddColumn } from '../components/AddColumn'
 import { SearchProductInfo } from '../components/SerachProduct'
 import { Sidebar } from '../components/SiderBar'
 
-
 interface keyword {
 	keyword: string
 }
@@ -28,14 +27,9 @@ interface searchProduct {
 	description: string
 }
 
-
-
 const CreateProduct: NextPage = () => {
-
 	const [keyword, setkeyword] = useState<keyword['keyword']>('NOTAKEYWORD')
 	const [product, setProduct] = useState<searchProduct[]>([])
-
-	
 
 	async function fetchSearchProduct(keyword: String) {
 		const name = keyword
@@ -64,35 +58,45 @@ const CreateProduct: NextPage = () => {
 			<Heading />
 			<Navbar />
 
-			<div className={create.box } >
+			<div className={create.pageBox}>
+				<Container>
+					<div>
+						<h1 className={create.Title}>Create Product</h1>
 
-				<div className={create.div}  >
+						<span className={create.page}>Home. Pages.</span>
+						<span className={create.nowPage}>Create Product</span>
+					</div>
+				</Container>
+			</div>
+
+			<div className={create.box}>
+				<div className={create.div}>
 					<AddProduct />
 				</div>
 
 				<div className={create.div}>
 					<AddColumn />
 				</div>
-				<div className={create.serachBox}>
-			<div className={create.title}>Serach Product</div>
-			
-				<input
-				className={create.input}
-					placeholder='Search Product'
-					type='text'
-					onChange={(e) => setkeyword(e.target.value)}
-				/>
-				{product.map((product:searchProduct) => (
-					<SearchProductInfo
-						id={product.id}
-						icon={product.icon}
-						name={product.name}
-						description={product.description}
+				<div className={create.searchBox}>
+					<div className={create.title}>Serach Product</div>
+
+					<input
+						className={create.input}
+						placeholder='Search Product'
+						type='text'
+						onChange={(e) => setkeyword(e.target.value)}
 					/>
-				))}
+					{product.map((product: searchProduct) => (
+						<SearchProductInfo
+							id={product.id}
+							icon={product.icon}
+							name={product.name}
+							description={product.description}
+						/>
+					))}
+				</div>
 			</div>
-			</div>
-			
+
 			<Footer />
 		</div>
 	)

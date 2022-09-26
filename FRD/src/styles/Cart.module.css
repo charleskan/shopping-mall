@@ -1,8 +1,8 @@
 .pageBox{
     display: flex;
     background-color: #F5F4FE;
-    height: 400px;
-    padding-top: 100px;
+    height: 300px;
+	align-items: center;
     margin-bottom: 100px;
 }
 
@@ -93,7 +93,7 @@
 
 .addButton{
 	margin: 40px;
-	background-color: #62CE79;
+	background-color: #FF2E79;
 	color: white;
 	border: none;
 	width: 200px;

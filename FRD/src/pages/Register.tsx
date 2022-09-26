@@ -12,7 +12,10 @@ import loginStyles from '../styles/Login.module.css'
 import { Container } from '@mui/material'
 
 const Register: NextPage = () => {
-	const { handleSubmit, register } = useForm()
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [email, setEmail] = useState('')
+	const [nickname, setNickname] = useState('')
 	const [error, setError] = useState('')
 	const router = useRouter()
 
@@ -48,72 +51,76 @@ const Register: NextPage = () => {
 			<div className={loginStyles.loginBox}>
 				<form
 					className={loginStyles.loginForm}
-			
-					onSubmit={handleSubmit(async (data: any) => {
-						const formObject = new FormData()
-						formObject.append('username', data.username)
-					formObject.append('password', data.password)
-					formObject.append('email', data.email)
-					formObject.append('nickname', data.nickname)
-			
-
+					action='/send-data-here'
+					method='post'
+					onSubmit={async (e) => {
+						e.preventDefault()
 						const res = await fetch(
 							`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/register`,
 							{
 								method: 'POST',
-								credentials: 'include',
-								body: formObject
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({
+									username,
+									password,
+									email,
+									nickname
+								})
 							}
 						)
 						if (res.status === 200) {
 							router.push('/login')
 						} else if (res.status === 400) {
 							setError('Password Error')
-						} else if (res.status === 500) {
-							router.push('/Error')
+						} else if (res.status === 404) {
+							setError('Not Firm you')
 						}
-					})}>
+					}}>
 					{error}
 					<div className={loginStyles.loginWork}>Register</div>
 					<div className={loginStyles.loginCommet}>
 						Create your Account
 					</div>
 					<input
-						{...register('username')}
 						className={loginStyles.textBox}
 						type='text'
-						id='name'
+						id='username'
 						placeholder='Username'
+						value={username}
+						onChange={(e) => setUsername(e.currentTarget.value)}
 					/>
 					<input
-						{...register('password')}
 						className={loginStyles.textBox}
 						type='text'
-						id='Password'
+						id='last'
 						placeholder='Password'
+						value={password}
+						onChange={(e) => setPassword(e.currentTarget.value)}
 					/>
 					<input
-						{...register('email')}
 						className={loginStyles.textBox}
 						type='text'
-						id='email'
+						id='last'
+						value={email}
 						placeholder='EmailAddress'
+						onChange={(e) => setEmail(e.currentTarget.value)}
 					/>
 					<input
-						{...register('nickname')}
 						className={loginStyles.textBox}
 						type='text'
-						id='nickName'
+						id='last'
 						placeholder='Nickname'
+						value={nickname}
+						onChange={(e) => setNickname(e.currentTarget.value)}
 					/>
 					<button className={loginStyles.button} type='submit'>
-						Register
+						Regis
 					</button>
-					<Link href='/login'>
+					{/* <Link href='/login'>
 						<p className={loginStyles.regiseterCommet}>
 							Have Account ? Sign in account
 						</p>
-					</Link>
+					</Link> */}
 				</form>
 			</div>
 			<Footer />

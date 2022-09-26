@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import img from '../pages/photo/AboutUs.png'
 import invoice from '../styles/Invoice.module.css'
 
 interface Props {
@@ -8,26 +7,45 @@ interface Props {
 	status_id: string
 	user_id: string
 	address_id: string
-	totalPrice: any
+	totalPrice: number
 	product: string
 	icon: string
 	color: string
 	size: string
 	number: number
+	single_price: number
+	status:string
 }
 
 export function Invoice(props: Props) {
 	return (
 		<div>
-			<div className={invoice.text}>Product :{props.product}</div>
-			<Image
-				src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
-				width={200}
-				height={200}
-			/>
-			<div className={invoice.text}>Color:{props.color}</div>
-			<div className={invoice.text}>Size:{props.size}</div>
-			<div className={invoice.line}></div>
+			<div className={invoice.centerLine}>
+				<div className={invoice.lineGrey}></div>
+			</div>
+
+			<div className={invoice.invoiceColum}>
+				<div>
+
+				<Image
+					src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
+					width={200}
+					height={200}
+				/>
+				</div>
+
+				<div>
+				<div className={invoice.text}>Product :{props.product}</div>
+					<div className={invoice.text}>
+						
+						Price:{props.single_price}
+					</div>
+					<div className={invoice.text}>Color:{props.color}</div>
+					<div className={invoice.text}>Size:{props.size}</div>
+				</div>
+			
+			</div>
+			<div className={invoice.text}>Status:{props.status}</div>
 		</div>
 	)
 }

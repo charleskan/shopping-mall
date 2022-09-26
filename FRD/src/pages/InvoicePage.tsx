@@ -24,16 +24,17 @@ interface Props {
 	color: string
 	size: string
 	number: number
+	single_price: number
+	status : string
 }
 
 const InvoicePage: NextPage = () => {
 	const [invoices, setInvoice] = useState<Props[]>([])
 	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
-    const [invoiceTotalPrice, setInvoiceTotalPrice] = useState<String>('')
-
+	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
 	async function fetchInvoice() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/Invoice`,
 			{
 				method: 'GET',
 				headers: {
@@ -42,27 +43,24 @@ const InvoicePage: NextPage = () => {
 			}
 		)
 
-        let invoiceInfo = await res.json()
+		let invoiceInfo = await res.json()
 
 		let invoice = invoiceInfo.invoiceRecord
 
-        let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
-        
-        let invociePrice = invoiceInfo.invoiceRecord[0].totalPrice
-        
+		let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+
+		let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
+
 		setInvoice(invoice)
 		setInvoicesNumber(invoiceNumber)
-        setInvoiceTotalPrice(invociePrice)
+		setInvoicesTotalPrice(invoicePrice)
 	}
 	{
 	}
 
 	useEffect(() => {
 		fetchInvoice()
-	}, [setInvoice,setInvoicesNumber,setInvoiceTotalPrice])
-
-
-
+	}, [setInvoice, setInvoicesTotalPrice, setInvoicesNumber])
 
 	return (
 		<div>
@@ -76,16 +74,36 @@ const InvoicePage: NextPage = () => {
 			</Head>
 			<Heading />
 			<Navbar />
-            <div className={invoice.box}>
-			<div className={invoice.invoiceDiv}>
-			
-					<div className={invoice.order}>My Order</div>
-                 
-							<div>{invoiceNumber}</div>
-						
-                    
-					{invoices.map((invoices) => (
 
+			<div className={invoice.pageBox}>
+				<Container>
+					<div>
+						<h1 className={invoice.Title}>Invoice</h1>
+
+						<span className={invoice.page}>Home. Pages.</span>
+						<span className={invoice.nowPage}>Invoice</span>
+					</div>
+				</Container>
+			</div>
+
+			<div className={invoice.box}>
+				<div className={invoice.invoiceDiv}>
+					<div className={invoice.order}>My Order</div>
+					<div className={invoice.texts}>Order Information</div>
+
+					<div className={invoice.text}>
+						Order Number:{invoiceNumber}
+					</div>
+					<div className={invoice.text}>
+						Amount:{invoiceTotalPrice}
+					</div>
+					<div className={invoice.centerLine}>
+						<div className={invoice.line}></div>
+					</div>
+
+					<div className={invoice.texts}>Delivery Status</div>
+
+					{invoices.map((invoices) => (
 						<Invoice
 							id={invoices.id}
 							invoiceNumber={invoices.invoiceNumber}
@@ -97,13 +115,10 @@ const InvoicePage: NextPage = () => {
 							icon={invoices.icon}
 							color={invoices.color}
 							size={invoices.size}
-							number={0}
-						/>
+							number={0} single_price={invoices.single_price} status={invoices.status}						/>
 					))}
-
-                    <div>{invoiceTotalPrice}</div>
+				</div>
 			</div>
-            </div>
 			<Footer />
 		</div>
 	)
