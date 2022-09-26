@@ -9,7 +9,7 @@ import {
 } from "../services/productService";
 
 export class ProductController {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   // -------------------------------------------------------------------------------------------------------------------
   // get All product info
@@ -81,7 +81,7 @@ export class ProductController {
   };
   // -------------------------------------------------------------------------------------------------------------------
   productDetailIcon = async (req: express.Request, res: express.Response) => {
-    const productId= Number(req.query.id);
+    const productId = Number(req.query.id);
     try {
       const productDetailIcon = await this.productService.productDetailIcon(productId);
       return res.json({
@@ -352,7 +352,7 @@ export class ProductController {
             ? String(files.newImage3.newFilename)
             : oldImage3;
 
-        const productInfo  = await this.productService.updateProduct(
+        const productInfo = await this.productService.updateProduct(
           productId,
           newName,
           newBrand,
@@ -394,7 +394,7 @@ export class ProductController {
         let oldStock = productInfos.stock;
         let oldStatus_id = productInfos.status_id;
 
-        const newPrice =  
+        const newPrice =
           fields.newPrice != null && !Array.isArray(fields.newPrice)
             ? Number(fields.newPrice)
             : oldPrice;
@@ -404,13 +404,13 @@ export class ProductController {
             ? Number(fields.newStock)
             : oldStock;
 
-        const newStatus_id =  
+        const newStatus_id =
           fields.newStatus_id != null && !Array.isArray(fields.newStatus_id)
             ? Number(fields.newStatus_id)
             : oldStatus_id;
 
-        const productInfo  = await this.productService.updateProductDetail(
-          productDetailId,  
+        const productInfo = await this.productService.updateProductDetail(
+          productDetailId,
           newPrice,
           newStock,
           newStatus_id
@@ -438,8 +438,8 @@ export class ProductController {
     form.parse(req, async (err, fields, files) => {
       try {
         const name = fields.name != null && !Array.isArray(fields.name)
-            ? fields.name
-            : err;
+          ? fields.name
+          : err;
 
         const promotionInfo = await this.productService.createPromotion(name);
         return res.json({
@@ -526,18 +526,18 @@ export class ProductController {
   // -------------------------------------------------------------------------------------------------------------------
   // Delete Promotion By Id 🤗
   // -------------------------------------------------------------------------------------------------------------------
-  
+
   deletePromotionDetail = async (req: express.Request, res: express.Response) => {
     form.parse(req, async (err, fields, files) => {
-    try {
-      const promotionDetailId = Number(req.params.id);
-      await this.productService.deletePromotionDetail(promotionDetailId);
-      return res.json({ result: true, msg: "Delete PromotionDetail success" });
-    } catch (err) {
-      logger.error(err);
-      return res.json({ result: false, msg: "Delete PromotionDetail fail" });
-    }
-  });
+      try {
+        const promotionDetailId = Number(req.params.id);
+        await this.productService.deletePromotionDetail(promotionDetailId);
+        return res.json({ result: true, msg: "Delete PromotionDetail success" });
+      } catch (err) {
+        logger.error(err);
+        return res.json({ result: false, msg: "Delete PromotionDetail fail" });
+      }
+    });
   };
 
 
@@ -575,7 +575,7 @@ export class ProductController {
     req: express.Request,
     res: express.Response
   ) => {
-    
+
     try {
       const product_id = Number(req.params.id);
       const productDetail = await this.productService.productDetailByProductId(
@@ -607,48 +607,48 @@ export class ProductController {
     res: express.Response
   ) => {
     form.parse(req, async (err, fields) => {
-    try {
-      const product_id = Number(req.query.id);
-      const productColor = String(req.query.color);
-      const productSize = String(req.query.size);
+      try {
+        const product_id = Number(req.query.id);
+        const productColor = String(req.query.color);
+        const productSize = String(req.query.size);
 
-      console.log(
-        'product_id: ',product_id, 
-        'productColor: ',productColor, 
-        'productSize: ',productSize
+        console.log(
+          'product_id: ', product_id,
+          'productColor: ', productColor,
+          'productSize: ', productSize
         );
-      
 
 
 
-      const productDetail = await this.productService.productDetailByColorAndSize(
-        product_id,
-        productColor,
-        productSize
-      );
+
+        const productDetail = await this.productService.productDetailByColorAndSize(
+          product_id,
+          productColor,
+          productSize
+        );
 
 
-      const productDetailId = productDetail.productDetailId.rows[0].id
-      const productPrice = productDetail.productPrice.rows[0].price;
-      const productStock = productDetail.productStock.rows[0].stock;
+        const productDetailId = productDetail.productDetailId.rows[0].id
+        const productPrice = productDetail.productPrice.rows[0].price;
+        const productStock = productDetail.productStock.rows[0].stock;
 
 
-      // console.log(productId)
-      return res.json({
-        result: true,
-        msg: "Search ProductDetail  by ColorAndSize success",
-        productDetailId,
-        productPrice,
-        productStock
-      });
-    } catch (err) {
-      logger.error(err);
-      return res.json({
-        result: false,
-        msg: "Search ProductDetail  by ColorAndSize Fail",
-      });
-    }
-  });
+        // console.log(productId)
+        return res.json({
+          result: true,
+          msg: "Search ProductDetail  by ColorAndSize success",
+          productDetailId,
+          productPrice,
+          productStock
+        });
+      } catch (err) {
+        logger.error(err);
+        return res.json({
+          result: false,
+          msg: "Search ProductDetail  by ColorAndSize Fail",
+        });
+      }
+    });
   };
 
   // -------------------------------------------------------------------------------------------------------------------

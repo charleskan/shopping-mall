@@ -31,10 +31,10 @@ export class ProductService {
 
   async allProductInfo() {
     {
-      const ProductList = await this.knex<Product>("product").select("*");
-      // `SELECT * FROM product INNER JOIN product_color pc ON
-      // product.id = pc.product_id`
-
+      const ProductList = await this.knex<Product>("product")
+      .select("*")
+      .orderBy("id", "desc");
+      
       return ProductList;
     }
   }
