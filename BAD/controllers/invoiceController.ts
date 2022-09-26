@@ -256,12 +256,30 @@ export class InvoiceController {
             const freebieDetails = await this.invoiceService.checkFreebieInCart(invoiceId)
 
             const freebieIds = freebieDetails.rows
+
+            // console.log('freebieIds: ', freebieIds)
+            
             
             let freebieArray=[]
             for(let freebieId of freebieIds){
-            const freebie=await this.invoiceService.getFreebieProductDetail(freebieId.freebie_id)
-            freebieArray.push(freebie)
-          }
+                const freebie = await this.invoiceService.getFreebieProductDetail(freebieId.freebie_id)
+
+                freebie["number"] = freebieId.number_of_freebie
+
+               
+                
+                
+                freebieArray.push(freebie)
+            }
+            
+            
+            //   freebieArray.push(freebieIds[0].number_of_freebie)
+
+              console.log('freebieArray: ', freebieArray);
+
+            //   console.log('FreeBieNUmber: ', freebieArray[1]);
+              
+            
 
 // freebieId.forEach(async (freebieId: any) => {
 //                 const freebie = await this.invoiceService.getFreebieProductDetail(freebieIds.freebie_id)
@@ -271,7 +289,7 @@ export class InvoiceController {
 //                 // console.log('freebies inside: ', freebieArray)
 //             });
 
-            console.log('freebies: ', freebieArray)
+            // console.log('freebies: ', freebieArray)
             // console.log('freebieDetails: ', freebieId)
 
             // const freebieList = await this.invoiceService.getFreebieProductDetail(freebieId)

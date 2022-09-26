@@ -17,6 +17,21 @@ import Link from 'next/link'
 import { PrintDisabled } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import Checkout from '../components/Checkout'
+import FreebieItem from '../components/FreebieItem'
+
+interface product {
+
+	product_name: string;
+	icon: string;
+	color_name: string;
+	size_name: string;
+	number: number;
+	tc_price: number;
+}
+
+interface freebieArray {
+
+}
 
 
 const Cart: NextPage = () => {
@@ -33,6 +48,44 @@ const Cart: NextPage = () => {
 
 		return total;
 	}, [carts])
+
+
+	const [freebie, setFreebie] = useState<product[]>([])
+	const [freebieArray, setFreebieArray] = useState([])
+
+	async function fetchFreebie() {
+		let res = await fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/freebie`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem('token')}`
+				}
+			})
+
+		
+		let freebie = await res.json()
+
+		
+		console.log('freebie:', freebie)
+		
+		setFreebie(freebie)
+		setFreebieArray(freebie)
+	} { }
+
+	function loopFreebie(){
+	for (let i = 0; i < freebie.length; i++) {
+
+		const loopFreebie = freebie[i]
+		return loopFreebie
+
+	}
+	}
+	
+	
+	useEffect(() => {
+		dispatch(loadCart())
+		fetchFreebie()
+	}, [setFreebie,totalPrice])
 
 
 	const router = useRouter()
@@ -68,47 +121,74 @@ const Cart: NextPage = () => {
 			<Container>
 				<div className={cart.box}>
 					<div>
-						
-						{cartLoaded !== LoadingState.Loaded ?
-							<Skeleton baseColor='#E02310' height={30} /> :
-							carts.length > 0 ? carts.map(productInCart =>
+
+						{
+							cartLoaded !== LoadingState.Loaded ?
+								<Skeleton baseColor='#E02310' height={30} /> :
+								carts.length > 0 ? carts.map(productInCart =>
 
 
-								<CartItem
-									key={productInCart.id}
-									product={productInCart.product}
-									icon={productInCart.icon}
-									color={productInCart.color}
-									size={productInCart.size}
-									tc_number={productInCart.tc_number}
-									tc_price={productInCart.tc_price}
+									<CartItem
+										key={productInCart.id}
+										product={productInCart.product}
+										icon={productInCart.icon}
+										color={productInCart.color}
+										size={productInCart.size}
+										tc_number={productInCart.tc_number}
+										tc_price={productInCart.tc_price}
 
-									onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id)) }
-									onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
-									onAddToCart={() => dispatch(fetchAddToCart(productInCart.id)) }
+										onMinusFromCart={() => dispatch(fetchMinusFromCart(productInCart.id))}
+										onRemoveFromCart={() => dispatch(fetchRemoveFromCart(productInCart.id))}
+										onAddToCart={() => dispatch(fetchAddToCart(productInCart.id))}
 
-								/>
+									/>
 
-							)
-							: <div className={cart.empty}>Cart is empty</div>
-							
+								)
+
+									: <div className={cart.empty}>Cart is empty</div>
+
 						}
-						
-						</div>
-					
+
+						{
+							
+								
+							cartLoaded !== LoadingState.Loaded ?
+								<Skeleton baseColor='#E02310' height={30} /> :
+								freebie.length > 0 ?
+								
+									freebie.map((item) => (
+										<FreebieItem
+											product={item.product_name}
+											icon={item.icon}
+											color={item.color_name}
+											size={item.size_name}
+											tc_number={item.number}
+											tc_price={item.tc_price}
+
+										/>
+									))
+									: <div>test</div>
+
+
+						}
+
+
+
+					</div>
+
 					{cartLoaded !== LoadingState.Loaded ?
 						<Skeleton circle borderRadius={50} /> :
 						<div className={cart.totalBox} >
 							<div className={cart.totalPriceDiv} >
 								<div>Total:</div>
 								<div className={cart.totalPrice}>{totalPrice}</div>
-								
+
 							</div>
 
-							<Checkout/>
+							<Checkout />
 						</div>
 
-				}
+					}
 				</div>
 
 			</Container>
