@@ -33,6 +33,36 @@ export const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
 })
 // -------------------------------------------------------------------------------------------------------------------
 
+//DEAD CODE// -------------------------------------------------------------------------------------------------------------------
+export const invoiceMiddleware = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+	try {
+
+		const userId = req.user!.userId
+
+		const invoice = await invoiceService.getInvoiceByUserId(userId) //test after create invoice is done
+
+		console.log("invoice:", invoice[0].id);
+
+		if (invoice[0].status_id == Status.Paid) {
+			const newInvoice = await invoiceService.createInvoice(Status.Unpaid, userId, Address.Default)
+			console.log("newInvoice:", newInvoice);
+
+			req.user = {
+				userId: userId,
+				invoiceId: newInvoice[0].id,
+			}
+			next()
+		}
+			
+		
+	} catch (err) {
+
+		next()
+	}
+}
+
+//DEAD CODE//// ^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------------
+
 
 export const userMiddleware = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
@@ -46,6 +76,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 				audience: process.env.JWT_AUDIENCE!,
 			})
 		// console.log(payload)
+
 
 		req.user = {
 			userId: payload.userId as any,
@@ -70,7 +101,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 
 		const invoice = await invoiceService.createInvoice(status_id, userId, addressId)
 
-		
+
 		const payload = {
 			userId: userId,
 			invoiceId: invoice[0].id,
@@ -79,7 +110,7 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 			userId: userId,
 			invoiceId: invoice[0].id,
 		}
-		
+
 		const token = await new jose.SignJWT(payload) // details to  encode in the token
 			.setProtectedHeader({ alg: 'HS256' }) // algorithm
 			.setIssuedAt()
@@ -98,43 +129,43 @@ export const userMiddleware = async (req: express.Request, res: express.Response
 }
 
 
-	// class User extends AdminGroup {
+// class User extends AdminGroup {
 
-	// }
+// }
 
-	// req.session["user"] = {
-	// 	id: 1,
+// req.session["user"] = {
+// 	id: 1,
 
-	// 	check(functionID) : boolean {
+// 	check(functionID) : boolean {
 
-	// 	}
-	// }
+// 	}
+// }
 
-	// -------------------------------------------------------------------------------------------------------------------
-	// check if the user is Admin
-	// -------------------------------------------------------------------------------------------------------------------
-	export const isAdmin = (roleId: number) => {
-		if (roleId == Role.Admin) {
-			return true
-		} else {
-			return false
-		}
+// -------------------------------------------------------------------------------------------------------------------
+// check if the user is Admin
+// -------------------------------------------------------------------------------------------------------------------
+export const isAdmin = (roleId: number) => {
+	if (roleId == Role.Admin) {
+		return true
+	} else {
+		return false
 	}
+}
 
-	// -------------------------------------------------------------------------------------------------------------------
-	// formidable (upload dir will be opened if it doesn't exist)
-	// -------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------
+// formidable (upload dir will be opened if it doesn't exist)
+// -------------------------------------------------------------------------------------------------------------------
 
-	const uploadDir = 'uploads'
-	if (!fs.existsSync(uploadDir)) {
-		fs.mkdirSync('uploads', { recursive: true })
-	}
+const uploadDir = 'uploads'
+if (!fs.existsSync(uploadDir)) {
+	fs.mkdirSync('uploads', { recursive: true })
+}
 
-	export const form = formidable({
-		uploadDir: uploadDir,
-		keepExtensions: true,
-		multiples: true,
-		maxFiles: 1,
-		maxFileSize: 20 * 1024 * 1024 ** 2, // 20MB
-		filter: (part) => part.mimetype?.startsWith('image/') || false
-	})
+export const form = formidable({
+	uploadDir: uploadDir,
+	keepExtensions: true,
+	multiples: true,
+	maxFiles: 1,
+	maxFileSize: 20 * 1024 * 1024 ** 2, // 20MB
+	filter: (part) => part.mimetype?.startsWith('image/') || false
+})

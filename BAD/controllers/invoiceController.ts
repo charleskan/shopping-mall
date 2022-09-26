@@ -255,6 +255,11 @@ export class InvoiceController {
             const invoiceId = req.user!.invoiceId
             const freebieDetails = await this.invoiceService.checkFreebieInCart(invoiceId)
 
+            console.log('freebieDetails: ', freebieDetails)
+
+
+
+
             return res.json({
                 result: true,
                 freebieDetails,

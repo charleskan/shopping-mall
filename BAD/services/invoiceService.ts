@@ -124,6 +124,9 @@ export class InvoiceService {
                 .select('*')
                 .where('user_id', userId)
 
+                console.log('invoiceRecord: ',invoiceRecord);
+                
+
                 
             return invoiceRecord
         }
@@ -634,9 +637,29 @@ export class InvoiceService {
                 .raw
                 (/* SQL */
                     `
-                    select *
-                    from "productDetail" 
-                    where "id" = ?
+                    select 
+                    pd.id as product_id,
+                    p.name as product_name,
+                    c.id as color_id,
+                    c."name" as color_name,
+					s.id as size_id,
+                    s.name as size_name,
+                    price as product_price,
+                    stock,
+                    s2.id as status_id,
+                    s2.name as status_name,
+                    icon,
+                    description
+                    
+                    from 
+                    ((("productDetail" pd 
+                    inner join product p on p.id = pd.product_id)
+                    inner join color c on c.id = pd.color_id)
+                    inner join "size" s on s.id = pd.size_id )
+                    inner join status s2 on s2.id = pd.status_id 
+                    
+                    where pd.id = ?                    
+                    order by product_id desc
                     `
                     , [productDetailId]
                 )
