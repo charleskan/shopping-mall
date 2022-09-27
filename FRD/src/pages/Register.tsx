@@ -72,11 +72,11 @@ const Register: NextPage = () => {
 							router.push('/login')
 						} else if (res.status === 401) {
 							router.push('/login')
-						} else if (res.status === 404) {
-							setError('Not Firm you')
+						} else if (res.status === 500) {
+							setError('Name or Email already exists')
 						}
 					}}>
-					{error}
+					<div>{error}</div>
 					<div className={loginStyles.loginWork}>Register</div>
 					<div className={loginStyles.loginCommet}>
 						Create your Account
