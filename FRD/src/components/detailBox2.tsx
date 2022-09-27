@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import detail from '../styles/detailBox.module.css'
 
+
+
+
 interface Props {
 	id: number
 	name: string

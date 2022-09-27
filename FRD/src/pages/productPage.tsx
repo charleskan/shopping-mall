@@ -9,6 +9,7 @@ import ProductList from '../components/ProductList'
 import product from '../styles/Product.module.css'
 import { useEffect, useState } from 'react'
 import { log } from 'console'
+import { PaginatedItems } from '../components/user/pagination'
 
 interface product {
 	id: number
@@ -20,11 +21,14 @@ interface product {
 const productPage: NextPage = () => {
 	const [products, setProduct] = useState<product[]>([])
 
+
+	const items = products
+
 	async function fetchProduct() {
 		let res = await fetch(
 			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
 		)
-		let product = (await res.json()).allProductInfo
+		let product: Array<{id : number,name:string,icon:string,description:string}>= (await res.json()).allProductInfo
 		setProduct(product)
 		console.log(product)
 	}
@@ -65,6 +69,8 @@ const productPage: NextPage = () => {
 						icon={product.icon}
 					/>
 				))}
+				
+			
 			</Container>
 		</>
 	)

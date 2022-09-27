@@ -48,7 +48,7 @@ export function Heading() {
 			</div>
 			<div className={heading.center}>
 				
-				{username !== 'admin' ? (
+				{username == 'visitor'||undefined ? (
 					<Link href='/login'>
 						<button className={heading.a}>
 							<LoginIcon className={heading.imageICon} />
