@@ -75,7 +75,7 @@ export function Heading() {
 				</div>
 			</div>
 			<div className={heading.sidebarButton}>
-		 <Sidebar/>
+			{username == 'admin'||undefined ? <Sidebar/> : <div></div>}
 		</div>
 		</div>
 
