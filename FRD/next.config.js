@@ -4,7 +4,7 @@ const nextConfig = {
 	swcMinify: false,
 	images: {
 		domains: [
-			'https://api.hibuysomemall.me/']
+			'https://api.hibuysomemall.me']
 	},
 	// async rewrites() {
 	// 	return [
