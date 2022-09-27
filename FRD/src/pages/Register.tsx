@@ -73,10 +73,10 @@ const Register: NextPage = () => {
 						} else if (res.status === 401) {
 							router.push('/login')
 						} else if (res.status === 500) {
-							setError('Name or Email already exists')
+							setError('! Name or Email already exists !')
 						}
 					}}>
-					<div>{error}</div>
+				
 					<div className={loginStyles.loginWork}>Register</div>
 					<div className={loginStyles.loginCommet}>
 						Create your Account
@@ -113,6 +113,8 @@ const Register: NextPage = () => {
 						value={nickname}
 						onChange={(e) => setNickname(e.currentTarget.value)}
 					/>
+
+<div className={loginStyles.error}>{error}</div>
 					<button className={loginStyles.button} type='submit'>
 						Regis
 					</button>
