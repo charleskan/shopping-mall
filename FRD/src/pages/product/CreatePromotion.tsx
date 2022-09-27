@@ -102,6 +102,7 @@ const CreatePromotion: NextPage = () => {
 						}
 					)
 					if (res.status === 200) {
+						alert('success')
 					}
 				})}>
 

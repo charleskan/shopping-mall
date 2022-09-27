@@ -52,7 +52,6 @@ export  function SearchProductDetail(props: keyword) {
 			<div className={serach.productName}>Name:{props.name}</div>
 			<div className={serach.productName}>Color:{props.color}</div>
 			<div className={serach.productName}>Size:{props.size}</div>
-			<div className={serach.productName}>Price:{props.price}</div>
 			<div className={serach.productName}>Stock:{props.stock}</div>
 		</div>
 	)

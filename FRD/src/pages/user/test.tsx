@@ -8,6 +8,7 @@ import { HeadTitle } from '../../components/HeadTitle'
 import { Navbar } from '../../components/Navbar'
 import ProductList from '../../components/ProductList'
 
+
 // import {PaginatedItems} from '../../components/user/pagination'
 
 
@@ -125,6 +126,8 @@ const Pagination: NextPage = () => {
 				previousLabel='< previous'
 				//   renderOnZeroPageCount={null}
 			/>
+
+			
 
 			<Navbar />
 			<Footer />

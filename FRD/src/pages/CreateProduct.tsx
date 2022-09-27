@@ -41,6 +41,7 @@ const CreateProduct: NextPage = () => {
 		console.log(product)
 		setProduct(product)
 	}
+	
 
 	useEffect(() => {
 		fetchSearchProduct(keyword)
