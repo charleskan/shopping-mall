@@ -43,7 +43,6 @@ export default function ProductList(props: props) {
 
 				<div>
 					<h4>{props.name}</h4>
-					<h5>Product Price</h5>
 					<p>{props.description}</p>
 					<GotoProductDetail 
 						id={props.id}
