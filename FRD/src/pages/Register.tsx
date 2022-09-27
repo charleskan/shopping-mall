@@ -70,7 +70,7 @@ const Register: NextPage = () => {
 						)
 						if (res.status === 200) {
 							router.push('/login')
-						} else if (res.status === 400) {
+						} else if (res.status === 401) {
 							router.push('/login')
 						} else if (res.status === 404) {
 							setError('Not Firm you')
