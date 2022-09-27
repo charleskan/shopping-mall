@@ -10,33 +10,84 @@ import product from '../styles/Product.module.css'
 import { useEffect, useState } from 'react'
 import { log } from 'console'
 import { PaginatedItems } from '../components/user/pagination'
+import ReactPaginate from 'react-paginate'
 
-interface product {
+
+interface items {
+
+    id: number
+	name: string
+	description: string
+	icon: string
+	image1: string
+	image2: string
+	image3: string
+	status_id: number
+	brand_id: number
+	created_at: string
+	updated_at: string
+
+}
+interface currentItems {
 	id: number
 	name: string
-	icon: string
 	description: string
+	icon: string
+	image1: string
+	image2: string
+	image3: string
+	status_id: number
+	brand_id: number
+	created_at: string
+	updated_at: string
 }
 
 const productPage: NextPage = () => {
-	const [products, setProduct] = useState<product[]>([])
-
-
-	const items = products
+	const [items, setItems] = useState<items[]>([])
 
 	async function fetchProduct() {
 		let res = await fetch(
 			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
 		)
-		let product: Array<{id : number,name:string,icon:string,description:string}>= (await res.json()).allProductInfo
-		setProduct(product)
-		console.log(product)
+		let items = (await res.json()).allProductInfo
+
+        setItems(items)
+        
+        console.log(items);
+        
 	}
 
+    useEffect(() => {
+		fetchProduct()
+	}, [setItems])
+
+	const [currentItems, setCurrentItems] = useState<currentItems[]>([])
+
+	const [pageCount, setPageCount] = useState(0)
+
+	const [itemOffset, setItemOffset] = useState(0)
 
 	useEffect(() => {
-		fetchProduct()
-	}, [setProduct])
+		// Fetch items from another resources.
+		const endOffset = itemOffset + 5
+		console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+		let currentItems = items.slice(itemOffset, endOffset)
+
+        console.log(currentItems);
+    
+        
+
+		setCurrentItems(currentItems)
+		setPageCount(Math.ceil(items.length / 5))
+	}, [itemOffset,items])
+
+	const handlePageClick = (event: any) => {
+		const newOffset = (event.selected * 5) % items.length
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`
+		)
+		setItemOffset(newOffset)
+	}
 
 	return (
 		<>
@@ -55,13 +106,8 @@ const productPage: NextPage = () => {
 				</Container>
 			</div>
 			<Container>
-				{/* <Container maxWidth='lg'>
-			<Grid container spacing={2}>
-				<Grid xs={4}>
-				<SlideFilter />
-				</Grid>
-				<Grid xs={8}> */}
-				{products.map((product) => (
+			{/* <Items currentItems={currentItems} itemsPerPage={3} /> */}
+            {currentItems.map((product) => (
 					<ProductList
 						id={product.id}
 						name={product.name}
@@ -69,6 +115,21 @@ const productPage: NextPage = () => {
 						icon={product.icon}
 					/>
 				))}
+			<ReactPaginate
+			 className={product.pagination}
+				breakLabel='...'
+				nextLabel='next >'
+				onPageChange={handlePageClick}
+				pageRangeDisplayed={5}
+				pageCount={pageCount}
+// 				previousLabel='< previous'
+// 				containerClassName={'pagination'}
+// 				pageClassName={'page-item'}
+// pageLinkClassName={'page-link'}
+// nextClassName={'page-item'}
+// nextLinkClassName={'page-link'}
+				//   renderOnZeroPageCount={null}
+			/>
 				
 			
 			</Container>

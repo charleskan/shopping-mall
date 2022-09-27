@@ -28,7 +28,7 @@ interface Props {
 	size: string
 	number: number
 	single_price: number
-	status : string
+	status: string
 }
 
 const InvoicePage: NextPage = () => {
@@ -37,7 +37,7 @@ const InvoicePage: NextPage = () => {
 	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
 
 	const dispatch = useAppDispatch()
-	const cartLoaded = useAppSelector(state => state.cart.loading)
+	const cartLoaded = useAppSelector((state) => state.cart.loading)
 
 	async function fetchInvoice() {
 		let res = await fetch(
@@ -51,30 +51,24 @@ const InvoicePage: NextPage = () => {
 		)
 
 		let invoiceInfo = await res.json()
-		
-		console.log('invoiceInfo: ',invoiceInfo);
-		
-		
+
+		console.log('invoiceInfo: ', invoiceInfo)
 
 		let invoice = invoiceInfo.invoiceRecord
-		
 
-	
-			// let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
-			// let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
+		// let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+		// let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
 
-			if (invoice.length > 0) {
+		if (invoice.length > 0) {
 			setInvoice(invoice)
 			setInvoicesNumber(invoiceInfo.invoiceRecord[0].invoiceNumber)
 			setInvoicesTotalPrice(invoiceInfo.invoiceRecord[0].totalPrice)
-			}
 		}
-		
-		useEffect(() => {
-			fetchInvoice()
+	}
+
+	useEffect(() => {
+		fetchInvoice()
 	}, [cartLoaded])
-
-
 
 	return (
 		<div>
@@ -123,13 +117,16 @@ const InvoicePage: NextPage = () => {
 							invoiceNumber={invoices.invoiceNumber}
 							status_id={invoices.status_id}
 							user_id={invoices.user_id}
-							address={invoices.address}
 							totalPrice={invoices.totalPrice}
 							product={invoices.product}
 							icon={invoices.icon}
 							color={invoices.color}
 							size={invoices.size}
-							number={0} single_price={invoices.single_price} status={invoices.status}						/>
+							number={0}
+							single_price={invoices.single_price}
+							status={invoices.status}
+							address_id={invoices.address}
+						/>
 					))}
 				</div>
 			</div>

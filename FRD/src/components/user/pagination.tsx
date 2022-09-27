@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
+import product from '../styles/Product.module.css'
 
 interface Props {
 	currentItems: any
@@ -115,7 +116,7 @@ export function PaginatedItems({ itemsPerPage }: Props) {
 	return (
 		<>
 			<Items currentItems={currentItems} itemsPerPage={null} />
-			<ReactPaginate
+			<ReactPaginate 
 				breakLabel='...'
 				nextLabel='next >'
 				onPageChange={handlePageClick}

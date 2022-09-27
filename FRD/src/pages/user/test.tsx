@@ -56,11 +56,7 @@ const Pagination: NextPage = () => {
 	//     )
 	// }
 
-<<<<<<< HEAD
-    const [products, setProduct] = useState<product[]>([])
-=======
      const [items, setItems] = useState<items[]>([])
->>>>>>> 90d56eebc00b3bfd25feaf75279e317ebcd79abb
 
 	async function fetchProduct() {
 		let res = await fetch(
