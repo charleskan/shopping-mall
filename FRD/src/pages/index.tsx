@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer'
 import { Heading } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import { ProductCard } from '../components/ProductCard'
-import { ProductBigCard } from '../components/ProductBigCard'
+
 import img from '../pages/photo/banner.png'
 import styles from '../styles/Home.module.css'
 import { Container, Pagination, } from '@mui/material'

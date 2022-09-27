@@ -44,6 +44,7 @@ const ProductDetails: NextPage = () => {
 			<Navbar />
 			{product.map((product) => (
 			<DetailBox2
+				key={product.id}
 				id={product.id}
 				name={product.name}
 				icon={product.icon}

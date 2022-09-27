@@ -12,6 +12,7 @@ import React from 'react'
 import { ProductInCart } from '../redux/cart/state'
 
 interface Props {
+    
     product: string;
     icon: string;
     color: string;

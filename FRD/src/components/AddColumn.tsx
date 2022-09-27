@@ -85,7 +85,8 @@ export function AddColumn() {
 				    className={create.inputs}
 					{...register('color_id', { required: true })}>
 				{colors.map((colors:Color) => (		
-					<AddColor 
+					<AddColor
+					key={colors.id}
 					id={colors.id}
 					name={colors.name}
 					/>
@@ -96,6 +97,7 @@ export function AddColumn() {
 					{...register('size_id', { required: true })}>
 				{sizes.map((sizes:Size) => (		
 					<AddSize
+					key={sizes.id}
 					id={sizes.id}
 					name={sizes.name}
 					/>

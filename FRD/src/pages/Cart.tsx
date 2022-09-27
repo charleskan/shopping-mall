@@ -21,6 +21,7 @@ import FreebieItem from '../components/FreebieItem'
 
 interface product {
 
+	product_id: number,
 	product_name: string;
 	icon: string;
 	color_name: string;
@@ -153,8 +154,9 @@ const Cart: NextPage = () => {
 								<Skeleton baseColor='#E02310' height={30} /> :
 								freebie.length > 0 ?
 								
-									freebie.map((item) => (
+									freebie.map((item,index) => (
 										<FreebieItem
+											key={item.product_id}
 											product={item.product_name}
 											icon={item.icon}
 											color={item.color_name}
