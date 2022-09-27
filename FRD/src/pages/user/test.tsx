@@ -7,16 +7,48 @@ import { Heading } from '../../components/Heading'
 import { HeadTitle } from '../../components/HeadTitle'
 import { Navbar } from '../../components/Navbar'
 
-import {PaginatedItems} from '../../components/user/pagination'
+import {List} from '../../components/user/pagination'
 
 
+interface product {
+	id: number
+	name: string
+	icon: string
+	description: string
+  currentItems: any
+  itemsPerPage: any
+}
 
 
 const Pagination: NextPage = () => {
 
+    const [products, setProduct] = useState<product[]>([])
 
 
-    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+    // async function fetchProduct() {
+    //   let res = await fetch(
+    //     `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`
+    //   )
+    //   let product: Array<{id : number,name:string,icon:string,description:string,	currentItems: any, itemsPerPage: any}>= (await res.json()).allProductInfo
+    //   setProduct(product)
+    //   console.log(product)
+    // }
+    
+    
+    // useEffect(() => {
+    //   fetchProduct()
+    // }, [setProduct])
+
+
+    useEffect(()=>{
+        fetch(`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/allProductInfo`).then(
+            response => response.json().then(data=>{
+                setProduct(data)
+            })
+        )
+    })
+
 
 
 
@@ -27,7 +59,7 @@ const Pagination: NextPage = () => {
             <Heading />
 
 
-            <PaginatedItems itemsPerPage={3} currentItems={null}/>
+            <List itemsPerPage={3} currentItems={null} id={0} name={''} icon={''} description={''}/>
 
 
             <Navbar />

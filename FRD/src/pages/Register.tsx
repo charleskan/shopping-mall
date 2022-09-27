@@ -71,7 +71,7 @@ const Register: NextPage = () => {
 						if (res.status === 200) {
 							router.push('/login')
 						} else if (res.status === 400) {
-							setError('Password Error')
+							router.push('/login')
 						} else if (res.status === 404) {
 							setError('Not Firm you')
 						}
@@ -116,11 +116,11 @@ const Register: NextPage = () => {
 					<button className={loginStyles.button} type='submit'>
 						Regis
 					</button>
-					{/* <Link href='/login'>
+					<Link href='/login'>
 						<p className={loginStyles.regiseterCommet}>
 							Have Account ? Sign in account
 						</p>
-					</Link> */}
+					</Link>
 				</form>
 			</div>
 			<Footer />
