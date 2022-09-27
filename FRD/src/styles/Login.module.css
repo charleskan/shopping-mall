@@ -86,3 +86,8 @@ margin: 20px;
     color: gray;
 }
 
+.error{
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
+}
