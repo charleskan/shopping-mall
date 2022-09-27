@@ -12,14 +12,7 @@ const nextConfig = {
 			'https://hibuysomemall.me',
 			'hibuysomemall.me',]
 	},
-	async rewrites() {
-		return [
-			{
-				source: '/api/:path*',
-				destination: 'https://api.hibuysomemall.me/:path*',
-			},
-		]
-	},
+
 }
 
 module.exports = nextConfig
