@@ -14,7 +14,6 @@ interface Props {
 	size: string
 	number: number
 	single_price: number
-	status:string
 }
 
 export function Invoice(props: Props) {
@@ -45,7 +44,7 @@ export function Invoice(props: Props) {
 				</div>
 			
 			</div>
-			<div className={invoice.text}>Status:{props.status}</div>
+			
 		</div>
 	)
 }
