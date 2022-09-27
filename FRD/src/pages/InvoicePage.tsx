@@ -11,13 +11,16 @@ import errorImage from './error.png'
 import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
 import { Invoice } from '../components/Receipt'
+import { LoadingState } from '../models'
+import Skeleton from 'react-loading-skeleton'
+import { useAppDispatch, useAppSelector } from '../store'
 
 interface Props {
 	id: number
 	invoiceNumber: string
 	status_id: string
 	user_id: string
-	address_id: string
+	address: string
 	totalPrice: number
 	product: string
 	icon: string
@@ -32,9 +35,13 @@ const InvoicePage: NextPage = () => {
 	const [invoices, setInvoice] = useState<Props[]>([])
 	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
 	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
+
+	const dispatch = useAppDispatch()
+	const cartLoaded = useAppSelector(state => state.cart.loading)
+
 	async function fetchInvoice() {
 		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/Invoice`,
+			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/invoice`,
 			{
 				method: 'GET',
 				headers: {
@@ -44,23 +51,30 @@ const InvoicePage: NextPage = () => {
 		)
 
 		let invoiceInfo = await res.json()
+		
+		console.log('invoiceInfo: ',invoiceInfo);
+		
+		
 
 		let invoice = invoiceInfo.invoiceRecord
+		
 
-		let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+	
+			// let invoiceNumber = invoiceInfo.invoiceRecord[0].invoiceNumber
+			// let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
 
-		let invoicePrice = invoiceInfo.invoiceRecord[0].totalPrice
+			if (invoice.length > 0) {
+			setInvoice(invoice)
+			setInvoicesNumber(invoiceInfo.invoiceRecord[0].invoiceNumber)
+			setInvoicesTotalPrice(invoiceInfo.invoiceRecord[0].totalPrice)
+			}
+		}
+		
+		useEffect(() => {
+			fetchInvoice()
+	}, [cartLoaded])
 
-		setInvoice(invoice)
-		setInvoicesNumber(invoiceNumber)
-		setInvoicesTotalPrice(invoicePrice)
-	}
-	{
-	}
 
-	useEffect(() => {
-		fetchInvoice()
-	}, [setInvoice, setInvoicesTotalPrice, setInvoicesNumber])
 
 	return (
 		<div>
@@ -109,7 +123,7 @@ const InvoicePage: NextPage = () => {
 							invoiceNumber={invoices.invoiceNumber}
 							status_id={invoices.status_id}
 							user_id={invoices.user_id}
-							address_id={invoices.address_id}
+							address={invoices.address}
 							totalPrice={invoices.totalPrice}
 							product={invoices.product}
 							icon={invoices.icon}
