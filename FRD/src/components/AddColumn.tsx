@@ -72,6 +72,7 @@ export function AddColumn() {
 						}
 					)
 					if (res.status === 200) {
+						alert('success')
 					}
 				})}>
 				<div className={create.title}>Add the Color And Size</div>

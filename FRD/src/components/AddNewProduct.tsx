@@ -35,6 +35,7 @@ export function AddProduct() {
 						}
 					)
 					if (res.status === 200) {
+						alert('success')
 					}
 				})}>
 				<div className={create.title}>Create New Product</div>
