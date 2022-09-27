@@ -35,6 +35,7 @@ const InvoicePage: NextPage = () => {
 	const [invoices, setInvoice] = useState<Props[]>([])
 	const [invoiceNumber, setInvoicesNumber] = useState<String>('')
 	const [invoiceTotalPrice, setInvoicesTotalPrice] = useState<String>('')
+	const [invoiceStatus, setInvoicesStatus] = useState<String>('')
 
 	const dispatch = useAppDispatch()
 	const cartLoaded = useAppSelector((state) => state.cart.loading)
@@ -63,6 +64,7 @@ const InvoicePage: NextPage = () => {
 			setInvoice(invoice)
 			setInvoicesNumber(invoiceInfo.invoiceRecord[0].invoiceNumber)
 			setInvoicesTotalPrice(invoiceInfo.invoiceRecord[0].totalPrice)
+			setInvoicesStatus(invoiceInfo.invoiceRecord[0].state)
 		}
 	}
 
@@ -109,7 +111,7 @@ const InvoicePage: NextPage = () => {
 						<div className={invoice.line}></div>
 					</div>
 
-					<div className={invoice.texts}>Status:{invoice.status}</div>
+					<div className={invoice.texts}>Status:{invoiceStatus}</div>
 
 					{invoices.map((invoices) => (
 						<Invoice

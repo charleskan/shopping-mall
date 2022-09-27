@@ -19,7 +19,10 @@ export function loggedIn() {
 
 export function loggedOut() {
 	return {
-		type: '@@auth/LOGGED_OUT' as const
+		type: '@@auth/LOGGED_OUT' as const,
+		token: localStorage.removeItem('token'),
+		username: localStorage.removeItem('username')
+		
 	}
 }
 
