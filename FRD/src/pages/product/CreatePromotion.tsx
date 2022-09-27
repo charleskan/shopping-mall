@@ -68,6 +68,7 @@ const CreatePromotion: NextPage = () => {
 				/>
 				{product.map((product: searchProduct) => (
 					<SearchProductDetail
+						key={product.product_id}
 						id={product.product_id}
 						icon={product.icon}
 						name={product.product_name}

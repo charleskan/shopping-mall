@@ -11,12 +11,14 @@ import { loggedIn } from '../redux/auth/action'
 import { useDispatch } from 'react-redux'
 import { Container } from '@mui/material'
 
-const login: NextPage = () => {
+const Login: NextPage = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
 	const dispatch = useDispatch()
 	const router = useRouter()
+
+	const doNotHavingAccount = "Don't have an account? Create one"
 
 	return (
 		<div>
@@ -102,7 +104,7 @@ const login: NextPage = () => {
 					</button>
 					<Link href='/Register'>
 						<p className={loginStyles.loginRegister}>
-							Don't have Account ? Create account
+							{doNotHavingAccount}
 						</p>
 					</Link>
 				</form>
@@ -112,4 +114,4 @@ const login: NextPage = () => {
 	)
 }
 
-export default login
+export default Login

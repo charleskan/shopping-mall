@@ -17,7 +17,7 @@ interface User {
 	nickname: string
 }
 
-const userInformation: NextPage = () => {
+const UserInformation: NextPage = () => {
 	const [userInfos, setUserInfos] = useState<User[]>([])
 
 	async function fetchUser() {
@@ -67,8 +67,9 @@ const userInformation: NextPage = () => {
 			
 			<div className={user.box}>
 				<div className={user.div}>
-					{userInfos.map((userInfos) => (
+					{userInfos.map((userInfos, index) => (
 						<UserBox
+							key={index}
 							name={userInfos.nickname}
 							icon={userInfos.icon}
 						/>
@@ -113,4 +114,4 @@ const userInformation: NextPage = () => {
 	)
 }
 
-export default userInformation
+export default UserInformation

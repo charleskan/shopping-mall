@@ -151,6 +151,7 @@ const ProductDetails: NextPage = () => {
 				<div className={detail.box}>
 					{product.map((product) => (
 						<DetailBox2
+							key={product.id}
 							id={product.id}
 							name=''
 							icon={product.icon}
@@ -162,8 +163,8 @@ const ProductDetails: NextPage = () => {
 					))}
 
 					<div className={detail.formBox}>
-						{product.map((product) => (
-							<div className={detail.productName}>{product.name}</div>
+						{product.map((product, index) => (
+							<div key={index} className={detail.productName}>{product.name}</div>
 						))}
 						<FormControl>
 							<FormLabel id='demo-radio-buttons-group-label'>
@@ -177,8 +178,9 @@ const ProductDetails: NextPage = () => {
 								onChange={(e) => {
 									setProductDetailColor(e.target.value)
 								}}>
-								{productColor.map((productColor) => (
-									<SelectColor name={productColor.name} />
+								{productColor.map((productColor, index) => (
+									
+									<SelectColor key={index} name={productColor.name} />
 								))}
 							</RadioGroup>
 						</FormControl>
@@ -195,8 +197,8 @@ const ProductDetails: NextPage = () => {
 								onChange={(e) => {
 									setProductDetailSize(e.target.value)
 								}}>
-								{productSize.map((productSize) => (
-									<SelectColor name={productSize.name} />
+								{productSize.map((productSize, index) => (
+									<SelectColor key={index}  name={productSize.name} />
 								))}
 							</RadioGroup>
 						</FormControl>

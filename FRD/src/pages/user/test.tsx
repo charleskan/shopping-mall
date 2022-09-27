@@ -111,6 +111,7 @@ const Pagination: NextPage = () => {
 			{/* <Items currentItems={currentItems} itemsPerPage={3} /> */}
             {currentItems.map((product) => (
 					<ProductList
+						key={product.id}
 						id={product.id}
 						name={product.name}
 						description={product.description}
