@@ -8,12 +8,27 @@ import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard'
 import CancelIcon from '@mui/icons-material/Cancel'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+import { useAppDispatch, useAppSelector } from '../store'
 
 
 
 export function Sidebar() {
+	const dispatch = useAppDispatch()
+	// const [show, setShow] = useState(false); //react hook
+
+
+	const carts = useAppSelector(state => state.cart.products)
+
+	const [username, setUsername] = useState<string | null>(null)
+	useEffect(() => {
+		setUsername(
+			typeof window !== 'undefined'
+				? localStorage.getItem('username')!
+				: null
+		)
+	}, [setUsername])
 
 const [show, setShow] = useState(false); //react hook
 	return (
@@ -21,24 +36,31 @@ const [show, setShow] = useState(false); //react hook
         <div className={sidebar.main}>
         <DensitySmallIcon onClick={()=>{setShow(true)}} />
         </div>
+
+		
 	{show &&<div className={sidebar.bar}>
 				<div className={sidebar.clickPage}>
 				<CancelIcon className={sidebar.cross} onClick={()=>{setShow(false)}} />
 
 				<div className={sidebar.page}>
-					<Link href='/CreateProduct'>
+					{username == 'admin'?<Link href='/CreateProduct'>
 						<a className={sidebar.pages}>
 							<AddBoxIcon />
 							Create Product
 						</a>
-					</Link>
+					</Link> : <div></div>}
 
-					<Link href='/user/me'>
+					{username == 'visitor'?<Link href='/login'>
+					<a className={sidebar.pages}>
+							<SettingsAccessibilityIcon />
+							Profile
+						</a>
+					</Link> :<Link href='/user/me'>
 						<a className={sidebar.pages}>
 							<SettingsAccessibilityIcon />
 							Profile
 						</a>
-					</Link>
+					</Link>}
 
 					<Link href='/InvoicePage'>
 						<a className={sidebar.pages}>
@@ -47,12 +69,12 @@ const [show, setShow] = useState(false); //react hook
 						</a>
 					</Link>
 
-					<Link href='/product/CreatePromotion'>
+					{username == 'admin'?<Link href='/product/CreatePromotion'>
 						<a className={sidebar.pages}>
 							<CardGiftcardIcon />
 							CreatePromotion
 						</a>
-					</Link>
+					</Link>:<div></div>}
 				</div>
 			</div>
 		</div>}
