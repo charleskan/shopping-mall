@@ -72,7 +72,7 @@ export class InvoiceController {
             //May be use transaction to hold the product quantity
             const userId = req.user!.userId
             const invoiceId = req.user!.invoiceId
-
+            
             // console.log("invoiceId: ", invoiceId);
             // console.log("userId: ", userId);
 

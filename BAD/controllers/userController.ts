@@ -49,8 +49,10 @@ export class UserController {
 			)
 			// console.log("newUser:", newUser);
 
+			const invoiceStatusId = Status.Unpaid
 
-			const invoice = await this.invoiceService.createInvoice(status_id, newUser[0].id, addressId)
+
+			const invoice = await this.invoiceService.createInvoice(invoiceStatusId, newUser[0].id, addressId)
 
 			// console.log("invoice:", invoice);
 
