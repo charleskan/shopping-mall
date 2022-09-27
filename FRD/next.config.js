@@ -4,22 +4,16 @@ const nextConfig = {
 	swcMinify: false,
 	images: {
 		domains: [
-			'https://api.hibuysomemall.me/uploads',
-			'https://www.hibuysomemall.me',
-			'https://hibuysomemall.me/userUploadedFiles',
-			'hibuysomemall.me/userUploadedFiles',
-			'api.hibuysomemall.me/uploads',
-			'https://hibuysomemall.me',
-			'hibuysomemall.me',]
+			'https://api.hibuysomemall.me/']
 	},
-	async rewrites() {
-		return [
-			{
-				source: '/api/:path*',
-				destination: 'https://api.hibuysomemall.me/:path*',
-			},
-		]
-	},
+	// async rewrites() {
+	// 	return [
+	// 		{
+	// 			source: '/api/:path*',
+	// 			destination: 'https://api.hibuysomemall.me/:path*',
+	// 		},
+	// 	]
+	// },
 }
 
 module.exports = nextConfig
