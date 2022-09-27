@@ -319,7 +319,7 @@ export class InvoiceController {
               
             
 
-            return res.json(
+            return res.json( 
 
                freebieArray
 
