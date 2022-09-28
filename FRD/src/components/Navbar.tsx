@@ -40,21 +40,6 @@ export function Navbar() {
 				</div>
 			</div>
 
-			<form
-				className={navbar.form}
-				action='/send-data-here'
-				method='post'>
-				<input
-					className={navbar.search}
-					type='text'
-					id='last'
-					name='last'
-				/>
-				<button className={navbar.searchButton} type='submit'>
-					<SearchIcon />
-				</button>
-			</form>
-
 			
 		</div>
 		

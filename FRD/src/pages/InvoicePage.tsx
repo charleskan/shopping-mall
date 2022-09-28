@@ -109,7 +109,7 @@ const InvoicePage: NextPage = () => {
 						<div className={invoice.line}></div>
 					</div>
 
-					<div className={invoice.texts}>Status:{invoice.status}</div>
+
 
 					{invoices.map((invoices) => (
 						<Invoice
