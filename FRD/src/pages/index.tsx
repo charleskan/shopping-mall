@@ -99,7 +99,7 @@ const Home: NextPage = () => {
 							name={product.name}
 							id={product.id}
 							icon={product.icon} />
-					)).filter((product,k)=>k <10)}
+					)).filter((product,k)=>k <7)}
 				</div>
 				{/* <div className={home.productCardTitle}>Leatest Product</div>
 				<div className={styles.productcard}>

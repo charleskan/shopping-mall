@@ -551,12 +551,14 @@ export class InvoiceService {
                     select 
                     invoice_id, SUM(sum_of_price) as total_price
                     from productInCart
-                    inner join product 
-                    on product.id = productInCart."productDetail_id"
+
                     group by invoice_id
                         `,
                     [invoiceId]
                 )
+
+                console.log(getTotalPrice);
+                
 
 
             return getTotalPrice.rows

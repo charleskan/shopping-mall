@@ -50,10 +50,10 @@ const CreatePromotion: NextPage = () => {
 			<div className={create.pageBox}>
 				<Container>
 					<div>
-						<h1 className={create.Title}>Profile</h1>
+						<h1 className={create.Title}>Promotion</h1>
 
 						<span className={create.page}>Home. Pages.</span>
-						<span className={create.nowPage}>Profile</span>
+						<span className={create.nowPage}>Promotion</span>
 					</div>
 				</Container>
 			</div>
