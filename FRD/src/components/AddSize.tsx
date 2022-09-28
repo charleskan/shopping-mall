@@ -1,6 +1,6 @@
 
 interface props {
-	id:number
+	id: number
 	name: string
 }
 

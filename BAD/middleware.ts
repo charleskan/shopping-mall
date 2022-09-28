@@ -165,7 +165,9 @@ export const form = formidable({
 	uploadDir: uploadDir,
 	keepExtensions: true,
 	multiples: true,
-	maxFiles: 1,
-	maxFileSize: 20 * 1024 * 1024 ** 2, // 20MB
+	maxFiles: 10,
+	maxFileSize: 200 * 1024 * 1024, // 200MB
+	maxTotalFileSize: 200 * 1024 * 1024, // 200MB
+	
 	filter: (part) => part.mimetype?.startsWith('image/') || false
 })

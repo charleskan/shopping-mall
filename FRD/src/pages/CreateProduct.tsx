@@ -89,6 +89,7 @@ const CreateProduct: NextPage = () => {
 					/>
 					{product.map((product: searchProduct) => (
 						<SearchProductInfo
+							key={product.id}
 							id={product.id}
 							icon={product.icon}
 							name={product.name}

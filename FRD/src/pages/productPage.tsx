@@ -2,14 +2,13 @@ import { NextPage } from 'next'
 import { Navbar } from '../components/Navbar'
 import { HeadTitle } from '../components/HeadTitle'
 import { Heading } from '../components/Heading'
-import SlideFilter from '../components/SlideFilter'
+
 import { Container } from '@mui/system'
-import Grid from '@mui/material/Grid' // Grid version 1
+
 import ProductList from '../components/ProductList'
 import product from '../styles/Product.module.css'
 import { useEffect, useState } from 'react'
-import { log } from 'console'
-import { PaginatedItems } from '../components/user/pagination'
+
 import ReactPaginate from 'react-paginate'
 
 
@@ -42,7 +41,7 @@ interface currentItems {
 	updated_at: string
 }
 
-const productPage: NextPage = () => {
+const ProductPage: NextPage = () => {
 	const [items, setItems] = useState<items[]>([])
 
 	async function fetchProduct() {
@@ -109,6 +108,7 @@ const productPage: NextPage = () => {
 			{/* <Items currentItems={currentItems} itemsPerPage={3} /> */}
             {currentItems.map((product) => (
 					<ProductList
+						key={product.id}
 						id={product.id}
 						name={product.name}
 						description={product.description}
@@ -137,4 +137,4 @@ const productPage: NextPage = () => {
 	)
 }
 
-export default productPage
+export default ProductPage

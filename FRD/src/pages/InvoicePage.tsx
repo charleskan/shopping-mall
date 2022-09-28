@@ -113,6 +113,7 @@ const InvoicePage: NextPage = () => {
 
 					{invoices.map((invoices) => (
 						<Invoice
+							key={invoices.id}
 							id={invoices.id}
 							invoiceNumber={invoices.invoiceNumber}
 							status_id={invoices.status_id}
