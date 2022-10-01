@@ -29,7 +29,7 @@ export class ProfileController {
 			})
 		} catch (err) {
 			logger.error(err)
-			return res.json({ result: false, msg: 'Get user profile fail' })
+			return res.status(500).json({ result: false, msg: 'Get user profile fail' })
 		}
 	}
 	// -------------------------------------------------------------------------------------------------------------------

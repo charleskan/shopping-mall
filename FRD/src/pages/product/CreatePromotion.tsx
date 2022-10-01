@@ -8,10 +8,6 @@ import { Footer } from '../../components/Footer'
 import { useForm } from 'react-hook-form'
 import { Container } from '@mui/material'
 
-interface keyword {
-	keyword: string
-}
-
 interface searchProduct {
 	product_id: number
 	product_name: string
@@ -23,7 +19,7 @@ interface searchProduct {
 }
 
 const CreatePromotion: NextPage = () => {
-	const [keyword, setkeyword] = useState<keyword['keyword']>('NOTAKEYWORD')
+	const [keyword, setkeyword] = useState<string>('NOTAKEYWORD')
 	const [product, setProduct] = useState<searchProduct[]>([])
     const { handleSubmit, register } = useForm()
 

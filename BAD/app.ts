@@ -3,7 +3,6 @@
 // -------------------------------------------------------------------------------------------------------------------
 import express from "express";
 import { logger } from "./logger";
-import dotenv from "dotenv";
 import { UserService } from "./services/userService";
 import { UserController } from "./controllers/userController";
 import { createUserRoutes } from "./routes/userRoutes";
@@ -28,7 +27,6 @@ import Knex from 'knex'
 // Knex
 // -------------------------------------------------------------------------------------------------------------------
 
-dotenv.config();
 
 // -------------------------------------------------------------------------------------------------------------------
 // main script
@@ -70,14 +68,12 @@ app.use(
   // })
 
 //get HTML files from public, default images & uploads
-app.use(express.static("public")); //get files from private
 const userService = new UserService(knex);
 const invoiceService = new InvoiceService(knex);
 const productService = new ProductService(knex);
 
 const profileService = new ProfileService(knex);
 const userController = new UserController(userService, invoiceService);
-app.use(express.static('private'))	
 
 //using fake data not need to use this
 // app.use("/serverDefaultedImages", express.static("images"));

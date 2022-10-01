@@ -62,7 +62,7 @@ const InvoicePage: NextPage = () => {
 
 		if (invoice.length > 0) {
 			setInvoice(invoice)
-			setInvoicesNumber(invoiceInfo.invoiceRecord[0].invoiceNumber)
+			setInvoicesNumber(invoice[0].invoiceNumber)
 			setInvoicesTotalPrice(invoiceInfo.invoiceRecord[0].totalPrice)
 			setInvoicesStatus(invoiceInfo.invoiceRecord[0].state)
 		}
@@ -110,12 +110,7 @@ const InvoicePage: NextPage = () => {
 					<div className={invoice.centerLine}>
 						<div className={invoice.line}></div>
 					</div>
-
-<<<<<<< HEAD
 					<div className={invoice.texts}>Status:{invoiceStatus}</div>
-=======
-
->>>>>>> 5abdd8d12272d02dcaaa9048c50642ea67eb8b78
 
 					{invoices.map((invoices) => (
 						<Invoice

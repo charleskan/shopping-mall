@@ -9,11 +9,11 @@ export function checkResponse(res: AxiosResponse<any, any>) {
 	}
 }
 
-export function loggedIn() {
+export function loggedIn(token: string, username: string) {
 	return {
 		type: '@@auth/LOGGED_IN' as const,
-		token: localStorage.getItem('token'),
-		username: localStorage.getItem('username')
+		token: token,
+		username: username
 	}
 }
 
@@ -22,7 +22,6 @@ export function loggedOut() {
 		type: '@@auth/LOGGED_OUT' as const,
 		token: localStorage.removeItem('token'),
 		username: localStorage.removeItem('username')
-		
 	}
 }
 
@@ -31,7 +30,7 @@ export function logIn(data: any) {
 		localStorage.setItem('token', data.token)
 		localStorage.setItem('username', data.username)
 
-		dispatch(loggedIn())
+		dispatch(loggedIn(data.token, data.username))
 	}
 }
 export function logOut() {
@@ -41,7 +40,6 @@ export function logOut() {
 		dispatch(loggedOut())
 	}
 }
-
 
 export type LoggedInAction = ReturnType<typeof loggedIn>
 

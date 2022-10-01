@@ -69,16 +69,6 @@ const Cart: NextPage = () => {
 		setFreebie(freebie)
 		setFreebieArray(freebie)
 	} { }
-
-	function loopFreebie(){
-	for (let i = 0; i < freebie.length; i++) {
-
-		const loopFreebie = freebie[i]
-		return loopFreebie
-
-	}
-	}
-	
 	
 	useEffect(() => {
 		dispatch(loadCart())

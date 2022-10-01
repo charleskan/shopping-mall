@@ -211,31 +211,29 @@ export class ProductService {
   ) {
     // insert new product
 
-    {
-      if (price < 0) {
-        throw new ProductPriceError();
-      }
-
-      if (stock < 0) {
-        throw new ProductStockError();
-      } else {
-        const newProductDetailRecord = await this.knex<ProductDetail>(
-          "productDetail"
-        )
-          .insert({
-            product_id: product_id,
-            color_id: color_id,
-            size_id: size_id,
-            price: price,
-            stock: stock,
-
-            status_id: 1,
-          })
-          .returning("*");
-
-        return newProductDetailRecord;
-      }
+    if (price < 0) {
+      throw new ProductPriceError();
     }
+
+    if (stock < 0) {
+      throw new ProductStockError();
+    } 
+
+    const newProductDetailRecord = await this.knex<ProductDetail>(
+      "productDetail"
+    )
+      .insert({
+        product_id: product_id,
+        color_id: color_id,
+        size_id: size_id,
+        price: price,
+        stock: stock,
+
+        status_id: 1,
+      })
+      .returning("*");
+
+    return newProductDetailRecord;
   }
 
   // -------------------------------------------------------------------------------------------------------------------

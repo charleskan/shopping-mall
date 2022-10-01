@@ -589,6 +589,7 @@ export class InvoiceService {
                     returning *
             
                 `,
+                // DELETE FROM "invoice_productDetail" WHERE invoice_id = ? AND "productDetail_id" = ? LIMIT 1
                     [invoiceId,
                     minusProductInCartId]
                 )

@@ -3,54 +3,57 @@ import Button from '@mui/material/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { FormEvent } from 'react'
 import product from '../styles/Product.module.css'
 
-interface props {
-	  id: number
-	  name: string
-	  icon: string
-	  description: string
+interface Props {
+	id: number
+	name: string
+	icon: string
+	description: string
 }
 
-export function GotoProductDetail(props: props) {
-    const router = useRouter()
-    const handleSubmit = (e:any) => {
-
-        e.preventDefault()
-        router.push(`/product/Details/${props.id}`)
-    }
-    return(
-        <div>
-            <form onSubmit={handleSubmit}>
-				<Button variant="contained"  className='btn' type="submit">Details</Button>
-            </form>
-        </div>
-    )
+export function GotoProductDetail(props: Props) {
+	const router = useRouter()
+	const handleSubmit = (e: FormEvent) => {
+		e.preventDefault()
+		router.push(`/product/Details/${props.id}`)
+	}
+	return (
+		<div>
+			<form onSubmit={handleSubmit}>
+				<Button variant='contained' className='btn' type='submit'>
+					Details
+				</Button>
+			</form>
+		</div>
+	)
 }
 
-
-
-export default function ProductList(props: props) {
+export default function ProductList(props: Props) {
 	return (
 		<Wrapper>
 			<div className={product.productBox}>
-			<article >
-				<Link href='/products'>
-					<Image src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
-					width={200}
-					height={200} />
-				</Link>
+				<article>
+					<Link href='/products'>
+						<Image
+							src={`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/userUploadedFiles/${props.icon}`}
+							width={200}
+							height={200}
+						/>
+					</Link>
 
-				<div>
-					<h4>{props.name}</h4>
-					<p>{props.description}</p>
-					<GotoProductDetail 
-						id={props.id}
-						name=''
-						icon=''
-						description=''/>
-				</div>
-			</article>
+					<div>
+						<h4>{props.name}</h4>
+						<p>{props.description}</p>
+						<GotoProductDetail
+							id={props.id}
+							name=''
+							icon=''
+							description=''
+						/>
+					</div>
+				</article>
 			</div>
 		</Wrapper>
 	)
@@ -83,7 +86,7 @@ const Wrapper = styled.section`
 	.btn {
 		font-size: 0.5rem;
 		padding: 0.25rem 0.5rem;
-        background-color:purple;
+		background-color: purple;
 	}
 	@media (min-width: 992px) {
 		article {
@@ -94,7 +97,6 @@ const Wrapper = styled.section`
 		}
 	}
 `
-
 
 // const ListView: React.FC<{ filteredProducts: productDataType[] }> = ({
 //     filteredProducts,
@@ -108,7 +110,7 @@ const Wrapper = styled.section`
 //               <Link to={`/products/${slug}`}>
 //                 <img src={images[0]} alt={name} />
 //               </Link>
-  
+
 //               <div>
 //                 <h4>{name}</h4>
 //                 <h5>{formatPrice(price)}</h5>

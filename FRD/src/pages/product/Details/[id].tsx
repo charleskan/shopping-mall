@@ -4,7 +4,7 @@ import { HeadTitle } from '../../../components/HeadTitle'
 import { Heading } from '../../../components/Heading'
 import { Footer } from '../../../components/Footer'
 import { DetailBox2 } from '../../../components/detailBox2'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 // import { AddToCart } from '../../../components/AddToCart'
 // import { useAppSelector } from '../../../store'
@@ -48,22 +48,22 @@ const ProductDetails: NextPage = () => {
 	const [productColor, setProductColor] = useState<productColor[]>([])
 	const [productSize, setProductSize] = useState<productSize[]>([])
 
-	const [productDetailColor, setProductDetailColor] = useState<String>('')
-	const [productDetailSize, setProductDetailSize] = useState<String>('')
+	const [productDetailColor, setProductDetailColor] = useState<string>('')
+	const [productDetailSize, setProductDetailSize] = useState<string>('')
 
-	const [productDetailPrice, setProductDetailPrice] = useState<String>('')
-	const [productDetailStock, setProductDetailStock] = useState<String>('')
-	const [productDetailId, setProductDetailId] = useState<Number>()
+	const [productDetailPrice, setProductDetailPrice] = useState<string>('')
+	const [productDetailStock, setProductDetailStock] = useState<string>('')
+	const [productDetailId, setProductDetailId] = useState<number>()
 
 	const dispatch = useAppDispatch()
 
-	async function fetchProduct() {
+	const fetchProduct = useCallback(async function () {
 		let res = await fetch(
 			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailInfo/${ID}`
 		)
 		let product = (await res.json()).productInfo.productInfo
 		setProduct(product)
-	}
+	}, [ID])
 
 	async function fetchProductColorAndSize() {
 		let res = await fetch(
@@ -79,36 +79,43 @@ const ProductDetails: NextPage = () => {
 		console.log(productSize)
 	}
 
-	async function GetProdutPriceAndStock(
-		id: number,
-		productDetailColor: String,
-		productDetailSize: String
-	) {
-		const Product_id = id
-		const color = productDetailColor
-		const size = productDetailSize
+	const GetProdutPriceAndStock = useCallback(
+		async function (
+			id: number,
+			productDetailColor: string,
+			productDetailSize: string
+		) {
+			const Product_id = id
+			const color = productDetailColor
+			const size = productDetailSize
 
-		let res = await fetch(
-			`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/productDetailByColorAndSize/?id=${Product_id}&color=${color}&size=${size}`
-		)
-		let ProductPriceAndStock = await res.json()
+			let res = await fetch(
+				`${
+					process.env.NEXT_PUBLIC_ANALYTICS_ID
+				}/productDetailByColorAndSize/?id=${Product_id}&color=${encodeURIComponent(
+					color
+				)}&size=${encodeURIComponent(size)}`
+			)
+			let ProductPriceAndStock = await res.json()
 
-		const productDetailId = ProductPriceAndStock.productDetailId
-		const productDetailPrice = ProductPriceAndStock.productPrice
-		const productDetailStock = ProductPriceAndStock.productStock
+			const productDetailId = ProductPriceAndStock.productDetailId
+			const productDetailPrice = ProductPriceAndStock.productPrice
+			const productDetailStock = ProductPriceAndStock.productStock
 
-		// console.log(productDetailId);
+			// console.log(productDetailId);
 
-		setProductDetailId(productDetailId)
-		setProductDetailPrice(productDetailPrice)
-		setProductDetailStock(productDetailStock)
-	}
+			setProductDetailId(productDetailId)
+			setProductDetailPrice(productDetailPrice)
+			setProductDetailStock(productDetailStock)
+		},
+		[setProductDetailId, setProductDetailPrice, setProductDetailStock]
+	)
 
 	useEffect(() => {
 		if (router.isReady) {
 			fetchProduct()
 		}
-	}, [setProduct, router.isReady])
+	}, [fetchProduct, setProduct, router.isReady])
 
 	useEffect(() => {
 		if (router.isReady) {
@@ -129,7 +136,7 @@ const ProductDetails: NextPage = () => {
 		const id = Number(query)
 
 		GetProdutPriceAndStock(id, productDetailColor, productDetailSize)
-	}, [productDetailSize, productDetailColor])
+	}, [GetProdutPriceAndStock, productDetailSize, productDetailColor])
 
 	return (
 		<>
@@ -164,7 +171,9 @@ const ProductDetails: NextPage = () => {
 
 					<div className={detail.formBox}>
 						{product.map((product, index) => (
-							<div key={index} className={detail.productName}>{product.name}</div>
+							<div key={index} className={detail.productName}>
+								{product.name}
+							</div>
 						))}
 						<FormControl>
 							<FormLabel id='demo-radio-buttons-group-label'>
@@ -179,8 +188,10 @@ const ProductDetails: NextPage = () => {
 									setProductDetailColor(e.target.value)
 								}}>
 								{productColor.map((productColor, index) => (
-									
-									<SelectColor key={index} name={productColor.name} />
+									<SelectColor
+										key={index}
+										name={productColor.name}
+									/>
 								))}
 							</RadioGroup>
 						</FormControl>
@@ -198,7 +209,10 @@ const ProductDetails: NextPage = () => {
 									setProductDetailSize(e.target.value)
 								}}>
 								{productSize.map((productSize, index) => (
-									<SelectColor key={index}  name={productSize.name} />
+									<SelectColor
+										key={index}
+										name={productSize.name}
+									/>
 								))}
 							</RadioGroup>
 						</FormControl>
